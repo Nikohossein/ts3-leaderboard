@@ -1,324 +1,1183 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V2Ray Config Finder</title>
-<style>
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:#0f172a;color:#e2e8f0;font-family:'Segoe UI',Tahoma,sans-serif;min-height:100vh;padding:20px;}
-  .container{max-width:950px;margin:0 auto;}
-  .card{background:#1e293b;border-radius:16px;padding:24px;border:1px solid #334155;}
-  h1{text-align:center;font-size:24px;margin-bottom:4px;color:#22c55e;}
-  .sub{text-align:center;color:#94a3b8;margin-bottom:20px;font-size:14px;}
-  .btn-group{display:flex;gap:10px;flex-wrap:wrap;}
-  .btn-group button{flex:1;min-width:150px;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;transition:0.2s;}
-  .btn-primary{background:#22c55e;color:#0f172a;}
-  .btn-primary:hover{background:#16a34a;}
-  .btn-download{background:#3b82f6;color:#fff;}
-  .btn-download:hover{background:#2563eb;}
-  .btn-danger{background:#ef4444;color:#fff;}
-  .btn-danger:hover{background:#dc2626;}
-  button:disabled{opacity:0.5;cursor:wait;}
-  #result{margin-top:16px;}
-  .loader{text-align:center;color:#94a3b8;padding:30px 0;}
-  .error{text-align:center;color:#f87171;padding:20px 0;background:#1e293b;border-radius:10px;}
-  .config-item{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:14px;margin-bottom:12px;}
-  .cfg-text{background:#0f172a;padding:10px;border-radius:6px;font-family:monospace;font-size:11px;word-break:break-all;border:1px solid #1e293b;direction:ltr;text-align:left;max-height:80px;overflow-y:auto;}
-  .copy-btn{background:#3b82f6;color:white;border:none;border-radius:6px;padding:6px 16px;cursor:pointer;font-size:12px;margin-top:8px;}
-  .copy-btn:hover{background:#2563eb;}
-  .count-badge{background:#1e293b;padding:8px 16px;border-radius:999px;color:#60a5fa;text-align:center;margin-bottom:16px;font-size:14px;}
-  .log-box{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:14px;margin-top:16px;font-family:monospace;font-size:12px;white-space:pre-wrap;max-height:200px;overflow-y:auto;direction:ltr;text-align:left;}
-  .tag{display:inline-block;background:#1e293b;padding:2px 10px;border-radius:999px;color:#60a5fa;font-size:12px;margin:2px;}
-  .progress{width:100%;height:4px;background:#1e293b;border-radius:2px;margin:10px 0;overflow:hidden;}
-  .progress-bar{height:100%;background:#22c55e;width:0%;transition:width 0.3s;border-radius:2px;}
-  .source-count{color:#94a3b8;font-size:12px;text-align:center;margin-top:5px;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ GameIzeh.ir | V2Ray Galaxy</title>
+    <style>
+        /* ===== فونت و تنظیمات پایه ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            background: #0a0a1a;
+            font-family: 'Orbitron', 'Segoe UI', sans-serif;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== کهکشان پس‌زمینه ===== */
+        .galaxy-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(72, 0, 255, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 0, 200, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(0, 200, 255, 0.08) 0%, transparent 50%),
+                #0a0a1a;
+        }
+
+        /* ===== ستاره‌ها ===== */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite alternate;
+        }
+        @keyframes twinkle {
+            0% {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* ===== شیشه اصلی ===== */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 32px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 60px rgba(100, 0, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(120, 0, 255, 0.03), transparent, rgba(0, 200, 255, 0.03), transparent);
+            animation: rotateGlow 20s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes rotateGlow {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== GameIzeh Header ===== */
+        .gameizeh-header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .gameizeh-title {
+            font-size: 38px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #fd79a8, #feca57, #ff6b6b);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowText 4s linear infinite;
+            text-shadow: none;
+            position: relative;
+            display: inline-block;
+        }
+        @keyframes rainbowText {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 300% 50%;
+            }
+        }
+        .gameizeh-title::after {
+            content: '✦';
+            position: absolute;
+            top: -5px;
+            right: -40px;
+            font-size: 18px;
+            -webkit-text-fill-color: initial;
+            color: #feca57;
+            animation: pulseStar 1.5s ease-in-out infinite;
+        }
+        .gameizeh-title::before {
+            content: '✦';
+            position: absolute;
+            top: -5px;
+            left: -40px;
+            font-size: 18px;
+            -webkit-text-fill-color: initial;
+            color: #48dbfb;
+            animation: pulseStar 1.5s ease-in-out infinite 0.5s;
+        }
+        @keyframes pulseStar {
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(0.8) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.3) rotate(180deg);
+            }
+        }
+        .gameizeh-sub {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+            letter-spacing: 6px;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+        .gameizeh-sub span {
+            color: #48dbfb;
+            animation: pulseText 2s ease-in-out infinite;
+        }
+        @keyframes pulseText {
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== شبکه اجتماعی ===== */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 12px 0 16px 0;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 6px 14px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        .social-item:hover {
+            color: #fff;
+            background: rgba(167, 139, 250, 0.1);
+            border-color: rgba(167, 139, 250, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(167, 139, 250, 0.1);
+        }
+        .social-item .icon {
+            font-size: 18px;
+        }
+        .social-item .label {
+            font-size: 11px;
+        }
+
+        /* ===== Music Player ===== */
+        .music-player {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            padding: 10px 20px;
+            margin: 10px 0 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 2;
+        }
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 150px;
+        }
+        .music-icon {
+            font-size: 24px;
+            animation: floatIcon 2s ease-in-out infinite;
+            color: #feca57;
+        }
+        @keyframes floatIcon {
+            0%,
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+            50% {
+                transform: translateY(-3px) scale(1.1);
+            }
+        }
+        .music-title {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+        .music-title span {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .music-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .music-btn:hover {
+            background: rgba(167, 139, 250, 0.15);
+            border-color: rgba(167, 139, 250, 0.1);
+            color: #a78bfa;
+            transform: scale(1.1);
+        }
+        .music-btn.active {
+            background: rgba(167, 139, 250, 0.15);
+            border-color: rgba(167, 139, 250, 0.2);
+            color: #a78bfa;
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.1);
+        }
+        .music-volume {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .music-volume input[type="range"] {
+            width: 60px;
+            height: 2px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+        .music-volume input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #a78bfa;
+            cursor: pointer;
+        }
+        .music-volume input[type="range"]::-moz-range-thumb {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #a78bfa;
+            cursor: pointer;
+            border: none;
+        }
+        .music-wave {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            height: 20px;
+        }
+        .music-wave span {
+            display: block;
+            width: 3px;
+            background: linear-gradient(180deg, #a78bfa, #48dbfb);
+            border-radius: 2px;
+            animation: waveAnim 1s ease-in-out infinite;
+        }
+        .music-wave span:nth-child(1) {
+            height: 8px;
+            animation-delay: 0s;
+        }
+        .music-wave span:nth-child(2) {
+            height: 14px;
+            animation-delay: 0.1s;
+        }
+        .music-wave span:nth-child(3) {
+            height: 20px;
+            animation-delay: 0.2s;
+        }
+        .music-wave span:nth-child(4) {
+            height: 14px;
+            animation-delay: 0.3s;
+        }
+        .music-wave span:nth-child(5) {
+            height: 8px;
+            animation-delay: 0.4s;
+        }
+        @keyframes waveAnim {
+            0%,
+            100% {
+                transform: scaleY(0.5);
+            }
+            50% {
+                transform: scaleY(1);
+            }
+        }
+
+        /* ===== دکمه‌ها ===== */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+        .btn-group button {
+            flex: 1;
+            min-width: 140px;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            color: white;
+            box-shadow: 0 4px 25px rgba(124, 58, 237, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(124, 58, 237, 0.5);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            transform: none;
+            cursor: wait;
+        }
+        .btn-download {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+            box-shadow: 0 4px 25px rgba(5, 150, 105, 0.3);
+        }
+        .btn-download:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(5, 150, 105, 0.5);
+        }
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* ===== نوار پیشرفت ===== */
+        .progress {
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            margin: 16px 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #fd79a8, #ff6b6b);
+            background-size: 300% 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 4px;
+            animation: rainbowProgress 2s linear infinite;
+        }
+        @keyframes rainbowProgress {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 300% 50%;
+            }
+        }
+
+        /* ===== نتیجه ===== */
+        #result {
+            margin-top: 16px;
+            position: relative;
+            z-index: 2;
+            max-height: 600px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+        }
+        #result::-webkit-scrollbar {
+            width: 4px;
+        }
+        #result::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #result::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .loader {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 40px 0;
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+        .loader::after {
+            content: '...';
+            animation: dots 1.5s steps(4) infinite;
+        }
+        @keyframes dots {
+            0% {
+                content: '';
+            }
+            25% {
+                content: '.';
+            }
+            50% {
+                content: '..';
+            }
+            75% {
+                content: '...';
+            }
+        }
+        .error {
+            text-align: center;
+            color: #fca5a5;
+            padding: 30px 20px;
+            background: rgba(239, 68, 68, 0.08);
+            border-radius: 16px;
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            font-size: 13px;
+        }
+        .config-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .config-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(167, 139, 250, 0.15);
+            transform: translateX(4px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .cfg-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .tag.protocol {
+            background: rgba(167, 139, 250, 0.15);
+            color: #a78bfa;
+            border-color: rgba(167, 139, 250, 0.1);
+        }
+        .tag.host {
+            background: rgba(96, 165, 250, 0.1);
+            color: #60a5fa;
+            border-color: rgba(96, 165, 250, 0.05);
+        }
+        .cfg-text {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            word-break: break-all;
+            direction: ltr;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.7);
+            max-height: 70px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.05) transparent;
+        }
+        .cfg-text::-webkit-scrollbar {
+            width: 3px;
+        }
+        .cfg-text::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 6px 16px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            font-family: inherit;
+        }
+        .copy-btn:hover {
+            background: rgba(167, 139, 250, 0.15);
+            color: #a78bfa;
+            border-color: rgba(167, 139, 250, 0.1);
+        }
+        .count-badge {
+            text-align: center;
+            padding: 12px 20px;
+            border-radius: 16px;
+            background: rgba(167, 139, 250, 0.06);
+            border: 1px solid rgba(167, 139, 250, 0.06);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+        .count-badge span {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        /* ===== لاگ ===== */
+        .log-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-top: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            white-space: pre-wrap;
+            max-height: 150px;
+            overflow-y: auto;
+            direction: ltr;
+            text-align: left;
+            color: rgba(255, 255, 255, 0.3);
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.03) transparent;
+            position: relative;
+            z-index: 2;
+        }
+        .log-box::-webkit-scrollbar {
+            width: 3px;
+        }
+        .log-box::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .source-count {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 10px;
+            letter-spacing: 1px;
+            margin-top: 12px;
+            position: relative;
+            z-index: 2;
+        }
+        .source-count span {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        .music-shimmer {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #fd79a8, #ff6b6b);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmerMove 3s linear infinite;
+        }
+        @keyframes shimmerMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 300% 50%;
+            }
+        }
+
+        /* ===== ریسپانسیو ===== */
+        @media(max-width:700px) {
+            .card {
+                padding: 20px 16px;
+                border-radius: 20px;
+            }
+            .gameizeh-title {
+                font-size: 26px;
+            }
+            .gameizeh-title::before,
+            .gameizeh-title::after {
+                display: none;
+            }
+            .btn-group button {
+                min-width: 100%;
+                padding: 14px;
+                font-size: 13px;
+            }
+            .config-item {
+                padding: 12px 14px;
+            }
+            .music-player {
+                flex-direction: column;
+                padding: 12px 16px;
+            }
+            .music-info {
+                width: 100%;
+                justify-content: center;
+            }
+            .music-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            .music-volume input[type="range"] {
+                width: 80px;
+            }
+            .social-links {
+                gap: 10px;
+            }
+            .social-item {
+                font-size: 11px;
+                padding: 4px 12px;
+            }
+            .social-item .label {
+                display: none;
+            }
+        }
+        @media(max-width:400px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 12px;
+            }
+            .gameizeh-title {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <div class="card">
-    <h1>🔍 V2Ray Config Finder</h1>
-    <p class="sub">همه کانفیگ‌ها رو دریافت کن و دانلود کن</p>
-    
-    <div class="btn-group">
-      <button class="btn-primary" onclick="getConfigs()">🚀 دریافت کانفیگ‌ها</button>
-      <button class="btn-download" onclick="downloadTxt()">📥 دانلود TXT</button>
-      <button class="btn-danger" onclick="clearAll()">🗑️ پاک کردن</button>
-    </div>
-    
-    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-    <div id="result"></div>
-    <div id="log" class="log-box">⏳ آماده...</div>
-    <div class="source-count" id="sourceCount"></div>
-  </div>
-</div>
 
-<script>
-let allConfigs = [];
-let totalSources = 0;
+    <!-- ===== کهکشان ===== -->
+    <div class="galaxy-bg"></div>
 
-function log(msg) {
-  const logDiv = document.getElementById('log');
-  logDiv.textContent += '\n' + new Date().toLocaleTimeString() + ' - ' + msg;
-  logDiv.scrollTop = logDiv.scrollHeight;
-}
+    <!-- ===== ستاره‌ها ===== -->
+    <div class="stars" id="stars"></div>
 
-function updateProgress(pct) {
-  document.getElementById('progressBar').style.width = pct + '%';
-}
+    <!-- ===== محتوا ===== -->
+    <div class="container">
+        <div class="card">
 
-function clearAll() {
-  allConfigs = [];
-  document.getElementById('result').innerHTML = '';
-  document.getElementById('log').textContent = '⏳ پاک شد...';
-  document.getElementById('sourceCount').textContent = '';
-  updateProgress(0);
-  log('🗑️ همه چیز پاک شد');
-}
+            <!-- ===== GameIzeh Header ===== -->
+            <div class="gameizeh-header">
+                <div class="gameizeh-title">
+                    🎮 GameIzeh.ir ✨
+                </div>
+                <div class="gameizeh-sub">
+                    <span>✦</span> TeamSpeak 3 · 5.57.32.182:2615 <span>✦</span>
+                </div>
+                <div class="gameizeh-sub" style="font-size:10px;letter-spacing:3px;margin-top:2px;color:rgba(255,255,255,0.15);">
+                    ⚡ V2Ray Config Finder ⚡
+                </div>
+            </div>
 
-// ===== همه لینک‌ها =====
-function getSources() {
-  return [
-    "https://raw.githubusercontent.com/MahanKenway/Freedom-V2Ray/main/configs/vless.txt",
-    "https://raw.githubusercontent.com/MahanKenway/Freedom-V2Ray/main/configs/mix.txt",
-    "https://raw.githubusercontent.com/ebrasha/free-v2ray-public-list/main/v2ray.txt",
-    "https://raw.githubusercontent.com/nikita29a/FreeProxyList/main/mirror/1.txt",
-    "https://raw.githubusercontent.com/bia-pain-bache/BPB-Worker-Panel/main/sub/vless.txt",
-    "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/All_Configs_Sub.txt",
-    "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/Splitted-By-Protocol/vless.txt",
-    "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/Splitted-By-Protocol/vmess.txt",
-    "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/Splitted-By-Protocol/trojan.txt",
-    "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/Splitted-By-Protocol/ss.txt",
-    "https://github.com/Epodonios/v2ray-configs/raw/main/All_Configs_Sub.txt",
-    "https://raw.githubusercontent.com/V2RayRoot/V2RayConfig/refs/heads/main/Config/vless.txt",
-    "https://raw.githubusercontent.com/Hidashimora/free-vpn-anti-rkn/main/1.txt",
-    "https://raw.githubusercontent.com/Hidashimora/free-vpn-anti-rkn/main/2.txt",
-    "https://raw.githubusercontent.com/Hidashimora/free-vpn-anti-rkn/main/3.txt",
-    "https://raw.githubusercontent.com/Surfboardv2ray/v2ray-worker-sub/refs/heads/master/sub",
-    "https://raw.githubusercontent.com/Surfboardv2ray/v2ray-worker-sub/refs/heads/master/Eternity.txt",
-    "https://raw.githubusercontent.com/ArGo75/V2ray-Configs01/main/All_Configs_Sub.txt",
-    "https://raw.githubusercontent.com/nikita29a/FreeProxyList/main/mirror/2.txt",
-    "https://raw.githubusercontent.com/nikita29a/FreeProxyList/main/mirror/3.txt",
-    "https://raw.githubusercontent.com/nikita29a/FreeProxyList/main/mirror/4.txt",
-    "https://raw.githubusercontent.com/nikita29a/FreeProxyList/main/mirror/5.txt",
-    "https://raw.githubusercontent.com/ShatakVPN/ConfigForge-V2Ray/main/configs/all.txt",
-    "https://raw.githubusercontent.com/ShatakVPN/ConfigForge-V2Ray/main/configs/vless.txt",
-    "https://raw.githubusercontent.com/ShatakVPN/ConfigForge-V2Ray/main/configs/vmess.txt",
-    "https://raw.githubusercontent.com/ShatakVPN/ConfigForge-V2Ray/main/configs/trojan.txt",
-    "https://raw.githubusercontent.com/ShatakVPN/ConfigForge-V2Ray/main/configs/light.txt",
-    "https://raw.githubusercontent.com/clashv2ray-hub/v2rayfree/refs/heads/main/v2ray.txt",
-    "https://raw.githubusercontent.com/yitong2333/proxy-minging/refs/heads/main/v2ray.txt",
-    "https://raw.githubusercontent.com/roosterkid/openproxylist/main/V2RAY_RAW.txt"
-  ];
-}
+            <!-- ===== شبکه‌های اجتماعی ===== -->
+            <div class="social-links">
+                <a href="https://t.me/GameIzeh" target="_blank" class="social-item">
+                    <span class="icon">📱</span>
+                    <span class="label">@GameIzeh</span>
+                </a>
+                <a href="https://rubika.ir/GameIzeh" target="_blank" class="social-item">
+                    <span class="icon">💬</span>
+                    <span class="label">@GameIzeh</span>
+                </a>
+                <a href="https://instagram.com/GameIzeh" target="_blank" class="social-item">
+                    <span class="icon">📸</span>
+                    <span class="label">@GameIzeh</span>
+                </a>
+            </div>
 
-// ===== دریافت با پروکسی =====
-async function fetchWithProxy(url) {
-  const proxies = [
-    'https://api.allorigins.win/raw?url=',
-    'https://corsproxy.io/?',
-    'https://cors-anywhere.herokuapp.com/'
-  ];
-  
-  for (const proxy of proxies) {
-    try {
-      const res = await fetch(proxy + encodeURIComponent(url), {
-        headers: { 'User-Agent': 'Mozilla/5.0' }
-      });
-      if (res.ok) {
-        const text = await res.text();
-        if (text && text.length > 10) {
-          return text;
-        }
-      }
-    } catch (e) {}
-  }
-  
-  throw new Error('همه پروکسی‌ها ناموفق بودن');
-}
+            <!-- ===== Music Player ===== -->
+            <div class="music-player" id="musicPlayer">
+                <div class="music-info">
+                    <div class="music-icon">🎵</div>
+                    <div class="music-title">
+                        <span class="music-shimmer">♪ Velet - Roman Olur ♪</span>
+                        <span style="-webkit-text-fill-color:rgba(255,255,255,0.2);font-size:10px;display:block;font-weight:300;">✦ Sevil Music ✦</span>
+                    </div>
+                </div>
+                <div class="music-controls">
+                    <div class="music-wave">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <button class="music-btn" id="playBtn" onclick="toggleMusic()" title="Play/Pause">▶</button>
+                    <button class="music-btn" onclick="restartMusic()" title="Restart">⟳</button>
+                    <div class="music-volume">
+                        <span style="color:rgba(255,255,255,0.2);font-size:12px;">🔊</span>
+                        <input type="range" min="0" max="1" step="0.01" value="0.5" id="volumeSlider" oninput="setVolume(this.value)">
+                    </div>
+                </div>
+            </div>
 
-async function getConfigs() {
-  const btn = document.querySelector('.btn-primary');
-  btn.disabled = true;
-  btn.textContent = '⏳ در حال دریافت...';
-  updateProgress(5);
-  
-  document.getElementById('result').innerHTML = '<div class="loader">⏳ در حال دریافت کانفیگ‌ها...</div>';
-  log('🚀 شروع دریافت...');
-  
-  const sources = getSources();
-  totalSources = sources.length;
-  document.getElementById('sourceCount').textContent = '📡 تعداد منابع: ' + totalSources;
-  
-  const all = [];
-  let completed = 0;
-  
-  for (const url of sources) {
-    try {
-      const name = url.split('/').pop() || url.split('/').slice(-2).join('/');
-      log('📡 دریافت از: ' + name);
-      const text = await fetchWithProxy(url);
-      
-      if (text && text.length > 50) {
-        const vless = text.match(/vless:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
-        const vmess = text.match(/vmess:\/\/[A-Za-z0-9+\/=]+/gi) || [];
-        const trojan = text.match(/trojan:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
-        const ss = text.match(/ss:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
-        
-        const count = vless.length + vmess.length + trojan.length + ss.length;
-        log('✅ ' + count + ' کانفیگ از ' + name);
-        
-        [...vless, ...vmess, ...trojan, ...ss].forEach(cfg => {
-          let protocol = 'unknown';
-          if (cfg.startsWith('vless')) protocol = 'vless';
-          else if (cfg.startsWith('vmess')) protocol = 'vmess';
-          else if (cfg.startsWith('trojan')) protocol = 'trojan';
-          else if (cfg.startsWith('ss')) protocol = 'ss';
-          
-          const hostMatch = cfg.match(/@([^:]+):/);
-          const portMatch = cfg.match(/:(\d+)(?:\?|$|#)/);
-          
-          all.push({
-            protocol: protocol,
-            config: cfg,
-            host: hostMatch ? hostMatch[1] : 'unknown',
-            port: portMatch ? portMatch[1] : 'unknown'
-          });
-        });
-      } else {
-        log('⚠️ محتوای خالی از ' + name);
-      }
-    } catch (e) {
-      const name = url.split('/').pop() || url;
-      log('❌ خطا در ' + name + ': ' + e.message);
-    }
-    completed++;
-    updateProgress(5 + (completed / sources.length) * 85);
-  }
-  
-  // حذف تکراری
-  const unique = [];
-  const seen = new Set();
-  for (const cfg of all) {
-    if (!seen.has(cfg.config)) {
-      seen.add(cfg.config);
-      unique.push(cfg);
-    }
-  }
-  
-  allConfigs = unique;
-  updateProgress(100);
-  
-  if (unique.length === 0) {
-    document.getElementById('result').innerHTML = '<div class="error">❌ هیچ کانفیگی پیدا نشد! لطفاً دوباره تلاش کنید.</div>';
-    log('❌ هیچ کانفیگی پیدا نشد');
-  } else {
-    renderConfigs(unique);
-    log('✅ ' + unique.length + ' کانفیگ دریافت شد');
-    document.getElementById('sourceCount').textContent = '📡 تعداد منابع: ' + totalSources + ' | ✅ کانفیگ‌ها: ' + unique.length;
-  }
-  
-  btn.disabled = false;
-  btn.textContent = '🚀 دریافت کانفیگ‌ها';
-}
+            <div class="btn-group">
+                <button class="btn-primary" onclick="getConfigs()">🚀 دریافت کانفیگ‌ها</button>
+                <button class="btn-download" onclick="downloadTxt()">📥 دانلود TXT</button>
+                <button class="btn-danger" onclick="clearAll()">🗑️ پاک کردن</button>
+            </div>
 
-function renderConfigs(configs) {
-  const resultDiv = document.getElementById('result');
-  
-  if (!configs || configs.length === 0) {
-    resultDiv.innerHTML = '<div class="error">❌ هیچ کانفیگی پیدا نشد</div>';
-    return;
-  }
-  
-  let html = '<div class="count-badge">✅ ' + configs.length + ' کانفیگ پیدا شد</div>';
-  
-  configs.slice(0, 30).forEach((cfg, i) => {
-    html += `
-      <div class="config-item">
-        <div>
-          <span class="tag">#${i+1}</span>
-          <span class="tag">${cfg.protocol}</span>
-          <span class="tag">${cfg.host}:${cfg.port}</span>
+            <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+            <div id="result"></div>
+
+            <div class="log-box" id="log">✦ آماده برای سفر کهکشانی ...</div>
+            <div class="source-count" id="sourceCount"></div>
+
+            <div style="text-align:center;margin-top:16px;color:rgba(255,255,255,0.05);font-size:9px;letter-spacing:2px;position:relative;z-index:2;">
+                ⚡ GameIzeh.ir · TeamSpeak 3 Community ⚡
+            </div>
         </div>
-        <div class="cfg-text">${cfg.config}</div>
-        <button class="copy-btn" onclick="copyText('${cfg.config.replace(/'/g, "\\'")}')">📋 کپی</button>
-      </div>
-    `;
-  });
-  
-  if (configs.length > 30) {
-    html += '<div style="text-align:center;color:#94a3b8;padding:10px;">... و ' + (configs.length - 30) + ' تا دیگر</div>';
-  }
-  
-  resultDiv.innerHTML = html;
-}
+    </div>
 
-// ===== دانلود فایل TXT =====
-function downloadTxt() {
-  if (allConfigs.length === 0) {
-    alert('❌ اول دکمه "دریافت کانفیگ‌ها" را بزنید!');
-    return;
-  }
-  
-  log('📥 شروع دانلود...');
-  
-  let content = '# ============================================================\n';
-  content += '# V2Ray Configs - ' + new Date().toLocaleString('fa-IR') + '\n';
-  content += '# تعداد کل: ' + allConfigs.length + '\n';
-  content += '# تعداد منابع: ' + totalSources + '\n';
-  content += '# ============================================================\n\n';
-  
-  const grouped = {};
-  allConfigs.forEach(cfg => {
-    if (!grouped[cfg.protocol]) grouped[cfg.protocol] = [];
-    grouped[cfg.protocol].push(cfg.config);
-  });
-  
-  for (const [protocol, configs] of Object.entries(grouped)) {
-    content += '# ===== ' + protocol.toUpperCase() + ' (' + configs.length + ') =====\n';
-    configs.forEach(cfg => {
-      content += cfg + '\n';
-    });
-    content += '\n';
-  }
-  
-  content += '# ============================================================\n';
-  content += '# پایان فایل\n';
-  
-  try {
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'v2ray_configs_' + new Date().toISOString().slice(0,10) + '.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    log('✅ دانلود شد: ' + allConfigs.length + ' کانفیگ');
-  } catch (e) {
-    log('❌ خطا در دانلود: ' + e.message);
-    alert('❌ خطا در دانلود: ' + e.message);
-  }
-}
+    <script>
+        // ===== ساخت ستاره‌ها =====
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 250; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.animationDelay = (Math.random() * 5) + 's';
+                star.style.opacity = Math.random() * 0.5 + 0.2;
+                container.appendChild(star);
+            }
+        }
+        createStars();
 
-function copyText(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    alert('✅ کپی شد!');
-  }).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    ta.remove();
-    alert('✅ کپی شد!');
-  });
-}
+        // ===== متغیرها =====
+        let allConfigs = [];
+        let totalSources = 0;
 
-log('✅ آماده! روی دکمه دریافت کلیک کن');
-document.getElementById('sourceCount').textContent = '📡 تعداد منابع: ' + getSources().length;
-</script>
+        function log(msg) {
+            const logDiv = document.getElementById('log');
+            const time = new Date().toLocaleTimeString();
+            logDiv.textContent += '\n✦ ' + time + ' › ' + msg;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function updateProgress(pct) {
+            document.getElementById('progressBar').style.width = Math.min(pct, 100) + '%';
+        }
+
+        function clearAll() {
+            allConfigs = [];
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('log').textContent = '✦ پاک شد ...';
+            document.getElementById('sourceCount').textContent = '';
+            updateProgress(0);
+        }
+
+        // ===== همه لینک‌ها =====
+        function getSources() {
+            return [
+                "https://raw.githubusercontent.com/MahanKenway/Freedom-V2Ray/main/configs/vless.txt",
+                "https://raw.githubusercontent.com/MahanKenway/Freedom-V2Ray/main/configs/mix.txt",
+                "https://raw.githubusercontent.com/ebrasha/free-v2ray-public-list/main/v2ray.txt",
+                "https://raw.githubusercontent.com/nikita29a/FreeProxyList/main/mirror/1.txt",
+                "https://raw.githubusercontent.com/bia-pain-bache/BPB-Worker-Panel/main/sub/vless.txt",
+                "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/All_Configs_Sub.txt",
+                "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/Splitted-By-Protocol/vless.txt",
+                "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/Splitted-By-Protocol/vmess.txt",
+                "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/Splitted-By-Protocol/trojan.txt",
+                "https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/Splitted-By-Protocol/ss.txt",
+                "https://github.com/Epodonios/v2ray-configs/raw/main/All_Configs_Sub.txt",
+                "https://raw.githubusercontent.com/V2RayRoot/V2RayConfig/refs/heads/main/Config/vless.txt",
+                "https://raw.githubusercontent.com/Hidashimora/free-vpn-anti-rkn/main/1.txt",
+                "https://raw.githubusercontent.com/Hidashimora/free-vpn-anti-rkn/main/2.txt",
+                "https://raw.githubusercontent.com/Hidashimora/free-vpn-anti-rkn/main/3.txt",
+                "https://raw.githubusercontent.com/Surfboardv2ray/v2ray-worker-sub/refs/heads/master/sub",
+                "https://raw.githubusercontent.com/Surfboardv2ray/v2ray-worker-sub/refs/heads/master/Eternity.txt",
+                "https://raw.githubusercontent.com/ArGo75/V2ray-Configs01/main/All_Configs_Sub.txt",
+                "https://raw.githubusercontent.com/nikita29a/FreeProxyList/main/mirror/2.txt",
+                "https://raw.githubusercontent.com/nikita29a/FreeProxyList/main/mirror/3.txt",
+                "https://raw.githubusercontent.com/nikita29a/FreeProxyList/main/mirror/4.txt",
+                "https://raw.githubusercontent.com/nikita29a/FreeProxyList/main/mirror/5.txt",
+                "https://raw.githubusercontent.com/ShatakVPN/ConfigForge-V2Ray/main/configs/all.txt",
+                "https://raw.githubusercontent.com/ShatakVPN/ConfigForge-V2Ray/main/configs/vless.txt",
+                "https://raw.githubusercontent.com/ShatakVPN/ConfigForge-V2Ray/main/configs/vmess.txt",
+                "https://raw.githubusercontent.com/ShatakVPN/ConfigForge-V2Ray/main/configs/trojan.txt",
+                "https://raw.githubusercontent.com/ShatakVPN/ConfigForge-V2Ray/main/configs/light.txt",
+                "https://raw.githubusercontent.com/clashv2ray-hub/v2rayfree/refs/heads/main/v2ray.txt",
+                "https://raw.githubusercontent.com/yitong2333/proxy-minging/refs/heads/main/v2ray.txt",
+                "https://raw.githubusercontent.com/roosterkid/openproxylist/main/V2RAY_RAW.txt"
+            ];
+        }
+
+        // ===== دریافت با پروکسی =====
+        async function fetchWithProxy(url) {
+            const proxies = [
+                'https://api.allorigins.win/raw?url=',
+                'https://corsproxy.io/?',
+                'https://cors-anywhere.herokuapp.com/'
+            ];
+
+            for (const proxy of proxies) {
+                try {
+                    const res = await fetch(proxy + encodeURIComponent(url), {
+                        headers: { 'User-Agent': 'Mozilla/5.0' }
+                    });
+                    if (res.ok) {
+                        const text = await res.text();
+                        if (text && text.length > 10) return text;
+                    }
+                } catch (e) {}
+            }
+            throw new Error('همه پروکسی‌ها ناموفق بودن');
+        }
+
+        async function getConfigs() {
+            const btn = document.querySelector('.btn-primary');
+            btn.disabled = true;
+            btn.textContent = '⏳ در حال جستجو...';
+            updateProgress(5);
+
+            document.getElementById('result').innerHTML = '<div class="loader">✦ در حال کاوش در کهکشان کانفیگ‌ها</div>';
+            log('🚀 شروع جستجو...');
+
+            const sources = getSources();
+            totalSources = sources.length;
+            document.getElementById('sourceCount').textContent = '✦ ' + totalSources + ' کهکشان منبع ✦';
+
+            const all = [];
+            let completed = 0;
+
+            for (const url of sources) {
+                try {
+                    const name = url.split('/').pop() || url;
+                    log('📡 دریافت از: ' + name);
+                    const text = await fetchWithProxy(url);
+
+                    if (text && text.length > 50) {
+                        const vless = text.match(/vless:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
+                        const vmess = text.match(/vmess:\/\/[A-Za-z0-9+\/=]+/gi) || [];
+                        const trojan = text.match(/trojan:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
+                        const ss = text.match(/ss:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
+
+                        const count = vless.length + vmess.length + trojan.length + ss.length;
+                        log('✅ ' + count + ' کانفیگ از ' + name);
+
+                        [...vless, ...vmess, ...trojan, ...ss].forEach(cfg => {
+                            let protocol = 'unknown';
+                            if (cfg.startsWith('vless')) protocol = 'vless';
+                            else if (cfg.startsWith('vmess')) protocol = 'vmess';
+                            else if (cfg.startsWith('trojan')) protocol = 'trojan';
+                            else if (cfg.startsWith('ss')) protocol = 'ss';
+
+                            const hostMatch = cfg.match(/@([^:]+):/);
+                            const portMatch = cfg.match(/:(\d+)(?:\?|$|#)/);
+
+                            all.push({
+                                protocol: protocol,
+                                config: cfg,
+                                host: hostMatch ? hostMatch[1] : 'unknown',
+                                port: portMatch ? portMatch[1] : 'unknown'
+                            });
+                        });
+                    } else {
+                        log('⚠️ محتوای خالی از ' + name);
+                    }
+                } catch (e) {
+                    const name = url.split('/').pop() || url;
+                    log('❌ خطا در ' + name);
+                }
+                completed++;
+                updateProgress(5 + (completed / sources.length) * 85);
+            }
+
+            // حذف تکراری
+            const unique = [];
+            const seen = new Set();
+            for (const cfg of all) {
+                if (!seen.has(cfg.config)) {
+                    seen.add(cfg.config);
+                    unique.push(cfg);
+                }
+            }
+
+            allConfigs = unique;
+            updateProgress(100);
+
+            if (unique.length === 0) {
+                document.getElementById('result').innerHTML = '<div class="error">✦ هیچ کانفیگی در کهکشان پیدا نشد ✦</div>';
+                log('❌ هیچ کانفیگی پیدا نشد');
+            } else {
+                renderConfigs(unique);
+                log('✅ ' + unique.length + ' کانفیگ پیدا شد');
+                document.getElementById('sourceCount').innerHTML = '✦ ' + totalSources + ' کهکشان منبع ✦  ❖  <span>' + unique
+                    .length + '</span> کانفیگ ✦';
+            }
+
+            btn.disabled = false;
+            btn.textContent = '🚀 دریافت کانفیگ‌ها';
+        }
+
+        function renderConfigs(configs) {
+            const resultDiv = document.getElementById('result');
+
+            if (!configs || configs.length === 0) {
+                resultDiv.innerHTML = '<div class="error">✦ هیچ کانفیگی پیدا نشد ✦</div>';
+                return;
+            }
+
+            let html = '<div class="count-badge">✦ <span>' + configs.length + '</span> کانفیگ در کهکشان پیدا شد ✦</div>';
+
+            configs.slice(0, 30).forEach((cfg, i) => {
+                html += `
+          <div class="config-item">
+            <div class="cfg-meta">
+              <span class="tag">#${i+1}</span>
+              <span class="tag protocol">${cfg.protocol}</span>
+              <span class="tag host">${cfg.host}:${cfg.port}</span>
+            </div>
+            <div class="cfg-text">${cfg.config}</div>
+            <button class="copy-btn" onclick="copyText('${cfg.config.replace(/'/g, "\\'")}')">✦ کپی ✦</button>
+          </div>
+        `;
+            });
+
+            if (configs.length > 30) {
+                html +=
+                    '<div style="text-align:center;color:rgba(255,255,255,0.2);padding:16px;font-size:12px;letter-spacing:1px;">✦ ... و ' +
+                    (configs.length - 30) + ' کانفیگ دیگر در کهکشان ✦</div>';
+            }
+
+            resultDiv.innerHTML = html;
+        }
+
+        // ===== دانلود =====
+        function downloadTxt() {
+            if (allConfigs.length === 0) {
+                alert('✦ اول کهکشان را کاوش کن! (دکمه دریافت) ✦');
+                return;
+            }
+
+            log('📥 شروع دانلود...');
+
+            let content = '# ============================================================\n';
+            content += '# ✦ GameIzeh.ir - V2Ray Configs ✦\n';
+            content += '# TeamSpeak 3: 5.57.32.182:2615\n';
+            content += '# تاریخ: ' + new Date().toLocaleString('fa-IR') + '\n';
+            content += '# تعداد کل: ' + allConfigs.length + '\n';
+            content += '# ============================================================\n\n';
+
+            const grouped = {};
+            allConfigs.forEach(cfg => {
+                if (!grouped[cfg.protocol]) grouped[cfg.protocol] = [];
+                grouped[cfg.protocol].push(cfg.config);
+            });
+
+            for (const [protocol, configs] of Object.entries(grouped)) {
+                content += '# ===== ' + protocol.toUpperCase() + ' (' + configs.length + ') =====\n';
+                configs.forEach(cfg => {
+                    content += cfg + '\n';
+                });
+                content += '\n';
+            }
+
+            content += '# ============================================================\n';
+            content += '# ✦ GameIzeh.ir - پایان فایل ✦\n';
+
+            try {
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'gameizeh_configs_' + new Date().toISOString().slice(0, 10) + '.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                log('✅ دانلود شد: ' + allConfigs.length + ' کانفیگ');
+            } catch (e) {
+                log('❌ خطا در دانلود');
+                alert('✦ خطا در دانلود ✦');
+            }
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✦ کپی شد! ✦');
+            }).catch(() => {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                ta.remove();
+                alert('✦ کپی شد! ✦');
+            });
+        }
+
+        // ===== موزیک پلیر =====
+        let audioElement = null;
+        let isPlaying = false;
+        let volumeValue = 0.5;
+
+        function initAudio() {
+            if (!audioElement) {
+                audioElement = new Audio('https://uploadkon.ir/uploads/c23130_26Velet-Roman-Olur-Yazsam-Seni-[SevilMusic].mp3');
+                audioElement.loop = true;
+                audioElement.volume = volumeValue;
+                audioElement.addEventListener('ended', () => {
+                    // لوپ دستی
+                    audioElement.currentTime = 0;
+                    audioElement.play();
+                });
+                audioElement.addEventListener('play', () => {
+                    isPlaying = true;
+                    document.getElementById('playBtn').textContent = '⏸';
+                    document.getElementById('playBtn').classList.add('active');
+                });
+                audioElement.addEventListener('pause', () => {
+                    isPlaying = false;
+                    document.getElementById('playBtn').textContent = '▶';
+                    document.getElementById('playBtn').classList.remove('active');
+                });
+                log('🎵 آهنگ آماده شد: Velet - Roman Olur');
+            }
+        }
+
+        function toggleMusic() {
+            initAudio();
+
+            if (audioElement.paused) {
+                audioElement.play().catch(e => {
+                    log('⚠️ پخش خودکار مسدود شد، روی صفحه کلیک کن');
+                });
+            } else {
+                audioElement.pause();
+            }
+        }
+
+        function restartMusic() {
+            initAudio();
+            audioElement.currentTime = 0;
+            if (audioElement.paused) {
+                audioElement.play().catch(e => {});
+            }
+            log('⟳ آهنگ ریست شد');
+        }
+
+        function setVolume(val) {
+            volumeValue = parseFloat(val);
+            if (audioElement) {
+                audioElement.volume = volumeValue;
+            }
+        }
+
+        // ===== شروع خودکار با کلیک =====
+        document.addEventListener('click', function firstClick() {
+            initAudio();
+            if (audioElement && audioElement.paused) {
+                audioElement.play().catch(() => {});
+            }
+            document.removeEventListener('click', firstClick);
+        });
+
+        log('✦ آماده برای سفر کهکشانی ✦');
+        document.getElementById('sourceCount').textContent = '✦ ' + getSources().length + ' کهکشان منبع ✦';
+
+        setTimeout(() => {
+            log('🎵 "Velet - Roman Olur" پخش می‌شود...');
+        }, 1500);
+    </script>
 </body>
 </html>
