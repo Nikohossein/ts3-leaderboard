@@ -183,11 +183,11 @@
             }
         }
 
-        /* ===== شبکه اجتماعی ===== */
+        /* ===== شبکه اجتماعی - فقط متن ===== */
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             margin: 12px 0 16px 0;
             flex-wrap: wrap;
             position: relative;
@@ -196,30 +196,37 @@
         .social-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 13px;
+            gap: 6px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 12px;
             text-decoration: none;
             transition: all 0.3s ease;
-            padding: 6px 14px;
+            padding: 6px 12px;
             border-radius: 30px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             font-weight: 400;
             letter-spacing: 0.5px;
+            font-family: 'Orbitron', 'Segoe UI', sans-serif;
         }
         .social-item:hover {
             color: #fff;
-            background: rgba(167, 139, 250, 0.1);
-            border-color: rgba(167, 139, 250, 0.2);
+            background: rgba(167, 139, 250, 0.08);
+            border-color: rgba(167, 139, 250, 0.15);
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(167, 139, 250, 0.1);
+            box-shadow: 0 4px 20px rgba(167, 139, 250, 0.05);
         }
-        .social-item .icon {
-            font-size: 18px;
+        .social-item .app-name {
+            font-size: 10px;
+            letter-spacing: 1px;
+            opacity: 0.5;
         }
-        .social-item .label {
-            font-size: 11px;
+        .social-item .username {
+            font-weight: 700;
+            background: linear-gradient(90deg, #a78bfa, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         /* ===== Music Player ===== */
@@ -716,14 +723,14 @@
                 width: 80px;
             }
             .social-links {
-                gap: 10px;
+                gap: 12px;
             }
             .social-item {
-                font-size: 11px;
-                padding: 4px 12px;
+                font-size: 10px;
+                padding: 4px 10px;
             }
-            .social-item .label {
-                display: none;
+            .social-item .app-name {
+                font-size: 8px;
             }
         }
         @media(max-width:400px) {
@@ -736,6 +743,9 @@
             .gameizeh-title {
                 font-size: 20px;
                 letter-spacing: 2px;
+            }
+            .social-item .app-name {
+                display: none;
             }
         }
     </style>
@@ -765,19 +775,19 @@
                 </div>
             </div>
 
-            <!-- ===== شبکه‌های اجتماعی ===== -->
+            <!-- ===== شبکه‌های اجتماعی - فقط متن ===== -->
             <div class="social-links">
                 <a href="https://t.me/GameIzeh" target="_blank" class="social-item">
-                    <span class="icon">📱</span>
-                    <span class="label">@GameIzeh</span>
+                    <span class="app-name">تلگرام</span>
+                    <span class="username">@GameIzeh</span>
                 </a>
                 <a href="https://rubika.ir/GameIzeh" target="_blank" class="social-item">
-                    <span class="icon">💬</span>
-                    <span class="label">@GameIzeh</span>
+                    <span class="app-name">روبيکا</span>
+                    <span class="username">@GameIzeh</span>
                 </a>
                 <a href="https://instagram.com/GameIzeh" target="_blank" class="social-item">
-                    <span class="icon">📸</span>
-                    <span class="label">@GameIzeh</span>
+                    <span class="app-name">اینستاگرام</span>
+                    <span class="username">@GameIzeh</span>
                 </a>
             </div>
 
@@ -1117,7 +1127,6 @@
                 audioElement.loop = true;
                 audioElement.volume = volumeValue;
                 audioElement.addEventListener('ended', () => {
-                    // لوپ دستی
                     audioElement.currentTime = 0;
                     audioElement.play();
                 });
@@ -1137,7 +1146,6 @@
 
         function toggleMusic() {
             initAudio();
-
             if (audioElement.paused) {
                 audioElement.play().catch(e => {
                     log('⚠️ پخش خودکار مسدود شد، روی صفحه کلیک کن');
