@@ -49,7 +49,8 @@
             position: absolute;
             background: white;
             border-radius: 50%;
-            animation: twinkle var(--duration) ease-in-out infinite alternate;
+            animation: twinkle var(--duration) ease-in-out infinite alternate,
+                       driftStar var(--drift-duration) ease-in-out infinite alternate;
         }
         @keyframes twinkle {
             0% {
@@ -59,6 +60,14 @@
             100% {
                 opacity: 1;
                 transform: scale(1.2);
+            }
+        }
+        @keyframes driftStar {
+            0% {
+                translate: 0px 0px;
+            }
+            100% {
+                translate: var(--dx) var(--dy);
             }
         }
 
@@ -748,6 +757,222 @@
                 display: none;
             }
         }
+
+        /* ===== نوار تبلیغاتی متحرک (Ticker) ===== */
+        .ticker-wrap {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 14px auto;
+            overflow: hidden;
+            background: rgba(10, 10, 26, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45), inset 0 0 20px rgba(124, 58, 237, 0.06);
+            padding: 10px 0;
+        }
+        .ticker-track {
+            display: inline-flex;
+            align-items: center;
+            width: max-content;
+            will-change: transform;
+        }
+        @keyframes tickerBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.55; }
+        }
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 24px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ticker-item.green {
+            color: #34d399;
+            text-shadow: 0 0 12px rgba(52, 211, 153, 0.35);
+        }
+        .ticker-item.red {
+            color: #f87171;
+            text-shadow: 0 0 12px rgba(248, 113, 113, 0.35);
+        }
+        .ticker-item.gold {
+            color: #feca57;
+            text-shadow: 0 0 12px rgba(254, 202, 87, 0.35);
+        }
+        .ticker-item.blue {
+            color: #60a5fa;
+            text-shadow: 0 0 12px rgba(96, 165, 250, 0.35);
+        }
+        .ticker-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ===== بنر حمایت / دونیت ===== */
+        .donate-banner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(124, 58, 237, 0.12));
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin: 12px 0;
+        }
+        .donate-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.7;
+        }
+        .donate-text b {
+            color: #fd79a8;
+        }
+        .donate-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #ec4899, #7c3aed);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 25px rgba(236, 72, 153, 0.35);
+            animation: donatePulse 1.8s ease-in-out infinite;
+            white-space: nowrap;
+        }
+        @keyframes donatePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* ===== پنل IP تمیز ===== */
+        .cleanip-panel {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+        }
+        .cleanip-panel label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 1px;
+        }
+        .cleanip-panel select {
+            flex: 1;
+            min-width: 140px;
+            background: rgba(0, 0, 0, 0.35);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 9px 12px;
+            font-family: inherit;
+            font-size: 12px;
+        }
+        .cleanip-btn {
+            background: linear-gradient(135deg, #0891b2, #059669);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 9px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .cleanip-btn:hover {
+            filter: brightness(1.1);
+        }
+        .cleanip-btn:disabled {
+            opacity: 0.5;
+            cursor: wait;
+        }
+        .test-btn {
+            background: rgba(96, 165, 250, 0.12);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-radius: 10px;
+            padding: 9px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .test-btn:hover {
+            background: rgba(96, 165, 250, 0.2);
+        }
+
+        /* ===== نشان پینگ ===== */
+        .tag.ping {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+        .tag.ping.ok {
+            background: rgba(52, 211, 153, 0.15);
+            color: #34d399;
+            border-color: rgba(52, 211, 153, 0.15);
+        }
+        .tag.ping.bad {
+            background: rgba(248, 113, 113, 0.15);
+            color: #f87171;
+            border-color: rgba(248, 113, 113, 0.15);
+        }
+        .tag.cleanip {
+            background: rgba(254, 202, 87, 0.15);
+            color: #feca57;
+            border-color: rgba(254, 202, 87, 0.15);
+        }
+        .ping-mini {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 10px;
+            margin-right: 6px;
+        }
+        .ping-mini:hover {
+            color: #60a5fa;
+            border-color: rgba(96, 165, 250, 0.3);
+        }
+        .fetch-timer {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #a78bfa;
+            margin: -6px 0 10px 0;
+            position: relative;
+            z-index: 2;
+        }
+        .fetch-timer.done {
+            color: #34d399;
+        }
     </style>
 </head>
 <body>
@@ -757,6 +982,11 @@
 
     <!-- ===== ستاره‌ها ===== -->
     <div class="stars" id="stars"></div>
+
+    <!-- ===== نوار تبلیغاتی متحرک ===== -->
+    <div class="ticker-wrap">
+        <div class="ticker-track" id="tickerTrack"></div>
+    </div>
 
     <!-- ===== محتوا ===== -->
     <div class="container">
@@ -813,6 +1043,23 @@
                 </div>
             </div>
 
+            <!-- ===== بنر حمایت ===== -->
+            <div class="donate-banner">
+                <div class="donate-text">
+                    <b>✦ حمایت از GameIzeh ✦</b><br>
+                    با کمک شما این پروژه سریع‌تر، قوی‌تر و حرفه‌ای‌تر می‌شود 🚀
+                </div>
+                <a href="https://daramet.com/GameIzeh" target="_blank" class="donate-btn">❤️ حمایت می‌کنم</a>
+            </div>
+
+            <!-- ===== پنل IP تمیز ===== -->
+            <div class="cleanip-panel">
+                <label>🌍 کشور IP تمیز:</label>
+                <select id="countrySelect"></select>
+                <button class="cleanip-btn" id="cleanIpBtn" onclick="applyCleanIp()">⚡ اعمال IP تمیز</button>
+                <button class="test-btn" id="testAllBtn" onclick="testAllPing()">🏓 تست پینگ همه</button>
+            </div>
+
             <div class="btn-group">
                 <button class="btn-primary" onclick="getConfigs()">🚀 دریافت کانفیگ‌ها</button>
                 <button class="btn-download" onclick="downloadTxt()">📥 دانلود TXT</button>
@@ -820,6 +1067,7 @@
             </div>
 
             <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+            <div class="fetch-timer" id="fetchTimer" style="display:none;"></div>
 
             <div id="result"></div>
 
@@ -845,8 +1093,14 @@
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
                 star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-                star.style.animationDelay = (Math.random() * 5) + 's';
+                star.style.animationDelay = (Math.random() * 5) + 's, ' + (Math.random() * 8) + 's';
                 star.style.opacity = Math.random() * 0.5 + 0.2;
+                // حرکت آرام ستاره برای حس عبور در فضا
+                const dx = (Math.random() * 60 - 30).toFixed(1) + 'px';
+                const dy = (Math.random() * 40 - 20).toFixed(1) + 'px';
+                star.style.setProperty('--dx', dx);
+                star.style.setProperty('--dy', dy);
+                star.style.setProperty('--drift-duration', (Math.random() * 10 + 8) + 's');
                 container.appendChild(star);
             }
         }
@@ -939,6 +1193,15 @@
             btn.textContent = '⏳ در حال جستجو...';
             updateProgress(5);
 
+            const timerEl = document.getElementById('fetchTimer');
+            timerEl.style.display = 'block';
+            timerEl.classList.remove('done');
+            const fetchStartTime = performance.now();
+            const timerInterval = setInterval(() => {
+                const secs = ((performance.now() - fetchStartTime) / 1000).toFixed(1);
+                timerEl.textContent = '⏱ در حال دریافت... ' + secs + ' ثانیه';
+            }, 100);
+
             document.getElementById('result').innerHTML = '<div class="loader">✦ در حال کاوش در کهکشان کانفیگ‌ها</div>';
             log('🚀 شروع جستجو...');
 
@@ -1005,6 +1268,12 @@
             allConfigs = unique;
             updateProgress(100);
 
+            clearInterval(timerInterval);
+            const totalSecs = ((performance.now() - fetchStartTime) / 1000).toFixed(1);
+            timerEl.classList.add('done');
+            timerEl.textContent = '✅ کانفیگ‌ها در ' + totalSecs + ' ثانیه تحویل داده شد';
+            log('⏱ زمان کل دریافت: ' + totalSecs + ' ثانیه');
+
             if (unique.length === 0) {
                 document.getElementById('result').innerHTML = '<div class="error">✦ هیچ کانفیگی در کهکشان پیدا نشد ✦</div>';
                 log('❌ هیچ کانفیگی پیدا نشد');
@@ -1031,14 +1300,17 @@
 
             configs.slice(0, 30).forEach((cfg, i) => {
                 html += `
-          <div class="config-item">
+          <div class="config-item" data-idx="${i}">
             <div class="cfg-meta">
               <span class="tag">#${i+1}</span>
               <span class="tag protocol">${cfg.protocol}</span>
               <span class="tag host">${cfg.host}:${cfg.port}</span>
+              ${cfg.cleanIp ? '<span class="tag cleanip">IP تمیز: ' + cfg.cleanIp + '</span>' : ''}
+              <span class="tag ping" id="ping-${i}">پینگ نامشخص</span>
             </div>
             <div class="cfg-text">${cfg.config}</div>
             <button class="copy-btn" onclick="copyText('${cfg.config.replace(/'/g, "\\'")}')">✦ کپی ✦</button>
+            <button class="ping-mini" onclick="testPing(${i})">🏓 تست این کانفیگ</button>
           </div>
         `;
             });
@@ -1186,6 +1458,228 @@
         setTimeout(() => {
             log('🎵 "Velet - Roman Olur" پخش می‌شود...');
         }, 1500);
+
+        // =====================================================
+        // ===== نوار تبلیغاتی متحرک (Ticker) =====
+        // =====================================================
+        function getTickerItems() {
+            return [
+                { text: '💚 کانفیگ رایگان همیشگی برای همه کاربران', cls: 'green' },
+                { text: '📢 تیم‌اسپیک 3: 5.57.32.182:2615', cls: 'gold' },
+                { text: '💬 تلگرام: @GameIzeh', cls: 'blue' },
+                { text: '📷 اینستاگرام: @GameIzeh', cls: 'blue' },
+                { text: '🟣 روبیکا: @GameIzeh', cls: 'blue' },
+                { text: '✅ استفاده شخصی و آزادی اینترنت مجاز است', cls: 'green' },
+                { text: '❌ فروش، سوءاستفاده یا اسپم کانفیگ‌ها ممنوع است', cls: 'red' },
+                { text: '✅ کانفیگ‌ها رایگان و بدون نیاز به ثبت‌نام هستند', cls: 'green' },
+                { text: '❌ هیچ تضمینی برای آپ‌تایم ۱۰۰٪ سرورهای رایگان نیست', cls: 'red' },
+                { text: '❤️ با حمایت مالی از پروژه، ما را قوی‌تر کن: daramet.com/GameIzeh', cls: 'gold' }
+            ];
+        }
+        function renderTicker() {
+            const track = document.getElementById('tickerTrack');
+            const items = getTickerItems();
+            let html = '';
+            items.forEach(it => {
+                html += `<span class="ticker-item ${it.cls}">${it.text}</span>`;
+            });
+            track.innerHTML = html;
+            layoutTicker();
+        }
+
+        let tickerAnimHandle = null;
+        function layoutTicker() {
+            const wrap = document.querySelector('.ticker-wrap');
+            const track = document.getElementById('tickerTrack');
+            if (!wrap || !track) return;
+
+            if (tickerAnimHandle) {
+                try { tickerAnimHandle.cancel(); } catch (e) {}
+            }
+            track.style.transform = 'translateX(0px)';
+
+            const wrapWidth = wrap.clientWidth;
+            const trackWidth = track.scrollWidth;
+
+            const speedPxPerSec = 95;      // سرعت حرکت
+            const pauseSeconds = 5;        // مکث بعد از هر عبور کامل
+            const travelDistance = wrapWidth + trackWidth;
+            const travelDuration = Math.max(7, travelDistance / speedPxPerSec); // ثانیه
+            const totalDuration = travelDuration + pauseSeconds;
+            const travelOffset = travelDuration / totalDuration;
+
+            if (typeof track.animate !== 'function') return; // مرورگرهای خیلی قدیمی
+
+            tickerAnimHandle = track.animate(
+                [
+                    { transform: `translateX(${-trackWidth}px)`, offset: 0 },
+                    { transform: `translateX(${wrapWidth}px)`, offset: travelOffset },
+                    { transform: `translateX(${wrapWidth}px)`, offset: 1 }
+                ],
+                {
+                    duration: totalDuration * 1000,
+                    iterations: Infinity,
+                    easing: 'linear'
+                }
+            );
+        }
+
+        let tickerResizeTimeout = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(tickerResizeTimeout);
+            tickerResizeTimeout = setTimeout(layoutTicker, 300);
+        });
+
+        renderTicker();
+
+        // =====================================================
+        // ===== IP تمیز بر اساس کشور =====
+        // =====================================================
+        const CLEAN_IP_COUNTRIES = {
+            AE: 'امارات', AF: 'افغانستان', AL: 'آلبانی', AM: 'ارمنستان', AO: 'آنگولا',
+            AR: 'آرژانتین', AT: 'اتریش', AU: 'استرالیا', AZ: 'آذربایجان', BA: 'بوسنی',
+            BD: 'بنگلادش', BE: 'بلژیک', BG: 'بلغارستان', BH: 'بحرین', BO: 'بولیوی',
+            BR: 'برزیل', CA: 'کانادا', CH: 'سوئیس', CL: 'شیلی', CN: 'چین',
+            CO: 'کلمبیا', CY: 'قبرس', CZ: 'چک', DE: 'آلمان', DK: 'دانمارک',
+            DZ: 'الجزایر', EE: 'استونی', EG: 'مصر', ES: 'اسپانیا', FI: 'فنلاند',
+            FR: 'فرانسه', GB: 'انگلستان', GE: 'گرجستان', GR: 'یونان', HK: 'هنگ‌کنگ',
+            HR: 'کرواسی', HU: 'مجارستان', ID: 'اندونزی', IE: 'ایرلند', IL: 'اسرائیل',
+            IN: 'هند', IQ: 'عراق', IR: 'ایران', IS: 'ایسلند', IT: 'ایتالیا',
+            JM: 'جامائیکا', JO: 'اردن', JP: 'ژاپن', KE: 'کنیا'
+        };
+        function populateCountrySelect() {
+            const sel = document.getElementById('countrySelect');
+            let html = '<option value="ALL">🌐 همه کشورها (ترکیبی)</option>';
+            for (const [code, name] of Object.entries(CLEAN_IP_COUNTRIES)) {
+                html += `<option value="${code}">${name} (${code})</option>`;
+            }
+            sel.innerHTML = html;
+        }
+        populateCountrySelect();
+
+        async function loadCleanIpPool(country) {
+            const res = await fetch('proxy/' + country + '.txt');
+            if (!res.ok) throw new Error('عدم دسترسی به لیست ' + country);
+            const text = await res.text();
+            const ipRegex = /\b(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b/g;
+            const found = text.match(ipRegex) || [];
+            const unique = [...new Set(found)];
+            if (unique.length === 0) throw new Error('لیست IP خالی برای ' + country);
+            return unique;
+        }
+
+        function replaceHostInConfig(cfg, newIp) {
+            try {
+                if (cfg.protocol === 'vless' || cfg.protocol === 'trojan') {
+                    // scheme://user@host:port?params#tag
+                    return cfg.config.replace(/(@)([^:@/?#]+)(:\d+)/, function(m, p1, oldHost, p3) {
+                        return p1 + newIp + p3;
+                    });
+                }
+                if (cfg.protocol === 'vmess') {
+                    const b64 = cfg.config.replace('vmess://', '');
+                    const json = JSON.parse(decodeURIComponent(escape(atob(b64))));
+                    json.add = newIp;
+                    const newB64 = btoa(unescape(encodeURIComponent(JSON.stringify(json))));
+                    return 'vmess://' + newB64;
+                }
+            } catch (e) {
+                log('⚠️ خطا در تعویض IP کانفیگ #' + (cfg.host || ''));
+            }
+            return cfg.config; // ss یا خطا: بدون تغییر
+        }
+
+        async function applyCleanIp() {
+            const btn = document.getElementById('cleanIpBtn');
+            const country = document.getElementById('countrySelect').value;
+            const countryLabel = country === 'ALL' ? 'همه کشورها' : (CLEAN_IP_COUNTRIES[country] || country);
+            if (!country) return;
+            if (allConfigs.length === 0) {
+                alert('✦ اول کانفیگ‌ها را دریافت کن (دکمه دریافت کانفیگ‌ها) ✦');
+                return;
+            }
+            btn.disabled = true;
+            btn.textContent = '⏳ در حال اعمال...';
+            try {
+                log('🌍 دریافت لیست IP تمیز (' + countryLabel + ') ...');
+                const pool = await loadCleanIpPool(country);
+                log('✅ ' + pool.length + ' IP تمیز پیدا شد (' + countryLabel + ')');
+
+                allConfigs = allConfigs.map((cfg, i) => {
+                    const ip = pool[i % pool.length];
+                    const newConfigStr = replaceHostInConfig(cfg, ip);
+                    return Object.assign({}, cfg, { config: newConfigStr, cleanIp: ip });
+                });
+
+                renderConfigs(allConfigs);
+                log('⚡ IP تمیز روی همه‌ی کانفیگ‌ها اعمال شد (' + countryLabel + ')');
+            } catch (e) {
+                log('❌ ' + e.message);
+                alert('✦ خطا در دریافت IP تمیز: ' + e.message + ' ✦');
+            }
+            btn.disabled = false;
+            btn.textContent = '⚡ اعمال IP تمیز';
+        }
+
+        // =====================================================
+        // ===== تست پینگ (تقریبی، مبتنی بر مرورگر) =====
+        // =====================================================
+        function extractPingHost(cfg) {
+            // اگر پارامتر sni یا host در کانفیگ باشد، دامنه‌ی اصلی برای تست دقیق‌تر است
+            const sniMatch = cfg.config.match(/[?&](?:sni|host)=([^&#]+)/i);
+            if (sniMatch) {
+                try { return decodeURIComponent(sniMatch[1]); } catch (e) { return sniMatch[1]; }
+            }
+            return cfg.host;
+        }
+
+        async function testPing(i) {
+            const cfg = allConfigs[i];
+            const tagEl = document.getElementById('ping-' + i);
+            if (!cfg || !tagEl) return;
+            tagEl.className = 'tag ping';
+            tagEl.textContent = 'در حال تست...';
+
+            const host = extractPingHost(cfg);
+            const start = performance.now();
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 4000);
+            try {
+                await fetch('https://' + host + '/', { mode: 'no-cors', signal: controller.signal, cache: 'no-store' });
+                const ms = Math.round(performance.now() - start);
+                tagEl.className = 'tag ping ok';
+                tagEl.textContent = '🟢 ' + ms + ' ms';
+            } catch (e) {
+                tagEl.className = 'tag ping bad';
+                tagEl.textContent = '🔴 قطع/بدون پاسخ';
+            } finally {
+                clearTimeout(timeout);
+            }
+        }
+
+        async function testAllPing() {
+            if (allConfigs.length === 0) {
+                alert('✦ اول کانفیگ‌ها را دریافت کن ✦');
+                return;
+            }
+            const btn = document.getElementById('testAllBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ در حال تست...';
+            log('🏓 شروع تست پینگ کانفیگ‌های نمایش داده‌شده...');
+
+            const shown = Math.min(allConfigs.length, 30);
+            const concurrency = 5;
+            for (let start = 0; start < shown; start += concurrency) {
+                const batch = [];
+                for (let i = start; i < Math.min(start + concurrency, shown); i++) {
+                    batch.push(testPing(i));
+                }
+                await Promise.all(batch);
+            }
+            log('✅ تست پینگ تمام شد');
+            btn.disabled = false;
+            btn.textContent = '🏓 تست پینگ همه';
+        }
     </script>
 </body>
 </html>
