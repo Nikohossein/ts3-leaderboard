@@ -797,9 +797,7 @@
             }
         }
 
-        /* ===== نوار تبلیغاتی متحرک (Ticker) ===== */
-        /* پیاده‌سازی فقط با CSS خالص (بدون اندازه‌گیری با جاوااسکریپت) تا روی
-           تمام دستگاه‌ها (آیفون، اندروید، تبلت، کامپیوتر) به‌طور یکسان و مطمئن کار کند */
+        /* ===== نوار تبلیغاتی متحرک (Ticker) — اصلاح سرعت + جهت ===== */
         .ticker-wrap {
             position: relative;
             z-index: 5;
@@ -813,31 +811,31 @@
             backdrop-filter: blur(12px);
             box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45), inset 0 0 20px rgba(124, 58, 237, 0.06);
             padding: 10px 0;
-            direction: ltr;
+            direction: ltr; /* حرکت از راست به چپ با جهت راست‌چین بودن متن */
         }
         .ticker-track {
             display: inline-flex;
             align-items: center;
             width: max-content;
             will-change: transform;
-            animation: tickerSweep 19s linear infinite;
-            transform: translateX(-100%);
+            animation: tickerSweep 40s linear infinite; /* مدت زمان بیشتر = سرعت کمتر */
+            transform: translateX(0);
+            direction: rtl; /* متن فارسی راست‌چین */
         }
         .ticker-wrap:hover .ticker-track {
             animation-play-state: paused;
         }
-        /* حرکت به سمت راست تا عبور کامل، سپس ۵ ثانیه مکث نامرئی، سپس تکرار */
+
+        /* حرکت از راست به چپ: translateX(100%) -> translateX(-100%) */
         @keyframes tickerSweep {
             0% {
-                transform: translateX(-100%);
-            }
-            74% {
                 transform: translateX(100%);
             }
             100% {
-                transform: translateX(100%);
+                transform: translateX(-100%);
             }
         }
+
         @keyframes tickerBlink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.55; }
@@ -4169,7 +4167,7 @@ var qrcode = function() {
         }, 1500);
 
         // =====================================================
-        // ===== نوار تبلیغاتی متحرک (Ticker) =====
+        // ===== نوار تبلیغاتی متحرک (Ticker) — سرعت کاهش یافته و جهت اصلاح شده =====
         // =====================================================
         function getTickerItems() {
             return [
@@ -4193,8 +4191,7 @@ var qrcode = function() {
             items.forEach(it => {
                 html += `<span class="ticker-item ${it.cls}">${it.text}</span>`;
             });
-            // حرکت با CSS خالص انجام می‌شود (بدون نیاز به اندازه‌گیری با جاوااسکریپت)
-            // به همین دلیل روی همه‌ی مرورگرها و گوشی‌ها یکسان کار می‌کند.
+            // حرکت با CSS خالص انجام می‌شود — سرعت کاهش یافته و جهت از راست به چپ
             track.innerHTML = html;
         }
 
