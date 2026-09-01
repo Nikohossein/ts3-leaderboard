@@ -448,6 +448,24 @@
             background: rgba(239, 68, 68, 0.3);
             transform: translateY(-2px);
         }
+        .btn-fav {
+            background: rgba(254, 202, 87, 0.15);
+            color: #feca57;
+            border: 1px solid rgba(254, 202, 87, 0.25);
+            backdrop-filter: blur(10px);
+        }
+        .btn-fav:hover {
+            background: rgba(254, 202, 87, 0.25);
+            transform: translateY(-2px);
+        }
+        .btn-fav span {
+            display: inline-block;
+            background: rgba(254, 202, 87, 0.3);
+            border-radius: 20px;
+            padding: 1px 8px;
+            font-size: 11px;
+            margin-right: 4px;
+        }
 
         /* ===== نوار پیشرفت ===== */
         .progress {
@@ -1145,6 +1163,97 @@
         .qr-close-btn:hover {
             background: rgba(255, 255, 255, 0.12);
         }
+
+        /* ===== دکمه‌ی ستاره‌ی علاقه‌مندی روی هر کارت ===== */
+        .star-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.35);
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 10px;
+        }
+        .star-btn:hover {
+            border-color: rgba(254, 202, 87, 0.4);
+            color: #feca57;
+        }
+        .star-btn.active {
+            background: rgba(254, 202, 87, 0.15);
+            border-color: rgba(254, 202, 87, 0.35);
+            color: #feca57;
+        }
+
+        /* ===== مودال علاقه‌مندی‌ها ===== */
+        .fav-modal {
+            max-width: 460px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .fav-list {
+            overflow-y: auto;
+            text-align: right;
+            direction: rtl;
+            margin-bottom: 14px;
+            max-height: 55vh;
+        }
+        .fav-empty {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 12.5px;
+            padding: 30px 10px;
+            text-align: center;
+        }
+        .fav-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+        }
+        .fav-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+        .fav-item-text {
+            font-family: 'Courier New', monospace;
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.5);
+            word-break: break-all;
+            direction: ltr;
+            text-align: left;
+            max-height: 40px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .fav-item-actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .fav-item-actions button {
+            font-family: inherit;
+            font-size: 10.5px;
+            border-radius: 8px;
+            padding: 4px 10px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .fav-item-actions button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        .fav-item-actions .fav-remove {
+            color: #fca5a5;
+            border-color: rgba(239, 68, 68, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -1228,6 +1337,14 @@
             <div class="cleanip-panel">
                 <label>🌍 کشور IP تمیز:</label>
                 <select id="countrySelect"></select>
+                <label>🔌 پروتکل:</label>
+                <select id="protocolSelect" onchange="setProtocolFilter(this.value)">
+                    <option value="all">همه پروتکل‌ها</option>
+                    <option value="vless">VLESS</option>
+                    <option value="vmess">VMESS</option>
+                    <option value="trojan">Trojan</option>
+                    <option value="ss">Shadowsocks (SS)</option>
+                </select>
                 <button class="cleanip-btn" id="cleanIpBtn" onclick="applyCleanIp()">⚡ اعمال IP تمیز</button>
                 <button class="test-btn" id="testAllBtn" onclick="testAllPing()">🏓 تست پینگ همه</button>
             </div>
@@ -1235,6 +1352,7 @@
             <div class="btn-group">
                 <button class="btn-primary" onclick="getConfigs()">🚀 دریافت کانفیگ‌ها</button>
                 <button class="btn-download" onclick="downloadTxt()">📥 دانلود TXT</button>
+                <button class="btn-fav" id="favToggleBtn" onclick="openFavoritesModal()">⭐ علاقه‌مندی‌ها <span id="favCount">0</span></button>
                 <button class="btn-danger" onclick="clearAll()">🗑️ پاک کردن</button>
             </div>
 
@@ -1265,6 +1383,15 @@
                     <div class="qr-canvas-wrap" id="qrCanvasWrap"></div>
                     <div class="qr-modal-hint">v2rayNG / Shadowrocket / NekoBox / Streisand و امثال آن‌ها</div>
                     <button class="qr-close-btn" onclick="closeQrModal()">بستن ✕</button>
+                </div>
+            </div>
+
+            <!-- ===== مودال علاقه‌مندی‌ها ===== -->
+            <div class="qr-modal-overlay" id="favModalOverlay" onclick="if(event.target===this) closeFavoritesModal()">
+                <div class="qr-modal fav-modal">
+                    <div class="qr-modal-title">⭐ کانفیگ‌های مورد علاقه</div>
+                    <div class="fav-list" id="favList"></div>
+                    <button class="qr-close-btn" onclick="closeFavoritesModal()">بستن ✕</button>
                 </div>
             </div>
 
@@ -3804,7 +3931,6 @@ var qrcode = function() {
             allConfigs.forEach((cfg, idx) => { cfg._id = idx; });
             configById = new Map(allConfigs.map(cfg => [cfg._id, cfg]));
             pingResults = {};
-            currentProtocolFilter = 'all';
             updateProgress(100);
 
             clearInterval(timerInterval);
@@ -3819,22 +3945,16 @@ var qrcode = function() {
                 log('❌ هیچ کانفیگی پیدا نشد');
             } else {
                 document.getElementById('resultToolbar').style.display = 'flex';
-                resetProtocolChips();
-                currentFilteredConfigs = allConfigs;
-                renderConfigs(currentFilteredConfigs);
                 log('✅ ' + unique.length + ' کانفیگ پیدا شد');
                 document.getElementById('sourceCount').innerHTML = '✦ ' + totalSources + ' کهکشان منبع ✦  ❖  <span>' + unique
                     .length + '</span> کانفیگ ✦';
+                // پروتکلی که کاربر از قبل انتخاب کرده بود را اعمال کن (پیش‌فرض: همه)
+                const preSelectedProto = document.getElementById('protocolSelect').value || 'all';
+                setProtocolFilter(preSelectedProto);
             }
 
             btn.disabled = false;
             btn.textContent = '🚀 دریافت کانفیگ‌ها';
-        }
-
-        function resetProtocolChips() {
-            document.querySelectorAll('#filterChips .chip').forEach(c => {
-                c.classList.toggle('active', c.dataset.proto === 'all');
-            });
         }
 
         function setProtocolFilter(proto) {
@@ -3842,6 +3962,8 @@ var qrcode = function() {
             document.querySelectorAll('#filterChips .chip').forEach(c => {
                 c.classList.toggle('active', c.dataset.proto === proto);
             });
+            const protoSel = document.getElementById('protocolSelect');
+            if (protoSel && protoSel.value !== proto) protoSel.value = proto;
             currentFilteredConfigs = proto === 'all'
                 ? allConfigs
                 : allConfigs.filter(cfg => (cfg.protocol || '').toLowerCase() === proto);
@@ -3884,6 +4006,7 @@ var qrcode = function() {
 
             configs.slice(0, 30).forEach((cfg) => {
                 const id = cfg._id;
+                const fav = isFavorite(cfg.config);
                 html += `
           <div class="config-item" data-id="${id}">
             <div class="cfg-meta">
@@ -3896,6 +4019,7 @@ var qrcode = function() {
             <button class="copy-btn" onclick="copyText('${cfg.config.replace(/'/g, "\\'")}')">✦ کپی ✦</button>
             <button class="ping-mini" onclick="testPing(${id})">🏓 تست این کانفیگ</button>
             <button class="qr-btn" onclick="showQr(${id})">📱 QR کد</button>
+            <button class="star-btn${fav ? ' active' : ''}" id="star-${id}" onclick="toggleFavorite(${id})">${fav ? '⭐ در علاقه‌مندی‌ها' : '☆ افزودن به علاقه‌مندی‌ها'}</button>
           </div>
         `;
             });
@@ -4246,11 +4370,15 @@ var qrcode = function() {
         // =====================================================
         function showQr(id) {
             const cfg = configById.get(id);
+            if (!cfg) return;
+            showQrForConfig(cfg.config);
+        }
+        function showQrForConfig(configStr) {
             const wrap = document.getElementById('qrCanvasWrap');
-            if (!cfg || !wrap) return;
+            if (!wrap) return;
             try {
                 const qr = qrcode(0, 'L');
-                qr.addData(cfg.config);
+                qr.addData(configStr);
                 qr.make();
                 wrap.innerHTML = qr.createSvgTag(5, 8);
             } catch (e) {
@@ -4261,6 +4389,106 @@ var qrcode = function() {
         function closeQrModal() {
             document.getElementById('qrModalOverlay').classList.remove('open');
         }
+
+        // =====================================================
+        // ===== علاقه‌مندی‌ها (ذخیره‌ی دائمی در همین مرورگر) =====
+        // =====================================================
+        const FAV_STORAGE_KEY = 'gameizeh_favorites';
+        let favoritesCache = [];
+
+        function loadFavoritesFromStorage() {
+            try {
+                favoritesCache = JSON.parse(localStorage.getItem(FAV_STORAGE_KEY) || '[]');
+                if (!Array.isArray(favoritesCache)) favoritesCache = [];
+            } catch (e) {
+                favoritesCache = [];
+            }
+        }
+        function persistFavorites() {
+            try { localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(favoritesCache)); } catch (e) {}
+        }
+        function isFavorite(configStr) {
+            return favoritesCache.some(f => f.config === configStr);
+        }
+        function updateFavCountBadge() {
+            const el = document.getElementById('favCount');
+            if (el) el.textContent = favoritesCache.length;
+        }
+        function toggleFavorite(id) {
+            const cfg = configById.get(id);
+            if (!cfg) return;
+            const idx = favoritesCache.findIndex(f => f.config === cfg.config);
+            if (idx >= 0) {
+                favoritesCache.splice(idx, 1);
+                log('☆ از علاقه‌مندی‌ها حذف شد');
+            } else {
+                favoritesCache.unshift({
+                    config: cfg.config,
+                    protocol: cfg.protocol,
+                    host: cfg.host,
+                    port: cfg.port,
+                    addedAt: Date.now()
+                });
+                log('⭐ به علاقه‌مندی‌ها اضافه شد');
+            }
+            persistFavorites();
+            updateFavCountBadge();
+
+            const starBtn = document.getElementById('star-' + id);
+            if (starBtn) {
+                const nowFav = isFavorite(cfg.config);
+                starBtn.classList.toggle('active', nowFav);
+                starBtn.textContent = nowFav ? '⭐ در علاقه‌مندی‌ها' : '☆ افزودن به علاقه‌مندی‌ها';
+            }
+        }
+        function openFavoritesModal() {
+            renderFavoritesList();
+            document.getElementById('favModalOverlay').classList.add('open');
+        }
+        function closeFavoritesModal() {
+            document.getElementById('favModalOverlay').classList.remove('open');
+        }
+        function renderFavoritesList() {
+            const wrap = document.getElementById('favList');
+            if (!wrap) return;
+            if (!favoritesCache.length) {
+                wrap.innerHTML = '<div class="fav-empty">هنوز کانفیگی به علاقه‌مندی‌ها اضافه نکردی ✦ روی دکمه‌ی «☆ افزودن به علاقه‌مندی‌ها» کنار هر کانفیگ بزن. این لیست توی همین مرورگر ذخیره می‌مونه و دفعه‌ی بعد هم هست.</div>';
+                return;
+            }
+            let html = '';
+            favoritesCache.forEach((f, idx) => {
+                const dateStr = new Date(f.addedAt).toLocaleDateString('fa-IR');
+                html += `
+          <div class="fav-item">
+            <div class="fav-item-meta">
+              <span class="tag protocol">${f.protocol}</span>
+              <span class="tag host">${f.host}:${f.port}</span>
+              <span class="tag" style="opacity:.55;">${dateStr}</span>
+            </div>
+            <div class="fav-item-text">${f.config}</div>
+            <div class="fav-item-actions">
+              <button onclick="copyText('${f.config.replace(/'/g, "\\'")}')">✦ کپی</button>
+              <button onclick="showQrForConfig('${f.config.replace(/'/g, "\\'")}')">📱 QR</button>
+              <button class="fav-remove" onclick="removeFavoriteAt(${idx})">🗑️ حذف</button>
+            </div>
+          </div>
+        `;
+            });
+            wrap.innerHTML = html;
+        }
+        function removeFavoriteAt(idx) {
+            favoritesCache.splice(idx, 1);
+            persistFavorites();
+            updateFavCountBadge();
+            renderFavoritesList();
+            // اگر همین کانفیگ توی نتایج فعلی هم نمایش داده شده، وضعیت ستاره‌اش رو به‌روز کن
+            if (currentFilteredConfigs && currentFilteredConfigs.length) {
+                renderConfigs(currentFilteredConfigs);
+            }
+        }
+
+        loadFavoritesFromStorage();
+        updateFavCountBadge();
     </script>
 </body>
 </html>
