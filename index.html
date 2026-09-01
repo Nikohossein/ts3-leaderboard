@@ -1476,17 +1476,6 @@
                 { text: '❤️ با حمایت مالی از پروژه، ما را قوی‌تر کن: daramet.com/GameIzeh', cls: 'gold' }
             ];
         }
-        function renderTicker() {
-            const track = document.getElementById('tickerTrack');
-            const items = getTickerItems();
-            let html = '';
-            items.forEach(it => {
-                html += `<span class="ticker-item ${it.cls}">${it.text}</span>`;
-            });
-            track.innerHTML = html;
-            layoutTicker();
-        }
-
         let tickerAnimHandle = null;
         function layoutTicker() {
             const wrap = document.querySelector('.ticker-wrap');
@@ -1501,6 +1490,12 @@
             const wrapWidth = wrap.clientWidth;
             const trackWidth = track.scrollWidth;
 
+            // روی موبایل ممکنه لایه هنوز اندازه‌گیری نشده باشه (عرض صفر) -> دوباره تلاش کن
+            if (wrapWidth < 5 || trackWidth < 5) {
+                setTimeout(layoutTicker, 150);
+                return;
+            }
+
             const speedPxPerSec = 95;      // سرعت حرکت
             const pauseSeconds = 5;        // مکث بعد از هر عبور کامل
             const travelDistance = wrapWidth + trackWidth;
@@ -1508,7 +1503,11 @@
             const totalDuration = travelDuration + pauseSeconds;
             const travelOffset = travelDuration / totalDuration;
 
-            if (typeof track.animate !== 'function') return; // مرورگرهای خیلی قدیمی
+            if (typeof track.animate !== 'function') {
+                // مرورگرهای خیلی قدیمی: حداقل نمایش ثابت با اسکرول افقی دستی
+                track.style.transform = 'translateX(0px)';
+                return;
+            }
 
             tickerAnimHandle = track.animate(
                 [
@@ -1524,11 +1523,38 @@
             );
         }
 
+        function renderTicker() {
+            const track = document.getElementById('tickerTrack');
+            const items = getTickerItems();
+            let html = '';
+            items.forEach(it => {
+                html += `<span class="ticker-item ${it.cls}">${it.text}</span>`;
+            });
+            track.innerHTML = html;
+
+            // اجرای layout بعد از اینکه مرورگر واقعاً صفحه رو چید (مخصوصاً روی موبایل)
+            requestAnimationFrame(() => {
+                requestAnimationFrame(layoutTicker);
+            });
+        }
+
         let tickerResizeTimeout = null;
-        window.addEventListener('resize', () => {
+        function scheduleTickerRelayout() {
             clearTimeout(tickerResizeTimeout);
-            tickerResizeTimeout = setTimeout(layoutTicker, 300);
-        });
+            tickerResizeTimeout = setTimeout(layoutTicker, 250);
+        }
+        window.addEventListener('resize', scheduleTickerRelayout);
+        window.addEventListener('orientationchange', scheduleTickerRelayout);
+        window.addEventListener('load', scheduleTickerRelayout);
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(scheduleTickerRelayout);
+        }
+        if (typeof ResizeObserver !== 'undefined') {
+            const tickerWrapEl = document.querySelector('.ticker-wrap');
+            if (tickerWrapEl) {
+                new ResizeObserver(scheduleTickerRelayout).observe(tickerWrapEl);
+            }
+        }
 
         renderTicker();
 
@@ -1536,16 +1562,22 @@
         // ===== IP تمیز بر اساس کشور =====
         // =====================================================
         const CLEAN_IP_COUNTRIES = {
-            AE: 'امارات', AF: 'افغانستان', AL: 'آلبانی', AM: 'ارمنستان', AO: 'آنگولا',
-            AR: 'آرژانتین', AT: 'اتریش', AU: 'استرالیا', AZ: 'آذربایجان', BA: 'بوسنی',
-            BD: 'بنگلادش', BE: 'بلژیک', BG: 'بلغارستان', BH: 'بحرین', BO: 'بولیوی',
-            BR: 'برزیل', CA: 'کانادا', CH: 'سوئیس', CL: 'شیلی', CN: 'چین',
-            CO: 'کلمبیا', CY: 'قبرس', CZ: 'چک', DE: 'آلمان', DK: 'دانمارک',
-            DZ: 'الجزایر', EE: 'استونی', EG: 'مصر', ES: 'اسپانیا', FI: 'فنلاند',
-            FR: 'فرانسه', GB: 'انگلستان', GE: 'گرجستان', GR: 'یونان', HK: 'هنگ‌کنگ',
-            HR: 'کرواسی', HU: 'مجارستان', ID: 'اندونزی', IE: 'ایرلند', IL: 'اسرائیل',
-            IN: 'هند', IQ: 'عراق', IR: 'ایران', IS: 'ایسلند', IT: 'ایتالیا',
-            JM: 'جامائیکا', JO: 'اردن', JP: 'ژاپن', KE: 'کنیا'
+            AA: 'متفرقه', AE: 'امارات', AF: 'افغانستان', AL: 'آلبانی', AM: 'ارمنستان',
+            AO: 'آنگولا', AR: 'آرژانتین', AT: 'اتریش', AU: 'استرالیا', AZ: 'آذربایجان',
+            BA: 'بوسنی و هرزگوین', BB: 'باربادوس', BD: 'بنگلادش', BE: 'بلژیک', BF: 'بورکینافاسو',
+            BG: 'بلغارستان', BH: 'بحرین', BI: 'بوروندی', BJ: 'بنین', BO: 'بولیوی',
+            BR: 'برزیل', BS: 'باهاما', BT: 'بوتان', BW: 'بوتسوانا', BY: 'بلاروس',
+            BZ: 'بلیز', CA: 'کانادا', CD: 'کنگو (دموکراتیک)', CG: 'کنگو', CH: 'سوئیس',
+            CI: 'ساحل عاج', CL: 'شیلی', CM: 'کامرون', CN: 'چین', CO: 'کلمبیا',
+            CR: 'کاستاریکا', CW: 'کوراسائو', CY: 'قبرس', CZ: 'چک', DE: 'آلمان',
+            DK: 'دانمارک', DO: 'جمهوری دومینیکن', DZ: 'الجزایر', EC: 'اکوادور', EE: 'استونی',
+            EG: 'مصر', ES: 'اسپانیا', FI: 'فنلاند', FR: 'فرانسه', GA: 'گابن',
+            GB: 'انگلستان', GE: 'گرجستان', GH: 'غنا', GM: 'گامبیا', GN: 'گینه',
+            GQ: 'گینه استوایی', GR: 'یونان', GT: 'گواتمالا', GU: 'گوام', HK: 'هنگ‌کنگ',
+            HN: 'هندوراس', HR: 'کرواسی', HT: 'هائیتی', HU: 'مجارستان', ID: 'اندونزی',
+            IE: 'ایرلند', IL: 'اسرائیل', IN: 'هند', IQ: 'عراق', IR: 'ایران',
+            IS: 'ایسلند', IT: 'ایتالیا', JM: 'جامائیکا', JO: 'اردن', JP: 'ژاپن',
+            KE: 'کنیا', KG: 'قرقیزستان'
         };
         function populateCountrySelect() {
             const sel = document.getElementById('countrySelect');
