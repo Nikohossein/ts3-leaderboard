@@ -391,6 +391,117 @@
                 transform: scaleY(1);
             }
         }
+        .music-track-count {
+            font-size: 9.5px;
+            color: rgba(255, 255, 255, 0.25);
+            display: block;
+            margin-top: 1px;
+        }
+
+        /* ===== مودال پلی‌لیست ===== */
+        .playlist-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 4, 14, 0.85);
+            backdrop-filter: blur(6px);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .playlist-modal-overlay.open {
+            display: flex;
+        }
+        .playlist-modal {
+            background: linear-gradient(160deg, #14142b, #0a0a1a);
+            border: 1px solid rgba(167, 139, 250, 0.25);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 420px;
+            width: 100%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+        .playlist-modal-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        .playlist-list {
+            overflow-y: auto;
+            max-height: 55vh;
+            margin-bottom: 14px;
+        }
+        .playlist-track {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            margin-bottom: 6px;
+            transition: all 0.15s;
+        }
+        .playlist-track:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .playlist-track.playing {
+            background: rgba(167, 139, 250, 0.12);
+            border-color: rgba(167, 139, 250, 0.25);
+        }
+        .playlist-track-num {
+            width: 22px;
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+            flex-shrink: 0;
+        }
+        .playlist-track.playing .playlist-track-num {
+            color: #a78bfa;
+        }
+        .playlist-track-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .playlist-track-title {
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.85);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .playlist-track-artist {
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.35);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .playlist-track-playicon {
+            font-size: 14px;
+            color: #a78bfa;
+            flex-shrink: 0;
+        }
+        .playlist-close-btn {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 8px 20px;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            align-self: center;
+        }
+        .playlist-close-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
 
         /* ===== دکمه‌ها ===== */
         .btn-group {
@@ -1305,20 +1416,32 @@
                 <div class="music-info">
                     <div class="music-icon">🎵</div>
                     <div class="music-title">
-                        <span class="music-shimmer">♪ Velet - Roman Olur ♪</span>
-                        <span style="-webkit-text-fill-color:rgba(255,255,255,0.2);font-size:10px;display:block;font-weight:300;">✦ Sevil Music ✦</span>
+                        <span class="music-shimmer" id="trackTitleEl">♪ Velet - Roman Olur ♪</span>
+                        <span class="music-track-count" id="trackSubtitleEl">✦ Sevil Music ✦</span>
                     </div>
                 </div>
                 <div class="music-controls">
                     <div class="music-wave">
                         <span></span><span></span><span></span><span></span><span></span>
                     </div>
+                    <button class="music-btn" onclick="prevTrack()" title="آهنگ قبلی">⏮</button>
                     <button class="music-btn" id="playBtn" onclick="toggleMusic()" title="Play/Pause">▶</button>
+                    <button class="music-btn" onclick="nextTrack()" title="آهنگ بعدی">⏭</button>
+                    <button class="music-btn" onclick="openPlaylistModal()" title="پلی‌لیست">📜</button>
                     <button class="music-btn" onclick="restartMusic()" title="Restart">⟳</button>
                     <div class="music-volume">
                         <span style="color:rgba(255,255,255,0.2);font-size:12px;">🔊</span>
                         <input type="range" min="0" max="1" step="0.01" value="0.5" id="volumeSlider" oninput="setVolume(this.value)">
                     </div>
+                </div>
+            </div>
+
+            <!-- ===== مودال پلی‌لیست ===== -->
+            <div class="playlist-modal-overlay" id="playlistModalOverlay" onclick="if(event.target===this) closePlaylistModal()">
+                <div class="playlist-modal">
+                    <div class="playlist-modal-title">📜 پلی‌لیست آهنگ‌ها</div>
+                    <div class="playlist-list" id="playlistListEl"></div>
+                    <button class="playlist-close-btn" onclick="closePlaylistModal()">بستن ✕</button>
                 </div>
             </div>
 
@@ -4095,19 +4218,55 @@ var qrcode = function() {
             });
         }
 
-        // ===== موزیک پلیر =====
+        // ===== موزیک پلیر (پلی‌لیست) =====
+        const PLAYLIST = [
+            { title: 'Roman Olur Yazsam Seni', artist: 'Velet (Sevil Music)', file: 'Velet - Roman Olur Yazsam Seni [SevilMusic].mp3' },
+            { title: 'AL NACER!', artist: 'Sayfalse, Nulteex', file: '01. Sayfalse, Nulteex - AL NACER!.mp3' },
+            { title: 'Away from Home', artist: 'Atilla Khan, Bacca Chew', file: 'Atilla Khan, Bacca Chew - Away from Home.mp3' },
+            { title: 'Bitch Better Have My Money', artist: 'Biometrix', file: 'Biometrix - Bitch Better Have My Money.mp3' },
+            { title: 'Che Danestam (Seventh Soul Remix)', artist: 'Homayoun Shajarian', file: 'Homayoun Shajarian - Che Danestam (Seventh Soul Remix) (320).mp3' },
+            { title: "I'm Good (Blue)", artist: 'David Guetta, Bebe Rexha', file: 'I m Good (Blue) - David Guetta  Bebe Rexha (320).mp3' },
+            { title: 'Moonlight Shadow', artist: 'stayus, WhiteCapMusic, Niklas Dee', file: 'Moonlight Shadow - stayus  WhiteCapMusic  Niklas Dee (320).mp3' },
+            { title: 'Lullaby', artist: 'Rauf And Faik', file: 'Rauf And Faik - Lullaby (320).mp3' },
+            { title: 'The Business', artist: 'Tiësto', file: 'The Business - Tiesto (320).mp3' },
+            { title: 'Bam Bam', artist: 'VOLB3X', file: 'VOLB3X - Bam Bam.mp3' }
+        ];
+
         let audioElement = null;
         let isPlaying = false;
         let volumeValue = 0.5;
+        let currentTrackIndex = 0;
+
+        function trackUrl(track) {
+            return 'Music/' + encodeURIComponent(track.file);
+        }
+
+        function updateTrackUI() {
+            const track = PLAYLIST[currentTrackIndex];
+            document.getElementById('trackTitleEl').textContent = '♪ ' + track.title + ' ♪';
+            document.getElementById('trackSubtitleEl').textContent =
+                '✦ ' + track.artist + ' ✦  ·  ' + (currentTrackIndex + 1) + '/' + PLAYLIST.length;
+        }
 
         function initAudio() {
             if (!audioElement) {
-                audioElement = new Audio('https://uploadkon.ir/uploads/c23130_26Velet-Roman-Olur-Yazsam-Seni-[SevilMusic].mp3');
-                audioElement.loop = true;
+                let savedIndex = 0;
+                let savedVolume = 0.5;
+                try {
+                    const si = parseInt(localStorage.getItem('gameizeh_track_index'), 10);
+                    if (!isNaN(si) && si >= 0 && si < PLAYLIST.length) savedIndex = si;
+                    const sv = parseFloat(localStorage.getItem('gameizeh_volume'));
+                    if (!isNaN(sv) && sv >= 0 && sv <= 1) savedVolume = sv;
+                } catch (e) {}
+
+                currentTrackIndex = savedIndex;
+                volumeValue = savedVolume;
+                document.getElementById('volumeSlider').value = savedVolume;
+
+                audioElement = new Audio(trackUrl(PLAYLIST[currentTrackIndex]));
                 audioElement.volume = volumeValue;
                 audioElement.addEventListener('ended', () => {
-                    audioElement.currentTime = 0;
-                    audioElement.play();
+                    nextTrack(true);
                 });
                 audioElement.addEventListener('play', () => {
                     isPlaying = true;
@@ -4119,8 +4278,37 @@ var qrcode = function() {
                     document.getElementById('playBtn').textContent = '▶';
                     document.getElementById('playBtn').classList.remove('active');
                 });
-                log('🎵 آهنگ آماده شد: Velet - Roman Olur');
+                audioElement.addEventListener('error', () => {
+                    log('⚠️ خطا در پخش «' + PLAYLIST[currentTrackIndex].title + '» — به آهنگ بعدی می‌ره');
+                    setTimeout(() => nextTrack(true), 800);
+                });
+                updateTrackUI();
+                log('🎵 پلی‌لیست آماده شد: ' + PLAYLIST.length + ' آهنگ');
             }
+        }
+
+        function loadTrack(index, autoplay) {
+            initAudio();
+            currentTrackIndex = ((index % PLAYLIST.length) + PLAYLIST.length) % PLAYLIST.length;
+            const wasPlaying = !audioElement.paused;
+            audioElement.src = trackUrl(PLAYLIST[currentTrackIndex]);
+            updateTrackUI();
+            try { localStorage.setItem('gameizeh_track_index', currentTrackIndex); } catch (e) {}
+            if (autoplay || wasPlaying) {
+                audioElement.play().catch(() => {
+                    log('⚠️ پخش خودکار مسدود شد، روی صفحه کلیک کن');
+                });
+            }
+            if (document.getElementById('playlistModalOverlay').classList.contains('open')) {
+                renderPlaylistModal();
+            }
+        }
+
+        function nextTrack(autoplay) {
+            loadTrack(currentTrackIndex + 1, autoplay !== undefined ? autoplay : true);
+        }
+        function prevTrack() {
+            loadTrack(currentTrackIndex - 1, true);
         }
 
         function toggleMusic() {
@@ -4138,7 +4326,7 @@ var qrcode = function() {
             initAudio();
             audioElement.currentTime = 0;
             if (audioElement.paused) {
-                audioElement.play().catch(e => {});
+                audioElement.play().catch(() => {});
             }
             log('⟳ آهنگ ریست شد');
         }
@@ -4148,23 +4336,44 @@ var qrcode = function() {
             if (audioElement) {
                 audioElement.volume = volumeValue;
             }
+            try { localStorage.setItem('gameizeh_volume', volumeValue); } catch (e) {}
+        }
+
+        function openPlaylistModal() {
+            initAudio();
+            renderPlaylistModal();
+            document.getElementById('playlistModalOverlay').classList.add('open');
+        }
+        function closePlaylistModal() {
+            document.getElementById('playlistModalOverlay').classList.remove('open');
+        }
+        function renderPlaylistModal() {
+            const wrap = document.getElementById('playlistListEl');
+            let html = '';
+            PLAYLIST.forEach((track, idx) => {
+                const playing = idx === currentTrackIndex;
+                html += `
+          <div class="playlist-track${playing ? ' playing' : ''}" onclick="loadTrack(${idx}, true)">
+            <div class="playlist-track-num">${playing ? '' : idx + 1}</div>
+            <div class="playlist-track-info">
+              <div class="playlist-track-title">${track.title}</div>
+              <div class="playlist-track-artist">${track.artist}</div>
+            </div>
+            ${playing ? '<div class="playlist-track-playicon">' + (isPlaying ? '🎵' : '⏸') + '</div>' : ''}
+          </div>
+        `;
+            });
+            wrap.innerHTML = html;
         }
 
         // ===== شروع خودکار با کلیک =====
         document.addEventListener('click', function firstClick() {
             initAudio();
-            if (audioElement && audioElement.paused) {
-                audioElement.play().catch(() => {});
-            }
             document.removeEventListener('click', firstClick);
         });
 
         log('✦ آماده برای سفر کهکشانی ✦');
         document.getElementById('sourceCount').textContent = '✦ ' + getSources().length + ' کهکشان منبع ✦';
-
-        setTimeout(() => {
-            log('🎵 "Velet - Roman Olur" پخش می‌شود...');
-        }, 1500);
 
         // =====================================================
         // ===== نوار تبلیغاتی متحرک (Ticker) — سرعت کاهش یافته و جهت اصلاح شده =====
