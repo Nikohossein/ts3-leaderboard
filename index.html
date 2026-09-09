@@ -900,8 +900,15 @@
                 flex-direction: column;
                 align-items: stretch;
             }
+            .toolbar-search {
+                order: -1;
+            }
             .toolbar-actions {
                 justify-content: stretch;
+            }
+            .options-row {
+                flex-direction: column;
+                align-items: stretch;
             }
             .toolbar-actions .tb-btn {
                 flex: 1;
@@ -1143,6 +1150,106 @@
             color: #34d399;
         }
 
+        /* ===== ردیف دکمه‌های راهنما/وارد کردن کانفیگ ===== */
+        .header-util-row {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .util-btn {
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 10.5px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .util-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        /* ===== ردیف تنظیمات (اسکن خودکار/کش) ===== */
+        .options-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+        }
+        .opt-check {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.55);
+            cursor: pointer;
+        }
+        .opt-check input {
+            accent-color: #7c3aed;
+        }
+
+        /* ===== راهنما / وارد کردن کانفیگ / درباره ما ===== */
+        .help-modal, .import-modal {
+            max-width: 480px;
+            max-height: 82vh;
+            overflow-y: auto;
+        }
+        .help-body {
+            text-align: right;
+            direction: rtl;
+            font-size: 12px;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.65);
+        }
+        .help-body p {
+            margin-bottom: 12px;
+        }
+        .help-body b {
+            color: #a78bfa;
+        }
+        .import-textarea {
+            width: 100%;
+            min-height: 130px;
+            background: rgba(0, 0, 0, 0.35);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            direction: ltr;
+            text-align: left;
+            resize: vertical;
+        }
+        .about-section {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-top: 14px;
+        }
+        .about-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #a78bfa;
+            margin-bottom: 8px;
+        }
+        .about-section p {
+            font-size: 11px;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
         /* ===== نوار ابزار نتایج ===== */
         .toolbar {
             display: flex;
@@ -1180,6 +1287,34 @@
             color: #fff;
             border-color: transparent;
             box-shadow: 0 3px 14px rgba(124, 58, 237, 0.4);
+        }
+        .toolbar-search {
+            display: flex;
+            gap: 8px;
+            flex: 1;
+            min-width: 180px;
+            flex-wrap: wrap;
+        }
+        .toolbar-search input[type="text"] {
+            flex: 1;
+            min-width: 140px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 12px;
+        }
+        .toolbar-search select {
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-family: inherit;
+            font-size: 12px;
+            max-width: 180px;
         }
         .toolbar-actions {
             display: flex;
@@ -1364,8 +1499,151 @@
             border-color: rgba(239, 68, 68, 0.2);
         }
     </style>
+    <style id="gz-theme-overrides">
+        /* =====================================================
+           ===== سیستم ۶ تم قابل انتخاب (Cosmic / Galaxy) =====
+           پیش‌فرض (بدون data-theme) همون تم اصلی/فعلی سایته.
+           هر تم فقط رنگ‌های اصلی (پس‌زمینه، گلوی کارت، عنوان،
+           دکمه‌ها، نوار پیشرفت و تگ‌ها) رو بازنویسی می‌کنه، بدون
+           اینکه به ساختار و چیدمان اصلی دست بزنه.
+           ===================================================== */
+
+        /* --- ۲) نئون سایان (آبی/فیروزه‌ای) --- */
+        html[data-theme="cyan"] .galaxy-bg {
+            background: radial-gradient(ellipse at 20% 50%, rgba(0, 200, 255, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 255, 200, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(0, 120, 255, 0.1) 0%, transparent 50%), #060d14;
+        }
+        html[data-theme="cyan"] .card { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(0, 200, 255, 0.08); }
+        html[data-theme="cyan"] .card::before { background: conic-gradient(from 0deg, transparent, rgba(0,200,255,0.05), transparent, rgba(0,255,200,0.05), transparent); }
+        html[data-theme="cyan"] .gameizeh-title { background: linear-gradient(90deg, #22d3ee, #38bdf8, #67e8f9, #06b6d4, #38bdf8, #22d3ee); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
+        html[data-theme="cyan"] .btn-primary { background: linear-gradient(135deg, #0891b2, #0284c7); box-shadow: 0 4px 25px rgba(8,145,178,0.35); }
+        html[data-theme="cyan"] .progress-bar { background: linear-gradient(90deg, #22d3ee, #38bdf8, #67e8f9, #06b6d4, #22d3ee); background-size: 300% 100%; }
+        html[data-theme="cyan"] .tag.protocol { background: rgba(34,211,238,0.15); color: #22d3ee; border-color: rgba(34,211,238,0.15); }
+        html[data-theme="cyan"] .music-btn.active, html[data-theme="cyan"] .music-btn:hover { color: #22d3ee; background: rgba(34,211,238,0.15); border-color: rgba(34,211,238,0.2); }
+
+        /* --- ۳) شعله‌ی خورشیدی (نارنجی/طلایی) --- */
+        html[data-theme="ember"] .galaxy-bg {
+            background: radial-gradient(ellipse at 20% 50%, rgba(255, 130, 0, 0.16) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 60, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(255, 200, 0, 0.08) 0%, transparent 50%), #140a05;
+        }
+        html[data-theme="ember"] .card { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(255,130,0,0.08); }
+        html[data-theme="ember"] .card::before { background: conic-gradient(from 0deg, transparent, rgba(255,130,0,0.05), transparent, rgba(255,200,0,0.05), transparent); }
+        html[data-theme="ember"] .gameizeh-title { background: linear-gradient(90deg, #fb923c, #f97316, #facc15, #ef4444, #f97316, #fb923c); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
+        html[data-theme="ember"] .btn-primary { background: linear-gradient(135deg, #ea580c, #dc2626); box-shadow: 0 4px 25px rgba(234,88,12,0.35); }
+        html[data-theme="ember"] .progress-bar { background: linear-gradient(90deg, #fb923c, #f97316, #facc15, #ef4444, #fb923c); background-size: 300% 100%; }
+        html[data-theme="ember"] .tag.protocol { background: rgba(251,146,60,0.15); color: #fb923c; border-color: rgba(251,146,60,0.15); }
+        html[data-theme="ember"] .music-btn.active, html[data-theme="ember"] .music-btn:hover { color: #fb923c; background: rgba(251,146,60,0.15); border-color: rgba(251,146,60,0.2); }
+
+        /* --- ۴) ماتریکس زمردی (سبز) --- */
+        html[data-theme="emerald"] .galaxy-bg {
+            background: radial-gradient(ellipse at 20% 50%, rgba(0, 255, 130, 0.14) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 255, 60, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(120, 255, 0, 0.06) 0%, transparent 50%), #05140a;
+        }
+        html[data-theme="emerald"] .card { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(0,255,130,0.07); }
+        html[data-theme="emerald"] .card::before { background: conic-gradient(from 0deg, transparent, rgba(0,255,130,0.05), transparent, rgba(120,255,0,0.05), transparent); }
+        html[data-theme="emerald"] .gameizeh-title { background: linear-gradient(90deg, #34d399, #4ade80, #a3e635, #10b981, #4ade80, #34d399); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
+        html[data-theme="emerald"] .btn-primary { background: linear-gradient(135deg, #059669, #16a34a); box-shadow: 0 4px 25px rgba(5,150,105,0.35); }
+        html[data-theme="emerald"] .progress-bar { background: linear-gradient(90deg, #34d399, #4ade80, #a3e635, #10b981, #34d399); background-size: 300% 100%; }
+        html[data-theme="emerald"] .tag.protocol { background: rgba(52,211,153,0.15); color: #34d399; border-color: rgba(52,211,153,0.15); }
+        html[data-theme="emerald"] .music-btn.active, html[data-theme="emerald"] .music-btn:hover { color: #34d399; background: rgba(52,211,153,0.15); border-color: rgba(52,211,153,0.2); }
+
+        /* --- ۵) نواِ سرخ (قرمز/صورتی) --- */
+        html[data-theme="crimson"] .galaxy-bg {
+            background: radial-gradient(ellipse at 20% 50%, rgba(255, 0, 90, 0.16) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 0, 150, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(150, 0, 60, 0.08) 0%, transparent 50%), #12040a;
+        }
+        html[data-theme="crimson"] .card { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(255,0,90,0.08); }
+        html[data-theme="crimson"] .card::before { background: conic-gradient(from 0deg, transparent, rgba(255,0,90,0.05), transparent, rgba(255,0,150,0.05), transparent); }
+        html[data-theme="crimson"] .gameizeh-title { background: linear-gradient(90deg, #fb7185, #f43f5e, #ec4899, #e11d48, #f43f5e, #fb7185); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
+        html[data-theme="crimson"] .btn-primary { background: linear-gradient(135deg, #be123c, #9d174d); box-shadow: 0 4px 25px rgba(190,18,60,0.35); }
+        html[data-theme="crimson"] .progress-bar { background: linear-gradient(90deg, #fb7185, #f43f5e, #ec4899, #e11d48, #fb7185); background-size: 300% 100%; }
+        html[data-theme="crimson"] .tag.protocol { background: rgba(251,113,133,0.15); color: #fb7185; border-color: rgba(251,113,133,0.15); }
+        html[data-theme="crimson"] .music-btn.active, html[data-theme="crimson"] .music-btn:hover { color: #fb7185; background: rgba(251,113,133,0.15); border-color: rgba(251,113,133,0.2); }
+
+        /* --- ۶) آرورای اقیانوسی (بنفش/فیروزه‌ای ترکیبی) --- */
+        html[data-theme="aurora"] .galaxy-bg {
+            background: radial-gradient(ellipse at 20% 50%, rgba(0, 255, 200, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(120, 0, 255, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(0, 150, 255, 0.08) 0%, transparent 50%), #050e12;
+        }
+        html[data-theme="aurora"] .card { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(0,255,200,0.07); }
+        html[data-theme="aurora"] .card::before { background: conic-gradient(from 0deg, transparent, rgba(0,255,200,0.05), transparent, rgba(120,0,255,0.05), transparent); }
+        html[data-theme="aurora"] .gameizeh-title { background: linear-gradient(90deg, #2dd4bf, #818cf8, #34d399, #6366f1, #2dd4bf); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
+        html[data-theme="aurora"] .btn-primary { background: linear-gradient(135deg, #0d9488, #4f46e5); box-shadow: 0 4px 25px rgba(13,148,136,0.35); }
+        html[data-theme="aurora"] .progress-bar { background: linear-gradient(90deg, #2dd4bf, #818cf8, #34d399, #6366f1, #2dd4bf); background-size: 300% 100%; }
+        html[data-theme="aurora"] .tag.protocol { background: rgba(45,212,191,0.15); color: #2dd4bf; border-color: rgba(45,212,191,0.15); }
+        html[data-theme="aurora"] .music-btn.active, html[data-theme="aurora"] .music-btn:hover { color: #2dd4bf; background: rgba(45,212,191,0.15); border-color: rgba(45,212,191,0.2); }
+
+        /* --- دکمه‌ی شناور انتخاب تم --- */
+        .theme-fab {
+            position: fixed;
+            left: 18px;
+            bottom: 18px;
+            z-index: 999;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            transition: transform 0.25s ease;
+        }
+        .theme-fab:hover { transform: scale(1.1) rotate(20deg); }
+        .theme-panel {
+            position: fixed;
+            left: 18px;
+            bottom: 78px;
+            z-index: 999;
+            background: rgba(15,15,30,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px;
+            padding: 14px;
+            display: none;
+            gap: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+        .theme-panel.open { display: grid; grid-template-columns: repeat(3, 1fr); }
+        .theme-swatch {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.15);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .theme-swatch:hover { transform: scale(1.12); }
+        .theme-swatch.active { border-color: #fff; box-shadow: 0 0 0 2px rgba(255,255,255,0.3); }
+        .theme-swatch[data-t="default"] { background: linear-gradient(135deg,#7c3aed,#48dbfb); }
+        .theme-swatch[data-t="cyan"] { background: linear-gradient(135deg,#0891b2,#22d3ee); }
+        .theme-swatch[data-t="ember"] { background: linear-gradient(135deg,#ea580c,#facc15); }
+        .theme-swatch[data-t="emerald"] { background: linear-gradient(135deg,#059669,#a3e635); }
+        .theme-swatch[data-t="crimson"] { background: linear-gradient(135deg,#be123c,#ec4899); }
+        .theme-swatch[data-t="aurora"] { background: linear-gradient(135deg,#0d9488,#4f46e5); }
+    </style>
 </head>
 <body>
+    <div class="theme-fab" id="themeFab" onclick="toggleThemePanel()" title="تغییر تم">🎨</div>
+    <div class="theme-panel" id="themePanel">
+        <div class="theme-swatch" data-t="default" title="کیهانی (پیش‌فرض)" onclick="setTheme('default')"></div>
+        <div class="theme-swatch" data-t="cyan" title="نئون سایان" onclick="setTheme('cyan')"></div>
+        <div class="theme-swatch" data-t="ember" title="شعله‌ی خورشیدی" onclick="setTheme('ember')"></div>
+        <div class="theme-swatch" data-t="emerald" title="ماتریکس زمردی" onclick="setTheme('emerald')"></div>
+        <div class="theme-swatch" data-t="crimson" title="نوای سرخ" onclick="setTheme('crimson')"></div>
+        <div class="theme-swatch" data-t="aurora" title="آرورای اقیانوسی" onclick="setTheme('aurora')"></div>
+    </div>
 
     <!-- ===== کهکشان ===== -->
     <div class="galaxy-bg"></div>
@@ -1392,6 +1670,10 @@
                 </div>
                 <div class="gameizeh-sub" style="font-size:10px;letter-spacing:3px;margin-top:2px;color:rgba(255,255,255,0.15);">
                     ⚡ V2Ray Config Finder ⚡
+                </div>
+                <div class="header-util-row">
+                    <button class="util-btn" onclick="openHelpModal()">❓ راهنما</button>
+                    <button class="util-btn" onclick="openImportModal()">➕ وارد کردن کانفیگ</button>
                 </div>
             </div>
 
@@ -1467,7 +1749,14 @@
                     <option value="ss">Shadowsocks (SS)</option>
                 </select>
                 <button class="cleanip-btn" id="cleanIpBtn" onclick="applyCleanIp()">⚡ اعمال IP تمیز</button>
+                <button class="cleanip-btn" style="background:linear-gradient(135deg,#059669,#10b981);margin-right:8px;" onclick="downloadCleanIpPool()">📥 دانلود لیست کامل IP تمیز (ALL.txt)</button>
                 <button class="test-btn" id="testAllBtn" onclick="testAllPing()">🏓 تست پینگ همه</button>
+            </div>
+
+            <div class="options-row">
+                <label class="opt-check"><input type="checkbox" id="autoScanCheck" onchange="toggleAutoScan(this.checked)"> 🔄 اسکن خودکار (هر ۱۰ دقیقه)</label>
+                <label class="opt-check"><input type="checkbox" id="useCacheCheck" checked onchange="useCache = this.checked"> 📦 استفاده از کش</label>
+                <button class="tb-btn" onclick="clearAllCache()">🧹 پاک‌کردن کش</button>
             </div>
 
             <div class="btn-group">
@@ -1488,6 +1777,10 @@
                     <button class="chip" data-proto="vmess" onclick="setProtocolFilter('vmess')">VMESS</button>
                     <button class="chip" data-proto="trojan" onclick="setProtocolFilter('trojan')">Trojan</button>
                     <button class="chip" data-proto="ss" onclick="setProtocolFilter('ss')">SS</button>
+                </div>
+                <div class="toolbar-search">
+                    <input type="text" id="searchInput" placeholder="🔍 جستجو (نام، هاست، پرچم کشور...)" oninput="setSearchFilter(this.value)">
+                    <select id="countryFilterSelect" onchange="setCountryFilter(this.value)" style="display:none;"></select>
                 </div>
                 <div class="toolbar-actions">
                     <button class="tb-btn" onclick="copyAllShown()">📋 کپی همه</button>
@@ -1516,8 +1809,49 @@
                 </div>
             </div>
 
+            <!-- ===== مودال راهنما ===== -->
+            <div class="qr-modal-overlay" id="helpModalOverlay" onclick="if(event.target===this) closeHelpModal()">
+                <div class="qr-modal help-modal">
+                    <div class="qr-modal-title">❓ راهنمای استفاده از GameIzeh</div>
+                    <div class="help-body">
+                        <p><b>۱. دریافت کانفیگ‌ها 🚀</b><br>روی «دریافت کانفیگ‌ها» بزن تا از چند ده منبع رایگان و معتبر، کانفیگ‌های V2Ray جمع‌آوری بشه. این کار موازی انجام می‌شه و معمولاً چند ثانیه بیشتر طول نمی‌کشه.</p>
+                        <p><b>۲. فیلتر و جستجو 🔍</b><br>بعد از دریافت، می‌تونی با چیپ‌های بالای نتایج فقط یه پروتکل خاص (VLESS/VMESS/Trojan/SS) رو ببینی، توی کادر جستجو اسم/هاست/کشور رو تایپ کنی، یا از دراپ‌داون کشور برای فیلتر بر اساس پرچم کشور استفاده کنی.</p>
+                        <p><b>۳. IP تمیز ⚡</b><br>یه کشور از دراپ‌داون انتخاب کن و «اعمال IP تمیز» رو بزن تا آدرس کانفیگ‌ها با یه IP تمیز از همون کشور جایگزین بشه (برای دورزدن فیلترینگ روی CDN).</p>
+                        <p><b>۴. تست پینگ 🏓</b><br>هر کانفیگ دکمه‌ی تست جدا داره، یا با «تست پینگ همه» همه‌ی کانفیگ‌های نمایش داده‌شده رو یه‌جا تست کن. بعدش می‌تونی با «مرتب‌سازی بر اساس سرعت» سریع‌ترین‌ها رو بالا بیاری.</p>
+                        <p><b>۵. کپی / QR / علاقه‌مندی ⭐</b><br>هر کانفیگ رو می‌تونی کپی کنی، QR کدش رو برای اسکن با اپلیکیشن موبایل (v2rayNG، Shadowrocket و...) باز کنی، یا با زدن ☆ به لیست علاقه‌مندی‌هات اضافه کنی (این لیست توی مرورگرت ذخیره می‌مونه).</p>
+                        <p><b>۶. وارد کردن کانفیگ ➕</b><br>اگه خودت کانفیگ یا لینک ساب‌اسکریپشن داری، از دکمه‌ی «وارد کردن کانفیگ» بالای صفحه استفاده کن.</p>
+                        <p><b>۷. اسکن خودکار 🔄</b><br>با فعال کردن این گزینه، هر ۱۰ دقیقه یه‌بار خودش دوباره کانفیگ‌ها رو تازه می‌کنه.</p>
+                    </div>
+                    <button class="qr-close-btn" onclick="closeHelpModal()">بستن ✕</button>
+                </div>
+            </div>
+
+            <!-- ===== مودال وارد کردن کانفیگ ===== -->
+            <div class="qr-modal-overlay" id="importModalOverlay" onclick="if(event.target===this) closeImportModal()">
+                <div class="qr-modal import-modal">
+                    <div class="qr-modal-title">➕ وارد کردن کانفیگ دستی</div>
+                    <div class="help-body" style="font-size:11px;margin-bottom:10px;">
+                        یا یه لینک ساب‌اسکریپشن (http/https) بذار، یا یک یا چند کانفیگ (vless / vmess / trojan / ss) رو هرکدوم توی یه خط جدا پیست کن.
+                    </div>
+                    <textarea id="importTextarea" class="import-textarea" placeholder="https://example.com/sub.txt&#10;یا&#10;vless://...&#10;vmess://...&#10;trojan://..."></textarea>
+                    <button class="cleanip-btn" id="importBtn" onclick="handleImport()" style="margin-top:10px;">✅ افزودن به لیست</button>
+                    <button class="qr-close-btn" onclick="closeImportModal()" style="margin-top:8px;">بستن ✕</button>
+                </div>
+            </div>
+
             <div class="log-box" id="log">✦ آماده برای سفر کهکشانی ...</div>
             <div class="source-count" id="sourceCount"></div>
+
+            <!-- ===== درباره ما ===== -->
+            <div class="about-section">
+                <div class="about-title">ℹ️ درباره‌ی GameIzeh</div>
+                <p>
+                    GameIzeh یه پروژه‌ی غیرانتفاعیه که با هدف دسترسی آزاد و بدون فیلتر به اینترنت برای همه ساخته شده.
+                    ما کانفیگ‌های V2Ray رو از منابع رایگان و متن‌باز جمع‌آوری می‌کنیم و بدون نیاز به ثبت‌نام یا پرداخت
+                    در اختیار همه می‌ذاریم. این ابزار توسط یه تیم کوچیک و علاقه‌مند به آزادی اطلاعات نگه‌داری می‌شه؛
+                    اگه این پروژه به دردت خورد و خواستی کمک کنی قوی‌تر بشه، از دکمه‌ی حمایت بالای صفحه استفاده کن.
+                </p>
+            </div>
 
             <div style="text-align:center;margin-top:16px;color:rgba(255,255,255,0.05);font-size:9px;letter-spacing:2px;position:relative;z-index:2;">
                 ⚡ GameIzeh.ir · TeamSpeak 3 Community ⚡
@@ -3903,12 +4237,18 @@ var qrcode = function() {
             configById = new Map();
             currentFilteredConfigs = [];
             currentProtocolFilter = 'all';
+            currentSearchText = '';
+            currentCountryFlag = '';
             pingResults = {};
             document.getElementById('result').innerHTML = '';
             document.getElementById('resultToolbar').style.display = 'none';
             document.getElementById('fetchTimer').style.display = 'none';
             document.getElementById('log').textContent = '✦ پاک شد ...';
             document.getElementById('sourceCount').textContent = '';
+            const searchEl = document.getElementById('searchInput');
+            if (searchEl) searchEl.value = '';
+            const countryFilterEl = document.getElementById('countryFilterSelect');
+            if (countryFilterEl) { countryFilterEl.innerHTML = ''; countryFilterEl.style.display = 'none'; }
             updateProgress(0);
         }
 
@@ -3948,28 +4288,294 @@ var qrcode = function() {
             ];
         }
 
-        // ===== دریافت با پروکسی =====
-        async function fetchWithProxy(url) {
-            const proxies = [
-                'https://api.allorigins.win/raw?url=',
-                'https://corsproxy.io/?',
-                'https://cors-anywhere.herokuapp.com/'
+        // =====================================================
+        // ===== ابزارهای کمکی دریافت (Timeout + کش + موازی) =====
+        // =====================================================
+        const CACHE_TTL_MS = 20 * 60 * 1000; // ۲۰ دقیقه
+        const FETCH_TIMEOUT_MS = 9000;
+        let useCache = true;
+        let sourceFailReasons = {};
+
+        function cacheKey(url) {
+            return 'gz_cache_' + url;
+        }
+        function getCached(url) {
+            if (!useCache) return null;
+            try {
+                const raw = localStorage.getItem(cacheKey(url));
+                if (!raw) return null;
+                const obj = JSON.parse(raw);
+                if (Date.now() - obj.ts > CACHE_TTL_MS) return null;
+                return obj.text;
+            } catch (e) { return null; }
+        }
+        function setCached(url, text) {
+            try {
+                localStorage.setItem(cacheKey(url), JSON.stringify({ text: text, ts: Date.now() }));
+            } catch (e) { /* فضای ذخیره‌سازی پره، مشکلی نیست */ }
+        }
+        function clearAllCache() {
+            try {
+                const keys = Object.keys(localStorage).filter(k => k.startsWith('gz_cache_'));
+                keys.forEach(k => localStorage.removeItem(k));
+                log('🧹 کش پاک شد (' + keys.length + ' منبع)');
+            } catch (e) {}
+        }
+
+        async function fetchOne(url, timeoutMs) {
+            const controller = new AbortController();
+            const t = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                const res = await fetch(url, { signal: controller.signal, cache: 'no-store' });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const text = await res.text();
+                if (!text || text.trim().length < 10) throw new Error('محتوای خالی');
+                return text;
+            } finally {
+                clearTimeout(t);
+            }
+        }
+
+        // اگه لینک از raw.githubusercontent.com یا github.com/.../raw/... باشه، یه
+        // آینه‌ی jsDelivr هم می‌سازیم. jsDelivr یه CDN با CORS بازه و معمولاً به‌مراتب
+        // سریع‌تر و پایدارتر از پروکسی‌های عمومی (allorigins/corsproxy/codetabs) عمل
+        // می‌کنه، پس اون رو به‌عنوان اولین و سریع‌ترین جایگزین امتحان می‌کنیم.
+        function jsdelivrMirror(url) {
+            try {
+                let m = url.match(/^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/([^/]+)\/(.+)$/);
+                if (m) {
+                    const [, user, repo, branch, path] = m;
+                    return 'https://cdn.jsdelivr.net/gh/' + user + '/' + repo + '@' + branch + '/' + path;
+                }
+                m = url.match(/^https:\/\/github\.com\/([^/]+)\/([^/]+)\/raw\/([^/]+)\/(.+)$/);
+                if (m) {
+                    const [, user, repo, branch, path] = m;
+                    return 'https://cdn.jsdelivr.net/gh/' + user + '/' + repo + '@' + branch + '/' + path;
+                }
+            } catch (e) {}
+            return null;
+        }
+
+        // دریافت مستقیم؛ اگه به هر دلیلی (CORS/فیلترینگ/شبکه) شکست خورد از آینه‌ی
+        // jsDelivr و چند پروکسی عمومی به‌صورت هم‌زمان استفاده می‌کنیم و هرکدوم
+        // زودتر جواب داد برنده‌ست (سرعت دریافت کانفیگ رو تا حد زیادی بهتر می‌کنه)
+        async function fetchSourceText(url) {
+            const cached = getCached(url);
+            if (cached) return { text: cached, fromCache: true };
+
+            const attempts = [
+                fetchOne(url, FETCH_TIMEOUT_MS).catch(e => { throw { reason: 'مستقیم: ' + e.message }; })
             ];
 
-            for (const proxy of proxies) {
+            const mirror = jsdelivrMirror(url);
+            if (mirror) {
+                attempts.push(
+                    fetchOne(mirror, FETCH_TIMEOUT_MS).catch(e => { throw { reason: 'jsdelivr: ' + e.message }; })
+                );
+            }
+
+            attempts.push(
+                fetchOne('https://api.allorigins.win/raw?url=' + encodeURIComponent(url), FETCH_TIMEOUT_MS + 2000)
+                    .catch(e => { throw { reason: 'allorigins: ' + e.message }; }),
+                fetchOne('https://corsproxy.io/?url=' + encodeURIComponent(url), FETCH_TIMEOUT_MS + 2000)
+                    .catch(e => { throw { reason: 'corsproxy: ' + e.message }; }),
+                fetchOne('https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url), FETCH_TIMEOUT_MS + 2000)
+                    .catch(e => { throw { reason: 'codetabs: ' + e.message }; })
+            );
+
+            try {
+                const text = await Promise.any(attempts);
+                setCached(url, text);
+                return { text: text, fromCache: false };
+            } catch (aggregateError) {
+                const reasons = (aggregateError && aggregateError.errors)
+                    ? aggregateError.errors.map(e => (e && e.reason) || 'نامشخص').join(' | ')
+                    : 'اتصال ناموفق';
+                throw new Error(reasons);
+            }
+        }
+
+        // اجرای موازی با محدودیت هم‌زمانی (تا سرورها رو غرق نکنیم)
+        async function runWithConcurrency(items, limit, worker) {
+            let idx = 0;
+            async function next() {
+                while (idx < items.length) {
+                    const i = idx++;
+                    await worker(items[i], i);
+                }
+            }
+            const workers = [];
+            for (let i = 0; i < Math.min(limit, items.length); i++) workers.push(next());
+            await Promise.all(workers);
+        }
+
+        // =====================================================
+        // ===== استخراج کانفیگ از متن (استاندارد + Base64 + Clash + Sing-box) =====
+        // =====================================================
+        function decodeBase64Maybe(str) {
+            try {
+                let s = str.replace(/-/g, '+').replace(/_/g, '/');
+                while (s.length % 4) s += '=';
+                return decodeURIComponent(escape(atob(s)));
+            } catch (e) { return null; }
+        }
+
+        function standardMatches(text) {
+            const vless = text.match(/vless:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
+            const vmess = text.match(/vmess:\/\/[A-Za-z0-9+\/=]+/gi) || [];
+            const trojan = text.match(/trojan:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
+            const ss = text.match(/ss:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
+            return [...vless, ...vmess, ...trojan, ...ss];
+        }
+
+        function clashObjToUri(o) {
+            const type = (o.type || '').toLowerCase();
+            const name = encodeURIComponent(o.name || 'کانفیگ');
+            try {
+                if (type === 'vmess') {
+                    const json = {
+                        v: '2', ps: o.name || '', add: o.server, port: o.port,
+                        id: o.uuid, aid: o.alterId || '0', net: o.network || 'tcp',
+                        type: 'none', host: o.sni || '', path: o.path || '',
+                        tls: (o.tls === 'true' || o.tls === true) ? 'tls' : ''
+                    };
+                    return 'vmess://' + btoa(unescape(encodeURIComponent(JSON.stringify(json))));
+                }
+                if (type === 'trojan') {
+                    return 'trojan://' + o.password + '@' + o.server + ':' + o.port + '?sni=' + (o.sni || o.server) + '#' + name;
+                }
+                if (type === 'ss' || type === 'shadowsocks') {
+                    const userinfo = btoa(o.cipher + ':' + o.password);
+                    return 'ss://' + userinfo + '@' + o.server + ':' + o.port + '#' + name;
+                }
+                if (type === 'vless') {
+                    return 'vless://' + o.uuid + '@' + o.server + ':' + o.port + '?security=' +
+                        ((o.tls === 'true' || o.tls === true) ? 'tls' : 'none') + '&type=' + (o.network || 'tcp') + '#' + name;
+                }
+            } catch (e) {}
+            return null;
+        }
+
+        // پارسر ساده‌ی Clash (YAML) — آیتم‌های flow-style تک‌سطحی رو پشتیبانی می‌کنه
+        function parseClashProxies(text) {
+            const uris = [];
+            const block = text.match(/proxies:\s*\n([\s\S]*?)(?:\nproxy-groups:|\nrules:|\nrule-providers:|$)/);
+            if (!block) return uris;
+            const items = block[1].match(/\{[^{}]*\}/g) || [];
+            items.forEach(item => {
+                const obj = {};
+                const pairRe = /([\w-]+):\s*("(?:[^"\\]|\\.)*"|'[^']*'|[^,}\n]+)/g;
+                let m;
+                while ((m = pairRe.exec(item)) !== null) {
+                    obj[m[1]] = m[2].trim().replace(/^["']|["']$/g, '');
+                }
+                const uri = clashObjToUri(obj);
+                if (uri) uris.push(uri);
+            });
+            return uris;
+        }
+
+        function singboxOutboundToUri(ob) {
+            const type = (ob.type || '').toLowerCase();
+            const name = encodeURIComponent(ob.tag || 'کانفیگ');
+            try {
+                const tlsOn = !!(ob.tls && ob.tls.enabled);
+                if (type === 'vmess') {
+                    const json = {
+                        v: '2', ps: ob.tag || '', add: ob.server, port: ob.server_port,
+                        id: ob.uuid, aid: '0', net: (ob.transport && ob.transport.type) || 'tcp',
+                        type: 'none', tls: tlsOn ? 'tls' : ''
+                    };
+                    return 'vmess://' + btoa(unescape(encodeURIComponent(JSON.stringify(json))));
+                }
+                if (type === 'trojan') {
+                    return 'trojan://' + ob.password + '@' + ob.server + ':' + ob.server_port + '#' + name;
+                }
+                if (type === 'shadowsocks') {
+                    const userinfo = btoa(ob.method + ':' + ob.password);
+                    return 'ss://' + userinfo + '@' + ob.server + ':' + ob.server_port + '#' + name;
+                }
+                if (type === 'vless') {
+                    return 'vless://' + ob.uuid + '@' + ob.server + ':' + ob.server_port +
+                        '?security=' + (tlsOn ? 'tls' : 'none') + '#' + name;
+                }
+            } catch (e) {}
+            return null;
+        }
+
+        function extractConfigsFromText(text) {
+            const trimmed = text.trim();
+            let results = [];
+
+            // Sing-box (JSON)
+            if (trimmed.startsWith('{')) {
                 try {
-                    const res = await fetch(proxy + encodeURIComponent(url), {
-                        headers: { 'User-Agent': 'Mozilla/5.0' }
-                    });
-                    if (res.ok) {
-                        const text = await res.text();
-                        if (text && text.length > 10) return text;
+                    const json = JSON.parse(trimmed);
+                    if (Array.isArray(json.outbounds)) {
+                        json.outbounds.forEach(ob => {
+                            const uri = singboxOutboundToUri(ob);
+                            if (uri) results.push(uri);
+                        });
                     }
                 } catch (e) {}
             }
-            throw new Error('همه پروکسی‌ها ناموفق بودن');
+
+            // Clash (YAML)
+            if (/^\s*proxies:/m.test(trimmed)) {
+                results.push(...parseClashProxies(trimmed));
+            }
+
+            // استاندارد
+            results.push(...standardMatches(trimmed));
+
+            // اگه هیچی پیدا نشد، شاید کل فایل Base64 یه ساب‌اسکریپشنه
+            if (results.length === 0) {
+                const cleaned = trimmed.replace(/\s+/g, '');
+                if (/^[A-Za-z0-9+/=_-]+$/.test(cleaned) && cleaned.length > 40) {
+                    const decoded = decodeBase64Maybe(cleaned);
+                    if (decoded) results.push(...standardMatches(decoded));
+                }
+            }
+
+            return results;
         }
 
+        function configStringToObject(cfg) {
+            let protocol = 'unknown';
+            if (cfg.startsWith('vless')) protocol = 'vless';
+            else if (cfg.startsWith('vmess')) protocol = 'vmess';
+            else if (cfg.startsWith('trojan')) protocol = 'trojan';
+            else if (cfg.startsWith('ss')) protocol = 'ss';
+
+            let host = 'N/A';
+            let port = 'N/A';
+            let remark = '';
+
+            const hashIdx = cfg.indexOf('#');
+            if (hashIdx !== -1) {
+                try { remark = decodeURIComponent(cfg.slice(hashIdx + 1)); } catch (e) { remark = cfg.slice(hashIdx + 1); }
+            }
+
+            if (protocol === 'vmess') {
+                try {
+                    const vj = JSON.parse(decodeURIComponent(escape(atob(cfg.replace('vmess://', '').split('#')[0]))));
+                    host = vj.add || 'N/A';
+                    port = vj.port ? String(vj.port) : 'N/A';
+                    remark = vj.ps || remark;
+                } catch (e) { /* اگه decode نشد، N/A می‌مونه */ }
+            } else {
+                const hostMatch = cfg.match(/@([^:@/?#]+):/);
+                const portMatch = cfg.match(/:(\d+)(?:\?|#|$)/);
+                host = hostMatch ? hostMatch[1] : 'N/A';
+                port = portMatch ? portMatch[1] : 'N/A';
+            }
+
+            return { protocol, config: cfg, host, port, remark };
+        }
+
+        // =====================================================
+        // ===== دریافت اصلی کانفیگ‌ها (موازی + کش + پیام خطای بهتر) =====
+        // =====================================================
         async function getConfigs() {
             const btn = document.querySelector('.btn-primary');
             btn.disabled = true;
@@ -3985,8 +4591,8 @@ var qrcode = function() {
                 timerEl.textContent = '⏱ در حال دریافت... ' + secs + ' ثانیه';
             }, 100);
 
-            document.getElementById('result').innerHTML = '<div class="loader">✦ در حال کاوش در کهکشان کانفیگ‌ها</div>';
-            log('🚀 شروع جستجو...');
+            document.getElementById('result').innerHTML = '<div class="loader">✦ در حال کاوش موازی در کهکشان کانفیگ‌ها</div>';
+            log('🚀 شروع جستجوی موازی روی ' + getSources().length + ' منبع...');
 
             const sources = getSources();
             totalSources = sources.length;
@@ -3994,49 +4600,30 @@ var qrcode = function() {
 
             const all = [];
             let completed = 0;
+            let okCount = 0;
+            let failCount = 0;
+            sourceFailReasons = {};
 
-            for (const url of sources) {
+            await runWithConcurrency(sources, 8, async (url) => {
+                const name = url.split('/').pop() || url;
                 try {
-                    const name = url.split('/').pop() || url;
-                    log('📡 دریافت از: ' + name);
-                    const text = await fetchWithProxy(url);
-
-                    if (text && text.length > 50) {
-                        const vless = text.match(/vless:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
-                        const vmess = text.match(/vmess:\/\/[A-Za-z0-9+\/=]+/gi) || [];
-                        const trojan = text.match(/trojan:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
-                        const ss = text.match(/ss:\/\/[A-Za-z0-9+\/=@?&:%._~-]+/gi) || [];
-
-                        const count = vless.length + vmess.length + trojan.length + ss.length;
-                        log('✅ ' + count + ' کانفیگ از ' + name);
-
-                        [...vless, ...vmess, ...trojan, ...ss].forEach(cfg => {
-                            let protocol = 'unknown';
-                            if (cfg.startsWith('vless')) protocol = 'vless';
-                            else if (cfg.startsWith('vmess')) protocol = 'vmess';
-                            else if (cfg.startsWith('trojan')) protocol = 'trojan';
-                            else if (cfg.startsWith('ss')) protocol = 'ss';
-
-                            const hostMatch = cfg.match(/@([^:]+):/);
-                            const portMatch = cfg.match(/:(\d+)(?:\?|$|#)/);
-
-                            all.push({
-                                protocol: protocol,
-                                config: cfg,
-                                host: hostMatch ? hostMatch[1] : 'unknown',
-                                port: portMatch ? portMatch[1] : 'unknown'
-                            });
-                        });
+                    const { text, fromCache } = await fetchSourceText(url);
+                    const matches = extractConfigsFromText(text);
+                    if (matches.length > 0) {
+                        okCount++;
+                        log((fromCache ? '📦 از کش: ' : '✅ ') + matches.length + ' کانفیگ از ' + name);
+                        matches.forEach(cfg => all.push(configStringToObject(cfg)));
                     } else {
-                        log('⚠️ محتوای خالی از ' + name);
+                        log('⚠️ کانفیگی در ' + name + ' پیدا نشد');
                     }
                 } catch (e) {
-                    const name = url.split('/').pop() || url;
-                    log('❌ خطا در ' + name);
+                    failCount++;
+                    sourceFailReasons[name] = e.message || 'نامشخص';
+                    log('❌ ناموفق: ' + name);
                 }
                 completed++;
                 updateProgress(5 + (completed / sources.length) * 85);
-            }
+            });
 
             // حذف تکراری
             const unique = [];
@@ -4057,25 +4644,44 @@ var qrcode = function() {
             clearInterval(timerInterval);
             const totalSecs = ((performance.now() - fetchStartTime) / 1000).toFixed(1);
             timerEl.classList.add('done');
-            timerEl.textContent = '✅ کانفیگ‌ها در ' + totalSecs + ' ثانیه تحویل داده شد';
-            log('⏱ زمان کل دریافت: ' + totalSecs + ' ثانیه');
+            timerEl.textContent = '✅ کانفیگ‌ها در ' + totalSecs + ' ثانیه تحویل داده شد  (' + okCount + ' منبع موفق، ' + failCount + ' ناموفق)';
+            log('⏱ زمان کل دریافت: ' + totalSecs + ' ثانیه  |  ✅ ' + okCount + ' منبع موفق  |  ❌ ' + failCount + ' منبع ناموفق');
 
             if (unique.length === 0) {
-                document.getElementById('result').innerHTML = '<div class="error">✦ هیچ کانفیگی در کهکشان پیدا نشد ✦</div>';
+                document.getElementById('result').innerHTML =
+                    '<div class="error">✦ هیچ کانفیگی پیدا نشد ✦<br><br>' +
+                    '<span style="font-size:11px;opacity:.7;">دلایل احتمالی: اینترنت/فیلترشکن شما همین الان قطعه، یا همه‌ی منابع و پروکسی‌های عمومی موقتاً در دسترس نیستن. یه بار دیگه امتحان کن، یا از بخش «➕ وارد کردن کانفیگ» برای افزودن دستی کانفیگ یا لینک ساب‌اسکریپشن استفاده کن.</span></div>';
                 document.getElementById('resultToolbar').style.display = 'none';
-                log('❌ هیچ کانفیگی پیدا نشد');
+                log('❌ هیچ کانفیگی پیدا نشد — ' + failCount + ' منبع همگی ناموفق بودن');
             } else {
                 document.getElementById('resultToolbar').style.display = 'flex';
                 log('✅ ' + unique.length + ' کانفیگ پیدا شد');
                 document.getElementById('sourceCount').innerHTML = '✦ ' + totalSources + ' کهکشان منبع ✦  ❖  <span>' + unique
                     .length + '</span> کانفیگ ✦';
-                // پروتکلی که کاربر از قبل انتخاب کرده بود را اعمال کن (پیش‌فرض: همه)
+                populateCountryFilter();
                 const preSelectedProto = document.getElementById('protocolSelect').value || 'all';
-                setProtocolFilter(preSelectedProto);
+                currentProtocolFilter = preSelectedProto;
+                applyAllFilters();
             }
 
             btn.disabled = false;
             btn.textContent = '🚀 دریافت کانفیگ‌ها';
+        }
+
+        let currentSearchText = '';
+        let currentCountryFlag = '';
+
+        function applyAllFilters() {
+            currentFilteredConfigs = allConfigs.filter(cfg => {
+                if (currentProtocolFilter !== 'all' && (cfg.protocol || '').toLowerCase() !== currentProtocolFilter) return false;
+                if (currentCountryFlag && !(cfg.remark || '').includes(currentCountryFlag)) return false;
+                if (currentSearchText) {
+                    const hay = ((cfg.remark || '') + ' ' + (cfg.host || '') + ' ' + (cfg.protocol || '')).toLowerCase();
+                    if (!hay.includes(currentSearchText.toLowerCase())) return false;
+                }
+                return true;
+            });
+            renderConfigs(currentFilteredConfigs);
         }
 
         function setProtocolFilter(proto) {
@@ -4085,10 +4691,50 @@ var qrcode = function() {
             });
             const protoSel = document.getElementById('protocolSelect');
             if (protoSel && protoSel.value !== proto) protoSel.value = proto;
-            currentFilteredConfigs = proto === 'all'
-                ? allConfigs
-                : allConfigs.filter(cfg => (cfg.protocol || '').toLowerCase() === proto);
-            renderConfigs(currentFilteredConfigs);
+            applyAllFilters();
+        }
+
+        let searchDebounceTimer = null;
+        function setSearchFilter(text) {
+            clearTimeout(searchDebounceTimer);
+            searchDebounceTimer = setTimeout(() => {
+                currentSearchText = text;
+                applyAllFilters();
+            }, 200);
+        }
+
+        function setCountryFilter(flag) {
+            currentCountryFlag = flag;
+            applyAllFilters();
+        }
+
+        function flagToCountryName(flag) {
+            try {
+                const codePoints = Array.from(flag).map(c => c.codePointAt(0) - 0x1F1E6 + 65);
+                const cc = String.fromCharCode(...codePoints);
+                const dn = new Intl.DisplayNames(['fa'], { type: 'region' });
+                return dn.of(cc) || cc;
+            } catch (e) { return flag; }
+        }
+
+        function populateCountryFilter() {
+            const sel = document.getElementById('countryFilterSelect');
+            if (!sel) return;
+            const flagRe = /[\u{1F1E6}-\u{1F1FF}]{2}/gu;
+            const counts = {};
+            allConfigs.forEach(cfg => {
+                const found = (cfg.remark || '').match(flagRe);
+                if (found) {
+                    found.forEach(flag => { counts[flag] = (counts[flag] || 0) + 1; });
+                }
+            });
+            const flags = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+            let html = '<option value="">🌐 همه کشورها</option>';
+            flags.forEach(flag => {
+                html += `<option value="${flag}">${flag} ${flagToCountryName(flag)} (${counts[flag]})</option>`;
+            });
+            sel.innerHTML = html;
+            sel.style.display = flags.length ? 'inline-block' : 'none';
         }
 
         function copyAllShown() {
@@ -4220,17 +4866,20 @@ var qrcode = function() {
 
         // ===== موزیک پلیر (پلی‌لیست) =====
         const PLAYLIST = [
-            { title: 'Roman Olur Yazsam Seni', artist: 'Velet (Sevil Music)', file: 'Velet - Roman Olur Yazsam Seni [SevilMusic].mp3' },
-            { title: 'AL NACER!', artist: 'Sayfalse, Nulteex', file: '01. Sayfalse, Nulteex - AL NACER!.mp3' },
-            { title: 'Away from Home', artist: 'Atilla Khan, Bacca Chew', file: 'Atilla Khan, Bacca Chew - Away from Home.mp3' },
-            { title: 'Bitch Better Have My Money', artist: 'Biometrix', file: 'Biometrix - Bitch Better Have My Money.mp3' },
-            { title: 'Che Danestam (Seventh Soul Remix)', artist: 'Homayoun Shajarian', file: 'Homayoun Shajarian - Che Danestam (Seventh Soul Remix) (320).mp3' },
-            { title: "I'm Good (Blue)", artist: 'David Guetta, Bebe Rexha', file: 'I m Good (Blue) - David Guetta  Bebe Rexha (320).mp3' },
-            { title: 'Moonlight Shadow', artist: 'stayus, WhiteCapMusic, Niklas Dee', file: 'Moonlight Shadow - stayus  WhiteCapMusic  Niklas Dee (320).mp3' },
-            { title: 'Lullaby', artist: 'Rauf And Faik', file: 'Rauf And Faik - Lullaby (320).mp3' },
-            { title: 'The Business', artist: 'Tiësto', file: 'The Business - Tiesto (320).mp3' },
-            { title: 'Bam Bam', artist: 'VOLB3X', file: 'VOLB3X - Bam Bam.mp3' }
+            { title: 'Roman Olur Yazsam Seni', artist: 'Velet (Sevil Music)', file: '1.mp3', url: 'https://uploadkon.ir/uploads/d40509_261.mp3' },
+            { title: 'AL NACER!', artist: 'Sayfalse, Nulteex', file: '2.mp3', url: 'https://uploadkon.ir/uploads/59f009_262.mp3' },
+            { title: 'Away from Home', artist: 'Atilla Khan, Bacca Chew', file: '3.mp3', url: 'https://uploadkon.ir/uploads/062209_263.mp3' },
+            { title: 'Bitch Better Have My Money', artist: 'Biometrix', file: '4.mp3', url: 'https://uploadkon.ir/uploads/695409_264.mp3' },
+            { title: 'Che Danestam (Seventh Soul Remix)', artist: 'Homayoun Shajarian', file: '5.mp3', url: 'https://uploadkon.ir/uploads/d36d09_265.mp3' },
+            { title: "I'm Good (Blue)", artist: 'David Guetta, Bebe Rexha', file: '6.mp3', url: 'https://uploadkon.ir/uploads/e5d309_266.mp3' },
+            { title: 'Moonlight Shadow', artist: 'stayus, WhiteCapMusic, Niklas Dee', file: '7.mp3', url: 'https://uploadkon.ir/uploads/ce7d09_267.mp3' },
+            { title: 'Lullaby', artist: 'Rauf And Faik', file: '8.mp3', url: 'https://uploadkon.ir/uploads/291609_268.mp3' },
+            { title: 'The Business', artist: 'Tiësto', file: '9.mp3', url: 'https://uploadkon.ir/uploads/854409_269.mp3' },
+            { title: 'Bam Bam', artist: 'VOLB3X', file: '10.mp3', url: 'https://uploadkon.ir/uploads/777709_2610.mp3' }
         ];
+        // هر آهنگ الان یه لینک مستقیم (url) داره، پس دیگه لازم نیست پوشه‌ی Music/
+        // کنار index.html باشه. اگه بعداً خواستی از فایل‌های لوکال خودت پخش بشه،
+        // کافیه url رو از رکورد موردنظر حذف کنی تا دوباره بره سراغ Music/<file>.
 
         let audioElement = null;
         let isPlaying = false;
@@ -4238,6 +4887,7 @@ var qrcode = function() {
         let currentTrackIndex = 0;
 
         function trackUrl(track) {
+            if (track.url) return track.url;
             return 'Music/' + encodeURIComponent(track.file);
         }
 
@@ -4444,14 +5094,43 @@ var qrcode = function() {
         populateCountrySelect();
 
         async function loadCleanIpPool(country) {
-            const res = await fetch('proxy/' + country + '.txt');
-            if (!res.ok) throw new Error('عدم دسترسی به لیست ' + country);
+            let res = await fetch('proxy/' + country + '.txt');
+            if (!res.ok) {
+                // اگه فایل اختصاصیِ این کشور موجود نبود، به‌جای خطا دادن از
+                // proxy/ALL.txt (استخر کلی IP/پروکسی تمیز) به‌عنوان جایگزین استفاده می‌کنیم.
+                res = await fetch('proxy/ALL.txt');
+                if (!res.ok) throw new Error('عدم دسترسی به لیست ' + country + ' و لیست عمومی ALL.txt');
+            }
             const text = await res.text();
             const ipRegex = /\b(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b/g;
             const found = text.match(ipRegex) || [];
             const unique = [...new Set(found)];
             if (unique.length === 0) throw new Error('لیست IP خالی برای ' + country);
             return unique;
+        }
+
+        // دانلود مستقیم کل استخر IP/پروکسی تمیز (proxy/ALL.txt) — مناسب کسانی که
+        // می‌خوان خودشون این IPها رو داخل کانفیگ V2Ray/شخصی خودشون دستی جایگزین کنن.
+        async function downloadCleanIpPool() {
+            try {
+                log('📥 در حال دریافت proxy/ALL.txt ...');
+                const res = await fetch('proxy/ALL.txt');
+                if (!res.ok) throw new Error('فایل proxy/ALL.txt پیدا نشد');
+                const text = await res.text();
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'gameizeh_clean_ip_ALL_' + new Date().toISOString().slice(0, 10) + '.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                log('✅ لیست IP تمیز دانلود شد');
+            } catch (e) {
+                log('❌ خطا در دانلود لیست IP تمیز: ' + e.message);
+                alert('✦ خطا در دانلود لیست IP تمیز ✦');
+            }
         }
 
         function replaceHostInConfig(cfg, newIp) {
@@ -4497,11 +5176,7 @@ var qrcode = function() {
                     return Object.assign({}, cfg, { config: newConfigStr, cleanIp: ip });
                 });
                 configById = new Map(allConfigs.map(cfg => [cfg._id, cfg]));
-                currentFilteredConfigs = currentProtocolFilter === 'all'
-                    ? allConfigs
-                    : allConfigs.filter(cfg => (cfg.protocol || '').toLowerCase() === currentProtocolFilter);
-
-                renderConfigs(currentFilteredConfigs);
+                applyAllFilters();
                 log('⚡ IP تمیز روی همه‌ی کانفیگ‌ها اعمال شد (' + countryLabel + ')');
                 try { localStorage.setItem('gameizeh_country', country); } catch (e) {}
             } catch (e) {
@@ -4695,6 +5370,135 @@ var qrcode = function() {
 
         loadFavoritesFromStorage();
         updateFavCountBadge();
+
+        // =====================================================
+        // ===== راهنما =====
+        // =====================================================
+        function openHelpModal() {
+            document.getElementById('helpModalOverlay').classList.add('open');
+        }
+        function closeHelpModal() {
+            document.getElementById('helpModalOverlay').classList.remove('open');
+        }
+
+        // =====================================================
+        // ===== وارد کردن کانفیگ دستی =====
+        // =====================================================
+        function openImportModal() {
+            document.getElementById('importModalOverlay').classList.add('open');
+        }
+        function closeImportModal() {
+            document.getElementById('importModalOverlay').classList.remove('open');
+        }
+
+        async function handleImport() {
+            const btn = document.getElementById('importBtn');
+            const raw = document.getElementById('importTextarea').value.trim();
+            if (!raw) {
+                alert('✦ چیزی وارد نشده ✦');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = '⏳ در حال پردازش...';
+
+            let matches = [];
+            try {
+                if (/^https?:\/\//i.test(raw)) {
+                    log('📡 دریافت لینک ساب‌اسکریپشن...');
+                    const { text } = await fetchSourceText(raw.split('\n')[0].trim());
+                    matches = extractConfigsFromText(text);
+                } else {
+                    // هر خط رو جدا بررسی کن (هم می‌تونه کانفیگ باشه هم یه بلوک بزرگ base64/متن)
+                    matches = extractConfigsFromText(raw);
+                }
+            } catch (e) {
+                alert('✦ خطا در دریافت/پردازش: ' + e.message + ' ✦');
+                btn.disabled = false;
+                btn.textContent = '✅ افزودن به لیست';
+                return;
+            }
+
+            if (matches.length === 0) {
+                alert('✦ هیچ کانفیگ معتبری (vless/vmess/trojan/ss) پیدا نشد ✦');
+                btn.disabled = false;
+                btn.textContent = '✅ افزودن به لیست';
+                return;
+            }
+
+            const existing = new Set(allConfigs.map(c => c.config));
+            let added = 0;
+            matches.forEach(cfgStr => {
+                if (existing.has(cfgStr)) return;
+                existing.add(cfgStr);
+                const obj = configStringToObject(cfgStr);
+                obj._id = allConfigs.length;
+                allConfigs.push(obj);
+                added++;
+            });
+
+            configById = new Map(allConfigs.map(cfg => [cfg._id, cfg]));
+            totalSources = totalSources || 0;
+            document.getElementById('resultToolbar').style.display = 'flex';
+            populateCountryFilter();
+            applyAllFilters();
+            document.getElementById('sourceCount').innerHTML = '✦ ' + totalSources + ' کهکشان منبع ✦  ❖  <span>' + allConfigs.length + '</span> کانفیگ ✦';
+
+            log('✅ ' + added + ' کانفیگ دستی اضافه شد (از ' + matches.length + ' مورد پیدا‌شده)');
+            document.getElementById('importTextarea').value = '';
+            btn.disabled = false;
+            btn.textContent = '✅ افزودن به لیست';
+            closeImportModal();
+        }
+
+        // =====================================================
+        // ===== اسکن خودکار =====
+        // =====================================================
+        let autoScanInterval = null;
+        function toggleAutoScan(enabled) {
+            if (autoScanInterval) {
+                clearInterval(autoScanInterval);
+                autoScanInterval = null;
+            }
+            if (enabled) {
+                log('🔄 اسکن خودکار فعال شد (هر ۱۰ دقیقه)');
+                autoScanInterval = setInterval(() => {
+                    log('🔄 اسکن خودکار در حال اجرا...');
+                    getConfigs();
+                }, 10 * 60 * 1000);
+            } else {
+                log('⏹️ اسکن خودکار غیرفعال شد');
+            }
+        }
+    </script>
+    <script>
+        // ===== سیستم انتخاب تم (۶ تم) =====
+        function setTheme(name) {
+            if (name === 'default') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', name);
+            }
+            document.querySelectorAll('.theme-swatch').forEach(function (el) {
+                el.classList.toggle('active', el.getAttribute('data-t') === name);
+            });
+            try { localStorage.setItem('gz_theme', name); } catch (e) {}
+        }
+        function toggleThemePanel() {
+            document.getElementById('themePanel').classList.toggle('open');
+        }
+        document.addEventListener('click', function (e) {
+            const panel = document.getElementById('themePanel');
+            const fab = document.getElementById('themeFab');
+            if (panel.classList.contains('open') && !panel.contains(e.target) && e.target !== fab) {
+                panel.classList.remove('open');
+            }
+        });
+        (function initTheme() {
+            let saved = 'default';
+            try { saved = localStorage.getItem('gz_theme') || 'default'; } catch (e) {}
+            setTheme(saved);
+        })();
     </script>
 </body>
 </html>
