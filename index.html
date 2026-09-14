@@ -12,9 +12,29 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        /* =====================================================
+           ===== متغیرهای تم (قابل تغییر کامل توسط کاربر) =====
+           برای ساخت یه تم جدید فقط کافیه این متغیرها رو عوض کنی؛
+           چون همه‌جای سایت رنگ‌ها رو از همینا می‌خونه.
+        ===================================================== */
+        :root {
+            --accent-1: #7c3aed;
+            --accent-1-rgb: 124, 58, 237;
+            --accent-2: #a78bfa;
+            --accent-2-rgb: 167, 139, 250;
+            --accent-3: #60a5fa;
+            --accent-3-rgb: 96, 165, 250;
+            --accent-4: #6366f1;
+            --bg-base: #0a0a1a;
+            --bg-glow-1: rgba(72, 0, 255, 0.15);
+            --bg-glow-2: rgba(255, 0, 200, 0.1);
+            --bg-glow-3: rgba(0, 200, 255, 0.08);
+        }
+
         body {
             min-height: 100vh;
-            background: #0a0a1a;
+            background: var(--bg-base);
             font-family: 'Orbitron', 'Segoe UI', sans-serif;
             padding: 20px;
             overflow-x: hidden;
@@ -29,10 +49,10 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: radial-gradient(ellipse at 20% 50%, rgba(72, 0, 255, 0.15) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(255, 0, 200, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(0, 200, 255, 0.08) 0%, transparent 50%),
-                #0a0a1a;
+            background: radial-gradient(ellipse at 20% 50%, var(--bg-glow-1) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, var(--bg-glow-2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, var(--bg-glow-3) 0%, transparent 50%),
+                var(--bg-base);
         }
 
         /* ===== ستاره‌ها ===== */
@@ -85,7 +105,7 @@
             border-radius: 30px;
             padding: 32px 28px;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 60px rgba(100, 0, 255, 0.05);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 60px rgba(var(--accent-1-rgb), 0.05);
             position: relative;
             overflow: hidden;
         }
@@ -96,7 +116,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(120, 0, 255, 0.03), transparent, rgba(0, 200, 255, 0.03), transparent);
+            background: conic-gradient(from 0deg, transparent, rgba(var(--accent-1-rgb), 0.03), transparent, rgba(0, 200, 255, 0.03), transparent);
             animation: rotateGlow 20s linear infinite;
             pointer-events: none;
         }
@@ -220,10 +240,10 @@
         }
         .social-item:hover {
             color: #fff;
-            background: rgba(167, 139, 250, 0.08);
-            border-color: rgba(167, 139, 250, 0.15);
+            background: rgba(var(--accent-2-rgb), 0.08);
+            border-color: rgba(var(--accent-2-rgb), 0.15);
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(167, 139, 250, 0.05);
+            box-shadow: 0 4px 20px rgba(var(--accent-2-rgb), 0.05);
         }
         .social-item .app-name {
             font-size: 10px;
@@ -232,10 +252,74 @@
         }
         .social-item .username {
             font-weight: 700;
-            background: linear-gradient(90deg, #a78bfa, #60a5fa);
+            background: linear-gradient(90deg, var(--accent-2), var(--accent-3));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        /* ===== بنر گروه روبیکا ===== */
+        .rubika-banner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(247, 90, 40, 0.14), rgba(255, 154, 60, 0.08));
+            border: 1px solid rgba(247, 120, 40, 0.25);
+            border-radius: 18px;
+            padding: 14px 18px;
+            margin: 4px 0 16px 0;
+            overflow: hidden;
+        }
+        .rubika-banner-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 15% 50%, rgba(255, 140, 60, 0.15), transparent 60%);
+            pointer-events: none;
+        }
+        .rubika-qr {
+            position: relative;
+            width: 84px;
+            height: 84px;
+            border-radius: 12px;
+            background: #fff;
+            padding: 5px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+        }
+        .rubika-banner-text {
+            position: relative;
+            flex: 1;
+            min-width: 0;
+        }
+        .rubika-banner-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .rubika-banner-sub {
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .rubika-join-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #f75a28, #ff9a3c);
+            color: #fff;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 7px 16px;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(247, 90, 40, 0.35);
+            transition: all 0.2s ease;
+        }
+        .rubika-join-btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.08);
         }
 
         /* ===== Music Player ===== */
@@ -309,16 +393,16 @@
             font-family: inherit;
         }
         .music-btn:hover {
-            background: rgba(167, 139, 250, 0.15);
-            border-color: rgba(167, 139, 250, 0.1);
-            color: #a78bfa;
+            background: rgba(var(--accent-2-rgb), 0.15);
+            border-color: rgba(var(--accent-2-rgb), 0.1);
+            color: var(--accent-2);
             transform: scale(1.1);
         }
         .music-btn.active {
-            background: rgba(167, 139, 250, 0.15);
-            border-color: rgba(167, 139, 250, 0.2);
-            color: #a78bfa;
-            box-shadow: 0 0 20px rgba(167, 139, 250, 0.1);
+            background: rgba(var(--accent-2-rgb), 0.15);
+            border-color: rgba(var(--accent-2-rgb), 0.2);
+            color: var(--accent-2);
+            box-shadow: 0 0 20px rgba(var(--accent-2-rgb), 0.1);
         }
         .music-volume {
             display: flex;
@@ -338,14 +422,14 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #a78bfa;
+            background: var(--accent-2);
             cursor: pointer;
         }
         .music-volume input[type="range"]::-moz-range-thumb {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #a78bfa;
+            background: var(--accent-2);
             cursor: pointer;
             border: none;
         }
@@ -358,7 +442,7 @@
         .music-wave span {
             display: block;
             width: 3px;
-            background: linear-gradient(180deg, #a78bfa, #48dbfb);
+            background: linear-gradient(180deg, var(--accent-2), #48dbfb);
             border-radius: 2px;
             animation: waveAnim 1s ease-in-out infinite;
         }
@@ -414,8 +498,8 @@
             display: flex;
         }
         .playlist-modal {
-            background: linear-gradient(160deg, #14142b, #0a0a1a);
-            border: 1px solid rgba(167, 139, 250, 0.25);
+            background: linear-gradient(160deg, #14142b, var(--bg-base));
+            border: 1px solid rgba(var(--accent-2-rgb), 0.25);
             border-radius: 20px;
             padding: 20px;
             max-width: 420px;
@@ -452,8 +536,8 @@
             background: rgba(255, 255, 255, 0.05);
         }
         .playlist-track.playing {
-            background: rgba(167, 139, 250, 0.12);
-            border-color: rgba(167, 139, 250, 0.25);
+            background: rgba(var(--accent-2-rgb), 0.12);
+            border-color: rgba(var(--accent-2-rgb), 0.25);
         }
         .playlist-track-num {
             width: 22px;
@@ -463,7 +547,7 @@
             flex-shrink: 0;
         }
         .playlist-track.playing .playlist-track-num {
-            color: #a78bfa;
+            color: var(--accent-2);
         }
         .playlist-track-info {
             flex: 1;
@@ -485,7 +569,7 @@
         }
         .playlist-track-playicon {
             font-size: 14px;
-            color: #a78bfa;
+            color: var(--accent-2);
             flex-shrink: 0;
         }
         .playlist-close-btn {
@@ -527,13 +611,13 @@
             overflow: hidden;
         }
         .btn-primary {
-            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            background: linear-gradient(135deg, var(--accent-1), #4f46e5);
             color: white;
-            box-shadow: 0 4px 25px rgba(124, 58, 237, 0.3);
+            box-shadow: 0 4px 25px rgba(var(--accent-1-rgb), 0.3);
         }
         .btn-primary:hover {
             transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 40px rgba(124, 58, 237, 0.5);
+            box-shadow: 0 8px 40px rgba(var(--accent-1-rgb), 0.5);
         }
         .btn-primary:disabled {
             opacity: 0.5;
@@ -672,7 +756,7 @@
         }
         .config-item:hover {
             background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(167, 139, 250, 0.15);
+            border-color: rgba(var(--accent-2-rgb), 0.15);
             transform: translateX(4px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
@@ -694,14 +778,14 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .tag.protocol {
-            background: rgba(167, 139, 250, 0.15);
-            color: #a78bfa;
-            border-color: rgba(167, 139, 250, 0.1);
+            background: rgba(var(--accent-2-rgb), 0.15);
+            color: var(--accent-2);
+            border-color: rgba(var(--accent-2-rgb), 0.1);
         }
         .tag.host {
-            background: rgba(96, 165, 250, 0.1);
-            color: #60a5fa;
-            border-color: rgba(96, 165, 250, 0.05);
+            background: rgba(var(--accent-3-rgb), 0.1);
+            color: var(--accent-3);
+            border-color: rgba(var(--accent-3-rgb), 0.05);
         }
         .cfg-text {
             background: rgba(0, 0, 0, 0.3);
@@ -739,17 +823,36 @@
             margin-top: 10px;
             font-family: inherit;
         }
+        .quick-add-btn {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 6px 16px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+            margin-left: 6px;
+            font-family: inherit;
+            box-shadow: 0 3px 12px rgba(16, 185, 129, 0.3);
+        }
+        .quick-add-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
         .copy-btn:hover {
-            background: rgba(167, 139, 250, 0.15);
-            color: #a78bfa;
-            border-color: rgba(167, 139, 250, 0.1);
+            background: rgba(var(--accent-2-rgb), 0.15);
+            color: var(--accent-2);
+            border-color: rgba(var(--accent-2-rgb), 0.1);
         }
         .count-badge {
             text-align: center;
             padding: 12px 20px;
             border-radius: 16px;
-            background: rgba(167, 139, 250, 0.06);
-            border: 1px solid rgba(167, 139, 250, 0.06);
+            background: rgba(var(--accent-2-rgb), 0.06);
+            border: 1px solid rgba(var(--accent-2-rgb), 0.06);
             color: rgba(255, 255, 255, 0.5);
             font-size: 13px;
             letter-spacing: 1px;
@@ -878,6 +981,14 @@
             .card {
                 padding: 16px 12px;
             }
+            .rubika-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .rubika-qr {
+                width: 100px;
+                height: 100px;
+            }
             .gameizeh-title {
                 font-size: 20px;
                 letter-spacing: 2px;
@@ -927,7 +1038,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 14px;
             backdrop-filter: blur(12px);
-            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45), inset 0 0 20px rgba(124, 58, 237, 0.06);
+            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45), inset 0 0 20px rgba(var(--accent-1-rgb), 0.06);
             padding: 10px 0;
             direction: ltr; /* حرکت از راست به چپ با جهت راست‌چین بودن متن */
         }
@@ -983,8 +1094,8 @@
             text-shadow: 0 0 12px rgba(254, 202, 87, 0.35);
         }
         .ticker-item.blue {
-            color: #60a5fa;
-            text-shadow: 0 0 12px rgba(96, 165, 250, 0.35);
+            color: var(--accent-3);
+            text-shadow: 0 0 12px rgba(var(--accent-3-rgb), 0.35);
         }
         .ticker-item a {
             color: inherit;
@@ -1000,7 +1111,7 @@
             justify-content: space-between;
             gap: 12px;
             flex-wrap: wrap;
-            background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(124, 58, 237, 0.12));
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(var(--accent-1-rgb), 0.12));
             border: 1px solid rgba(236, 72, 153, 0.2);
             border-radius: 16px;
             padding: 12px 18px;
@@ -1018,7 +1129,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, #ec4899, #7c3aed);
+            background: linear-gradient(135deg, #ec4899, var(--accent-1));
             color: #fff;
             padding: 10px 22px;
             border-radius: 30px;
@@ -1084,9 +1195,9 @@
             cursor: wait;
         }
         .test-btn {
-            background: rgba(96, 165, 250, 0.12);
-            color: #60a5fa;
-            border: 1px solid rgba(96, 165, 250, 0.2);
+            background: rgba(var(--accent-3-rgb), 0.12);
+            color: var(--accent-3);
+            border: 1px solid rgba(var(--accent-3-rgb), 0.2);
             border-radius: 10px;
             padding: 9px 16px;
             font-size: 12px;
@@ -1096,7 +1207,7 @@
             white-space: nowrap;
         }
         .test-btn:hover {
-            background: rgba(96, 165, 250, 0.2);
+            background: rgba(var(--accent-3-rgb), 0.2);
         }
 
         /* ===== نشان پینگ ===== */
@@ -1133,15 +1244,15 @@
             margin-right: 6px;
         }
         .ping-mini:hover {
-            color: #60a5fa;
-            border-color: rgba(96, 165, 250, 0.3);
+            color: var(--accent-3);
+            border-color: rgba(var(--accent-3-rgb), 0.3);
         }
         .fetch-timer {
             text-align: center;
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 1px;
-            color: #a78bfa;
+            color: var(--accent-2);
             margin: -6px 0 10px 0;
             position: relative;
             z-index: 2;
@@ -1173,6 +1284,20 @@
             background: rgba(255, 255, 255, 0.08);
             color: #fff;
         }
+        .lang-select {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 10.5px;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .lang-select option {
+            background: #14142b;
+            color: #fff;
+        }
 
         /* ===== ردیف تنظیمات (اسکن خودکار/کش) ===== */
         .options-row {
@@ -1193,7 +1318,7 @@
             cursor: pointer;
         }
         .opt-check input {
-            accent-color: #7c3aed;
+            accent-color: var(--accent-1);
         }
 
         /* ===== راهنما / وارد کردن کانفیگ / درباره ما ===== */
@@ -1213,7 +1338,7 @@
             margin-bottom: 12px;
         }
         .help-body b {
-            color: #a78bfa;
+            color: var(--accent-2);
         }
         .import-textarea {
             width: 100%;
@@ -1241,13 +1366,227 @@
         .about-title {
             font-size: 12.5px;
             font-weight: 700;
-            color: #a78bfa;
+            color: var(--accent-2);
             margin-bottom: 8px;
         }
         .about-section p {
             font-size: 11px;
             line-height: 1.9;
             color: rgba(255, 255, 255, 0.45);
+        }
+
+        /* ===== آمار زنده ===== */
+        .stats-section {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-top: 14px;
+        }
+        .stats-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--accent-2);
+            margin-bottom: 10px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 10px 6px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 15px;
+            font-weight: 900;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .stat-label {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6b7280;
+            display: inline-block;
+            box-shadow: 0 0 6px rgba(107, 114, 128, 0.6);
+        }
+        .status-dot.online {
+            background: #34d399;
+            box-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
+            animation: dotPulse 1.6s ease-in-out infinite;
+        }
+        .status-dot.offline {
+            background: #f87171;
+            box-shadow: 0 0 8px rgba(248, 113, 113, 0.7);
+        }
+        @keyframes dotPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .stats-note {
+            font-size: 9.5px;
+            color: rgba(255, 255, 255, 0.25);
+            margin-top: 10px;
+            line-height: 1.6;
+            text-align: center;
+        }
+        @media(max-width:480px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ===== توست اعلان کانفیگ جدید ===== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: 14px;
+            font-size: 12.5px;
+            font-weight: 700;
+            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s ease;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ===== دکمه‌ی شناور تم ===== */
+        .theme-fab {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(var(--accent-1-rgb), 0.5);
+            z-index: 500;
+            transition: transform 0.2s;
+        }
+        .theme-fab:hover {
+            transform: scale(1.08) rotate(-8deg);
+        }
+        .theme-modal {
+            max-width: 380px;
+        }
+        .theme-preset-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .theme-preset-card {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.75);
+            text-align: right;
+        }
+        .theme-preset-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .theme-preset-card.active {
+            border-color: rgba(var(--accent-2-rgb), 0.5);
+            background: rgba(var(--accent-2-rgb), 0.1);
+        }
+        .theme-preset-swatch {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+        .theme-custom-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .theme-custom-row label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .theme-custom-row input[type="color"] {
+            width: 34px;
+            height: 28px;
+            border: none;
+            border-radius: 6px;
+            background: none;
+            cursor: pointer;
+        }
+        @media(max-width:400px) {
+            .theme-fab {
+                width: 42px;
+                height: 42px;
+                bottom: 14px;
+                left: 14px;
+                font-size: 17px;
+            }
+        }
+
+        /* ===== بنر معرفی افزودن مستقیم ===== */
+        .noquick-banner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 14px;
+            padding: 10px 16px;
+            margin-bottom: 12px;
+        }
+        .noquick-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .noquick-text {
+            font-size: 11px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .noquick-text b {
+            display: block;
+            color: #34d399;
+            font-size: 12px;
+            margin-bottom: 2px;
         }
 
         /* ===== نوار ابزار نتایج ===== */
@@ -1283,10 +1622,10 @@
             background: rgba(255, 255, 255, 0.08);
         }
         .chip.active {
-            background: linear-gradient(135deg, #7c3aed, #6366f1);
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-4));
             color: #fff;
             border-color: transparent;
-            box-shadow: 0 3px 14px rgba(124, 58, 237, 0.4);
+            box-shadow: 0 3px 14px rgba(var(--accent-1-rgb), 0.4);
         }
         .toolbar-search {
             display: flex;
@@ -1339,9 +1678,9 @@
 
         /* ===== QR ===== */
         .qr-btn {
-            background: rgba(167, 139, 250, 0.12);
-            color: #a78bfa;
-            border: 1px solid rgba(167, 139, 250, 0.25);
+            background: rgba(var(--accent-2-rgb), 0.12);
+            color: var(--accent-2);
+            border: 1px solid rgba(var(--accent-2-rgb), 0.25);
             border-radius: 8px;
             padding: 4px 10px;
             font-size: 10px;
@@ -1350,7 +1689,7 @@
             margin-top: 10px;
         }
         .qr-btn:hover {
-            background: rgba(167, 139, 250, 0.22);
+            background: rgba(var(--accent-2-rgb), 0.22);
         }
         .qr-modal-overlay {
             display: none;
@@ -1367,8 +1706,8 @@
             display: flex;
         }
         .qr-modal {
-            background: linear-gradient(160deg, #14142b, #0a0a1a);
-            border: 1px solid rgba(167, 139, 250, 0.25);
+            background: linear-gradient(160deg, #14142b, var(--bg-base));
+            border: 1px solid rgba(var(--accent-2-rgb), 0.25);
             border-radius: 20px;
             padding: 22px;
             max-width: 320px;
@@ -1499,157 +1838,15 @@
             border-color: rgba(239, 68, 68, 0.2);
         }
     </style>
-    <style id="gz-theme-overrides">
-        /* =====================================================
-           ===== سیستم ۶ تم قابل انتخاب (Cosmic / Galaxy) =====
-           پیش‌فرض (بدون data-theme) همون تم اصلی/فعلی سایته.
-           هر تم فقط رنگ‌های اصلی (پس‌زمینه، گلوی کارت، عنوان،
-           دکمه‌ها، نوار پیشرفت و تگ‌ها) رو بازنویسی می‌کنه، بدون
-           اینکه به ساختار و چیدمان اصلی دست بزنه.
-           ===================================================== */
-
-        /* --- ۲) نئون سایان (آبی/فیروزه‌ای) --- */
-        html[data-theme="cyan"] .galaxy-bg {
-            background: radial-gradient(ellipse at 20% 50%, rgba(0, 200, 255, 0.18) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(0, 255, 200, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(0, 120, 255, 0.1) 0%, transparent 50%), #060d14;
-        }
-        html[data-theme="cyan"] .card { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(0, 200, 255, 0.08); }
-        html[data-theme="cyan"] .card::before { background: conic-gradient(from 0deg, transparent, rgba(0,200,255,0.05), transparent, rgba(0,255,200,0.05), transparent); }
-        html[data-theme="cyan"] .gameizeh-title { background: linear-gradient(90deg, #22d3ee, #38bdf8, #67e8f9, #06b6d4, #38bdf8, #22d3ee); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
-        html[data-theme="cyan"] .btn-primary { background: linear-gradient(135deg, #0891b2, #0284c7); box-shadow: 0 4px 25px rgba(8,145,178,0.35); }
-        html[data-theme="cyan"] .progress-bar { background: linear-gradient(90deg, #22d3ee, #38bdf8, #67e8f9, #06b6d4, #22d3ee); background-size: 300% 100%; }
-        html[data-theme="cyan"] .tag.protocol { background: rgba(34,211,238,0.15); color: #22d3ee; border-color: rgba(34,211,238,0.15); }
-        html[data-theme="cyan"] .music-btn.active, html[data-theme="cyan"] .music-btn:hover { color: #22d3ee; background: rgba(34,211,238,0.15); border-color: rgba(34,211,238,0.2); }
-
-        /* --- ۳) شعله‌ی خورشیدی (نارنجی/طلایی) --- */
-        html[data-theme="ember"] .galaxy-bg {
-            background: radial-gradient(ellipse at 20% 50%, rgba(255, 130, 0, 0.16) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(255, 60, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(255, 200, 0, 0.08) 0%, transparent 50%), #140a05;
-        }
-        html[data-theme="ember"] .card { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(255,130,0,0.08); }
-        html[data-theme="ember"] .card::before { background: conic-gradient(from 0deg, transparent, rgba(255,130,0,0.05), transparent, rgba(255,200,0,0.05), transparent); }
-        html[data-theme="ember"] .gameizeh-title { background: linear-gradient(90deg, #fb923c, #f97316, #facc15, #ef4444, #f97316, #fb923c); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
-        html[data-theme="ember"] .btn-primary { background: linear-gradient(135deg, #ea580c, #dc2626); box-shadow: 0 4px 25px rgba(234,88,12,0.35); }
-        html[data-theme="ember"] .progress-bar { background: linear-gradient(90deg, #fb923c, #f97316, #facc15, #ef4444, #fb923c); background-size: 300% 100%; }
-        html[data-theme="ember"] .tag.protocol { background: rgba(251,146,60,0.15); color: #fb923c; border-color: rgba(251,146,60,0.15); }
-        html[data-theme="ember"] .music-btn.active, html[data-theme="ember"] .music-btn:hover { color: #fb923c; background: rgba(251,146,60,0.15); border-color: rgba(251,146,60,0.2); }
-
-        /* --- ۴) ماتریکس زمردی (سبز) --- */
-        html[data-theme="emerald"] .galaxy-bg {
-            background: radial-gradient(ellipse at 20% 50%, rgba(0, 255, 130, 0.14) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(0, 255, 60, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(120, 255, 0, 0.06) 0%, transparent 50%), #05140a;
-        }
-        html[data-theme="emerald"] .card { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(0,255,130,0.07); }
-        html[data-theme="emerald"] .card::before { background: conic-gradient(from 0deg, transparent, rgba(0,255,130,0.05), transparent, rgba(120,255,0,0.05), transparent); }
-        html[data-theme="emerald"] .gameizeh-title { background: linear-gradient(90deg, #34d399, #4ade80, #a3e635, #10b981, #4ade80, #34d399); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
-        html[data-theme="emerald"] .btn-primary { background: linear-gradient(135deg, #059669, #16a34a); box-shadow: 0 4px 25px rgba(5,150,105,0.35); }
-        html[data-theme="emerald"] .progress-bar { background: linear-gradient(90deg, #34d399, #4ade80, #a3e635, #10b981, #34d399); background-size: 300% 100%; }
-        html[data-theme="emerald"] .tag.protocol { background: rgba(52,211,153,0.15); color: #34d399; border-color: rgba(52,211,153,0.15); }
-        html[data-theme="emerald"] .music-btn.active, html[data-theme="emerald"] .music-btn:hover { color: #34d399; background: rgba(52,211,153,0.15); border-color: rgba(52,211,153,0.2); }
-
-        /* --- ۵) نواِ سرخ (قرمز/صورتی) --- */
-        html[data-theme="crimson"] .galaxy-bg {
-            background: radial-gradient(ellipse at 20% 50%, rgba(255, 0, 90, 0.16) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(255, 0, 150, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(150, 0, 60, 0.08) 0%, transparent 50%), #12040a;
-        }
-        html[data-theme="crimson"] .card { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(255,0,90,0.08); }
-        html[data-theme="crimson"] .card::before { background: conic-gradient(from 0deg, transparent, rgba(255,0,90,0.05), transparent, rgba(255,0,150,0.05), transparent); }
-        html[data-theme="crimson"] .gameizeh-title { background: linear-gradient(90deg, #fb7185, #f43f5e, #ec4899, #e11d48, #f43f5e, #fb7185); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
-        html[data-theme="crimson"] .btn-primary { background: linear-gradient(135deg, #be123c, #9d174d); box-shadow: 0 4px 25px rgba(190,18,60,0.35); }
-        html[data-theme="crimson"] .progress-bar { background: linear-gradient(90deg, #fb7185, #f43f5e, #ec4899, #e11d48, #fb7185); background-size: 300% 100%; }
-        html[data-theme="crimson"] .tag.protocol { background: rgba(251,113,133,0.15); color: #fb7185; border-color: rgba(251,113,133,0.15); }
-        html[data-theme="crimson"] .music-btn.active, html[data-theme="crimson"] .music-btn:hover { color: #fb7185; background: rgba(251,113,133,0.15); border-color: rgba(251,113,133,0.2); }
-
-        /* --- ۶) آرورای اقیانوسی (بنفش/فیروزه‌ای ترکیبی) --- */
-        html[data-theme="aurora"] .galaxy-bg {
-            background: radial-gradient(ellipse at 20% 50%, rgba(0, 255, 200, 0.12) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(120, 0, 255, 0.12) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(0, 150, 255, 0.08) 0%, transparent 50%), #050e12;
-        }
-        html[data-theme="aurora"] .card { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(0,255,200,0.07); }
-        html[data-theme="aurora"] .card::before { background: conic-gradient(from 0deg, transparent, rgba(0,255,200,0.05), transparent, rgba(120,0,255,0.05), transparent); }
-        html[data-theme="aurora"] .gameizeh-title { background: linear-gradient(90deg, #2dd4bf, #818cf8, #34d399, #6366f1, #2dd4bf); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
-        html[data-theme="aurora"] .btn-primary { background: linear-gradient(135deg, #0d9488, #4f46e5); box-shadow: 0 4px 25px rgba(13,148,136,0.35); }
-        html[data-theme="aurora"] .progress-bar { background: linear-gradient(90deg, #2dd4bf, #818cf8, #34d399, #6366f1, #2dd4bf); background-size: 300% 100%; }
-        html[data-theme="aurora"] .tag.protocol { background: rgba(45,212,191,0.15); color: #2dd4bf; border-color: rgba(45,212,191,0.15); }
-        html[data-theme="aurora"] .music-btn.active, html[data-theme="aurora"] .music-btn:hover { color: #2dd4bf; background: rgba(45,212,191,0.15); border-color: rgba(45,212,191,0.2); }
-
-        /* --- دکمه‌ی شناور انتخاب تم --- */
-        .theme-fab {
-            position: fixed;
-            left: 18px;
-            bottom: 18px;
-            z-index: 999;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.12);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            cursor: pointer;
-            transition: transform 0.25s ease;
-        }
-        .theme-fab:hover { transform: scale(1.1) rotate(20deg); }
-        .theme-panel {
-            position: fixed;
-            left: 18px;
-            bottom: 78px;
-            z-index: 999;
-            background: rgba(15,15,30,0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 18px;
-            padding: 14px;
-            display: none;
-            gap: 10px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-        }
-        .theme-panel.open { display: grid; grid-template-columns: repeat(3, 1fr); }
-        .theme-swatch {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid rgba(255,255,255,0.15);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-        .theme-swatch:hover { transform: scale(1.12); }
-        .theme-swatch.active { border-color: #fff; box-shadow: 0 0 0 2px rgba(255,255,255,0.3); }
-        .theme-swatch[data-t="default"] { background: linear-gradient(135deg,#7c3aed,#48dbfb); }
-        .theme-swatch[data-t="cyan"] { background: linear-gradient(135deg,#0891b2,#22d3ee); }
-        .theme-swatch[data-t="ember"] { background: linear-gradient(135deg,#ea580c,#facc15); }
-        .theme-swatch[data-t="emerald"] { background: linear-gradient(135deg,#059669,#a3e635); }
-        .theme-swatch[data-t="crimson"] { background: linear-gradient(135deg,#be123c,#ec4899); }
-        .theme-swatch[data-t="aurora"] { background: linear-gradient(135deg,#0d9488,#4f46e5); }
-    </style>
 </head>
 <body>
-    <div class="theme-fab" id="themeFab" onclick="toggleThemePanel()" title="تغییر تم">🎨</div>
-    <div class="theme-panel" id="themePanel">
-        <div class="theme-swatch" data-t="default" title="کیهانی (پیش‌فرض)" onclick="setTheme('default')"></div>
-        <div class="theme-swatch" data-t="cyan" title="نئون سایان" onclick="setTheme('cyan')"></div>
-        <div class="theme-swatch" data-t="ember" title="شعله‌ی خورشیدی" onclick="setTheme('ember')"></div>
-        <div class="theme-swatch" data-t="emerald" title="ماتریکس زمردی" onclick="setTheme('emerald')"></div>
-        <div class="theme-swatch" data-t="crimson" title="نوای سرخ" onclick="setTheme('crimson')"></div>
-        <div class="theme-swatch" data-t="aurora" title="آرورای اقیانوسی" onclick="setTheme('aurora')"></div>
-    </div>
 
     <!-- ===== کهکشان ===== -->
     <div class="galaxy-bg"></div>
 
     <!-- ===== ستاره‌ها ===== -->
     <div class="stars" id="stars"></div>
+    <div class="toast" id="toast"></div>
 
     <!-- ===== نوار تبلیغاتی متحرک ===== -->
     <div class="ticker-wrap">
@@ -1669,11 +1866,12 @@
                     <span>✦</span> TeamSpeak 3 · 5.57.32.182:2615 <span>✦</span>
                 </div>
                 <div class="gameizeh-sub" style="font-size:10px;letter-spacing:3px;margin-top:2px;color:rgba(255,255,255,0.15);">
-                    ⚡ V2Ray Config Finder ⚡
+                    ⚡ <span data-i18n="tagline">V2Ray Config Finder</span> ⚡
                 </div>
                 <div class="header-util-row">
-                    <button class="util-btn" onclick="openHelpModal()">❓ راهنما</button>
-                    <button class="util-btn" onclick="openImportModal()">➕ وارد کردن کانفیگ</button>
+                    <select id="langSelect" class="lang-select" onchange="setLanguage(this.value)"></select>
+                    <button class="util-btn" onclick="openHelpModal()">❓ <span data-i18n="btn_help">راهنما</span></button>
+                    <button class="util-btn" onclick="openImportModal()">➕ <span data-i18n="btn_import">وارد کردن کانفیگ</span></button>
                 </div>
             </div>
 
@@ -1691,6 +1889,19 @@
                     <span class="app-name">اینستاگرام</span>
                     <span class="username">@GameIzeh</span>
                 </a>
+            </div>
+
+            <!-- ===== بنر گروه روبیکا ===== -->
+            <div class="rubika-banner">
+                <div class="rubika-banner-glow"></div>
+                <img class="rubika-qr" src="assets/rubika-group-qr.jpg" alt="کد QR گروه روبیکای GameIzeh" loading="lazy">
+                <div class="rubika-banner-text">
+                    <div class="rubika-banner-title">💬 به گروه روبیکای ما بپیوند</div>
+                    <div class="rubika-banner-sub">پشتیبانی، اطلاع‌رسانی کانفیگ‌های جدید و گفتگو با بقیه‌ی اعضا</div>
+                    <a href="https://rubika.ir/joing/+BBGDGDHAH0IEWBNGYDOIVQQIZCTKMUVR" target="_blank" class="rubika-join-btn">
+                        <span data-i18n="btn_join_group">ورود به گروه روبیکا</span> ←
+                    </a>
+                </div>
             </div>
 
             <!-- ===== Music Player ===== -->
@@ -1733,37 +1944,45 @@
                     <b>✦ حمایت از GameIzeh ✦</b><br>
                     با کمک شما این پروژه سریع‌تر، قوی‌تر و حرفه‌ای‌تر می‌شود 🚀
                 </div>
-                <a href="https://daramet.com/GameIzeh" target="_blank" class="donate-btn">❤️ حمایت می‌کنم</a>
+                <a href="https://daramet.com/GameIzeh" target="_blank" class="donate-btn">❤️ <span data-i18n="btn_donate">حمایت می‌کنم</span></a>
+            </div>
+
+            <!-- ===== بنر معرفی «افزودن مستقیم بدون دانلود» ===== -->
+            <div class="noquick-banner">
+                <div class="noquick-icon">📲</div>
+                <div class="noquick-text">
+                    <b>دیگه لازم نیست چیزی دانلود کنی!</b>
+                    کنار هر کانفیگ یه دکمه‌ی سبز هست — بزنش، کانفیگ خودش مستقیم توی اپلیکیشنت (v2rayNG / Shadowrocket) باز می‌شه. نه دانلود، نه کپی، نه اسکن — فقط یه لمس.
+                </div>
             </div>
 
             <!-- ===== پنل IP تمیز ===== -->
             <div class="cleanip-panel">
-                <label>🌍 کشور IP تمیز:</label>
+                <label>🌍 <span data-i18n="label_country">کشور IP تمیز:</span></label>
                 <select id="countrySelect"></select>
-                <label>🔌 پروتکل:</label>
+                <label>🔌 <span data-i18n="label_protocol">پروتکل:</span></label>
                 <select id="protocolSelect" onchange="setProtocolFilter(this.value)">
-                    <option value="all">همه پروتکل‌ها</option>
+                    <option value="all" data-i18n="opt_all_protocols">همه پروتکل‌ها</option>
                     <option value="vless">VLESS</option>
                     <option value="vmess">VMESS</option>
                     <option value="trojan">Trojan</option>
                     <option value="ss">Shadowsocks (SS)</option>
                 </select>
-                <button class="cleanip-btn" id="cleanIpBtn" onclick="applyCleanIp()">⚡ اعمال IP تمیز</button>
-                <button class="cleanip-btn" style="background:linear-gradient(135deg,#059669,#10b981);margin-right:8px;" onclick="downloadCleanIpPool()">📥 دانلود لیست کامل IP تمیز (ALL.txt)</button>
-                <button class="test-btn" id="testAllBtn" onclick="testAllPing()">🏓 تست پینگ همه</button>
+                <button class="cleanip-btn" id="cleanIpBtn" onclick="applyCleanIp()">⚡ <span data-i18n="btn_apply_cleanip">اعمال IP تمیز</span></button>
+                <button class="test-btn" id="testAllBtn" onclick="testAllPing()">🏓 <span data-i18n="btn_test_all_ping">تست پینگ همه</span></button>
             </div>
 
             <div class="options-row">
-                <label class="opt-check"><input type="checkbox" id="autoScanCheck" onchange="toggleAutoScan(this.checked)"> 🔄 اسکن خودکار (هر ۱۰ دقیقه)</label>
-                <label class="opt-check"><input type="checkbox" id="useCacheCheck" checked onchange="useCache = this.checked"> 📦 استفاده از کش</label>
-                <button class="tb-btn" onclick="clearAllCache()">🧹 پاک‌کردن کش</button>
+                <label class="opt-check"><input type="checkbox" id="autoScanCheck" onchange="toggleAutoScan(this.checked)"> 🔄 <span data-i18n="opt_autoscan">اسکن خودکار (هر ۱۰ دقیقه)</span></label>
+                <label class="opt-check"><input type="checkbox" id="useCacheCheck" checked onchange="useCache = this.checked"> 📦 <span data-i18n="opt_usecache">استفاده از کش</span></label>
+                <button class="tb-btn" onclick="clearAllCache()">🧹 <span data-i18n="btn_clear_cache">پاک‌کردن کش</span></button>
             </div>
 
             <div class="btn-group">
-                <button class="btn-primary" onclick="getConfigs()">🚀 دریافت کانفیگ‌ها</button>
-                <button class="btn-download" onclick="downloadTxt()">📥 دانلود TXT</button>
-                <button class="btn-fav" id="favToggleBtn" onclick="openFavoritesModal()">⭐ علاقه‌مندی‌ها <span id="favCount">0</span></button>
-                <button class="btn-danger" onclick="clearAll()">🗑️ پاک کردن</button>
+                <button class="btn-primary" onclick="getConfigs()">🚀 <span data-i18n="btn_get_configs">دریافت کانفیگ‌ها</span></button>
+                <button class="btn-download" onclick="downloadTxt()">📥 <span data-i18n="btn_download_txt">دانلود TXT</span></button>
+                <button class="btn-fav" id="favToggleBtn" onclick="openFavoritesModal()">⭐ <span data-i18n="btn_favorites">علاقه‌مندی‌ها</span> <span id="favCount">0</span></button>
+                <button class="btn-danger" onclick="clearAll()">🗑️ <span data-i18n="btn_clear">پاک کردن</span></button>
             </div>
 
             <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
@@ -1772,19 +1991,19 @@
             <!-- ===== نوار ابزار نتایج ===== -->
             <div class="toolbar" id="resultToolbar" style="display:none;">
                 <div class="filter-chips" id="filterChips">
-                    <button class="chip active" data-proto="all" onclick="setProtocolFilter('all')">همه</button>
+                    <button class="chip active" data-proto="all" onclick="setProtocolFilter('all')" data-i18n="chip_all">همه</button>
                     <button class="chip" data-proto="vless" onclick="setProtocolFilter('vless')">VLESS</button>
                     <button class="chip" data-proto="vmess" onclick="setProtocolFilter('vmess')">VMESS</button>
                     <button class="chip" data-proto="trojan" onclick="setProtocolFilter('trojan')">Trojan</button>
                     <button class="chip" data-proto="ss" onclick="setProtocolFilter('ss')">SS</button>
                 </div>
                 <div class="toolbar-search">
-                    <input type="text" id="searchInput" placeholder="🔍 جستجو (نام، هاست، پرچم کشور...)" oninput="setSearchFilter(this.value)">
+                    <input type="text" id="searchInput" data-i18n-placeholder="search_placeholder" placeholder="🔍 جستجو (نام، هاست، پرچم کشور...)" oninput="setSearchFilter(this.value)">
                     <select id="countryFilterSelect" onchange="setCountryFilter(this.value)" style="display:none;"></select>
                 </div>
                 <div class="toolbar-actions">
-                    <button class="tb-btn" onclick="copyAllShown()">📋 کپی همه</button>
-                    <button class="tb-btn" onclick="sortBySpeed()">⚡ مرتب‌سازی بر اساس سرعت</button>
+                    <button class="tb-btn" onclick="copyAllShown()">📋 <span data-i18n="btn_copy_all">کپی همه</span></button>
+                    <button class="tb-btn" onclick="sortBySpeed()">⚡ <span data-i18n="btn_sort_speed">مرتب‌سازی بر اساس سرعت</span></button>
                 </div>
             </div>
 
@@ -1809,6 +2028,26 @@
                 </div>
             </div>
 
+            <!-- ===== دکمه‌ی شناور تغییر تم ===== -->
+            <button class="theme-fab" onclick="openThemeModal()" title="تغییر تم">🎨</button>
+
+            <!-- ===== مودال تنظیم تم ===== -->
+            <div class="qr-modal-overlay" id="themeModalOverlay" onclick="if(event.target===this) closeThemeModal()">
+                <div class="qr-modal theme-modal">
+                    <div class="qr-modal-title">🎨 تم سایت رو خودت بساز</div>
+                    <div class="help-body" style="font-size:11px;margin-bottom:12px;">
+                        یکی از تم‌های آماده رو انتخاب کن، یا خودت رنگ اصلی و رنگ دومت رو بچین تا کاملاً سفارشی بشه. تغییرات فوری اعمال می‌شه و توی همین مرورگر ذخیره می‌مونه.
+                    </div>
+                    <div class="theme-preset-grid" id="themePresetGrid"></div>
+                    <div class="theme-custom-row">
+                        <label>رنگ اصلی: <input type="color" id="customColor1" value="#7c3aed" oninput="applyCustomTheme()"></label>
+                        <label>رنگ دوم: <input type="color" id="customColor2" value="#a78bfa" oninput="applyCustomTheme()"></label>
+                    </div>
+                    <button class="tb-btn" style="width:100%;margin-top:10px;" onclick="resetTheme()">↺ بازگشت به تم پیش‌فرض</button>
+                    <button class="qr-close-btn" onclick="closeThemeModal()" style="margin-top:10px;">بستن ✕</button>
+                </div>
+            </div>
+
             <!-- ===== مودال راهنما ===== -->
             <div class="qr-modal-overlay" id="helpModalOverlay" onclick="if(event.target===this) closeHelpModal()">
                 <div class="qr-modal help-modal">
@@ -1818,9 +2057,10 @@
                         <p><b>۲. فیلتر و جستجو 🔍</b><br>بعد از دریافت، می‌تونی با چیپ‌های بالای نتایج فقط یه پروتکل خاص (VLESS/VMESS/Trojan/SS) رو ببینی، توی کادر جستجو اسم/هاست/کشور رو تایپ کنی، یا از دراپ‌داون کشور برای فیلتر بر اساس پرچم کشور استفاده کنی.</p>
                         <p><b>۳. IP تمیز ⚡</b><br>یه کشور از دراپ‌داون انتخاب کن و «اعمال IP تمیز» رو بزن تا آدرس کانفیگ‌ها با یه IP تمیز از همون کشور جایگزین بشه (برای دورزدن فیلترینگ روی CDN).</p>
                         <p><b>۴. تست پینگ 🏓</b><br>هر کانفیگ دکمه‌ی تست جدا داره، یا با «تست پینگ همه» همه‌ی کانفیگ‌های نمایش داده‌شده رو یه‌جا تست کن. بعدش می‌تونی با «مرتب‌سازی بر اساس سرعت» سریع‌ترین‌ها رو بالا بیاری.</p>
-                        <p><b>۵. کپی / QR / علاقه‌مندی ⭐</b><br>هر کانفیگ رو می‌تونی کپی کنی، QR کدش رو برای اسکن با اپلیکیشن موبایل (v2rayNG، Shadowrocket و...) باز کنی، یا با زدن ☆ به لیست علاقه‌مندی‌هات اضافه کنی (این لیست توی مرورگرت ذخیره می‌مونه).</p>
-                        <p><b>۶. وارد کردن کانفیگ ➕</b><br>اگه خودت کانفیگ یا لینک ساب‌اسکریپشن داری، از دکمه‌ی «وارد کردن کانفیگ» بالای صفحه استفاده کن.</p>
-                        <p><b>۷. اسکن خودکار 🔄</b><br>با فعال کردن این گزینه، هر ۱۰ دقیقه یه‌بار خودش دوباره کانفیگ‌ها رو تازه می‌کنه.</p>
+                        <p><b>۵. افزودن مستقیم (بدون کپی/دانلود) 📲</b><br>سایت خودش تشخیص می‌ده گوشیت اندرویده یا آیفون. یه دکمه‌ی سبز رنگ کنار هر کانفیگ هست که با یه لمس، کانفیگ رو مستقیم توی v2rayNG (اندروید) یا Shadowrocket (آیفون) باز می‌کنه — دیگه نیازی به دانلود فایل یا کپی‌کردن نیست. این برای گوشی‌های قدیمی که باز کردن QR/فایل کامل براشون سنگینه، سریع‌ترین راهه. (فقط اگه اپ نصب نباشه کاری نمی‌کنه؛ اونجا از کپی یا QR استفاده کن.)</p>
+                        <p><b>۶. کپی / QR / علاقه‌مندی ⭐</b><br>هر کانفیگ رو می‌تونی کپی کنی، QR کدش رو برای اسکن با اپلیکیشن موبایل باز کنی، یا با زدن ☆ به لیست علاقه‌مندی‌هات اضافه کنی (این لیست توی مرورگرت ذخیره می‌مونه).</p>
+                        <p><b>۷. وارد کردن کانفیگ ➕</b><br>اگه خودت کانفیگ یا لینک ساب‌اسکریپشن داری، از دکمه‌ی «وارد کردن کانفیگ» بالای صفحه استفاده کن.</p>
+                        <p><b>۸. اسکن خودکار 🔄</b><br>با فعال کردن این گزینه، هر ۱۰ دقیقه یه‌بار خودش دوباره کانفیگ‌ها رو تازه می‌کنه.</p>
                     </div>
                     <button class="qr-close-btn" onclick="closeHelpModal()">بستن ✕</button>
                 </div>
@@ -1842,9 +2082,33 @@
             <div class="log-box" id="log">✦ آماده برای سفر کهکشانی ...</div>
             <div class="source-count" id="sourceCount"></div>
 
+            <!-- ===== آمار زنده ===== -->
+            <div class="stats-section">
+                <div class="stats-title" data-i18n="stats_title">📊 آمار زنده</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="statTotalVisits">…</div>
+                        <div class="stat-label" data-i18n="stats_total_visits">بازدید کل سایت</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statTestedSession">0</div>
+                        <div class="stat-label" data-i18n="stats_tested_session">کانفیگ تست‌شده (این جلسه)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statFastestSession">—</div>
+                        <div class="stat-label" data-i18n="stats_fastest_session">سریع‌ترین (این جلسه)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value"><span class="status-dot" id="onlineDot"></span><span id="statOnlineNow">—</span></div>
+                        <div class="stat-label" data-i18n="stats_online_now">کاربران آنلاین</div>
+                    </div>
+                </div>
+                <div class="stats-note" id="statsNote"></div>
+            </div>
+
             <!-- ===== درباره ما ===== -->
             <div class="about-section">
-                <div class="about-title">ℹ️ درباره‌ی GameIzeh</div>
+                <div class="about-title">ℹ️ <span data-i18n="about_title">درباره‌ی GameIzeh</span></div>
                 <p>
                     GameIzeh یه پروژه‌ی غیرانتفاعیه که با هدف دسترسی آزاد و بدون فیلتر به اینترنت برای همه ساخته شده.
                     ما کانفیگ‌های V2Ray رو از منابع رایگان و متن‌باز جمع‌آوری می‌کنیم و بدون نیاز به ثبت‌نام یا پرداخت
@@ -4188,6 +4452,93 @@ var qrcode = function() {
     </script>
 
     <script>
+        // =====================================================
+        // ===== سیستم چندزبانه (۲۴ زبان) =====
+        // =====================================================
+        const RTL_LANGS = ['fa', 'ar', 'ur', 'ku', 'he'];
+        const LANG_NAMES = {
+            fa: 'فارسی', en: 'English', ar: 'العربية', tr: 'Türkçe', ru: 'Русский',
+            fr: 'Français', de: 'Deutsch', es: 'Español', zh: '中文', hi: 'हिन्दी',
+            ur: 'اردو', az: 'Azərbaycan', ku: 'کوردی', it: 'Italiano', pt: 'Português',
+            ja: '日本語', ko: '한국어', id: 'Bahasa Indonesia', bn: 'বাংলা', vi: 'Tiếng Việt',
+            th: 'ไทย', he: 'עברית', pl: 'Polski', nl: 'Nederlands'
+        };
+        const TRANSLATIONS = {
+            fa: { tagline: 'V2Ray Config Finder', btn_help: 'راهنما', btn_import: 'وارد کردن کانفیگ', btn_join_group: 'ورود به گروه روبیکا', btn_donate: 'حمایت می‌کنم', label_country: 'کشور IP تمیز:', label_protocol: 'پروتکل:', opt_all_protocols: 'همه پروتکل‌ها', btn_apply_cleanip: 'اعمال IP تمیز', btn_test_all_ping: 'تست پینگ همه', opt_autoscan: 'اسکن خودکار (هر ۱۰ دقیقه)', opt_usecache: 'استفاده از کش', btn_clear_cache: 'پاک‌کردن کش', btn_get_configs: 'دریافت کانفیگ‌ها', btn_download_txt: 'دانلود TXT', btn_favorites: 'علاقه‌مندی‌ها', btn_clear: 'پاک کردن', chip_all: 'همه', search_placeholder: '🔍 جستجو (نام، هاست، پرچم کشور...)', btn_copy_all: 'کپی همه', btn_sort_speed: 'مرتب‌سازی بر اساس سرعت', about_title: 'درباره‌ی GameIzeh', opt_all_countries: 'همه کشورها', opt_all_countries_mixed: 'همه کشورها (ترکیبی)', stats_title: '📊 آمار زنده', stats_total_visits: 'بازدید کل سایت', stats_tested_session: 'کانفیگ تست‌شده (این جلسه)', stats_fastest_session: 'سریع‌ترین (این جلسه)', stats_online_now: 'کاربران آنلاین', stats_active_users: 'کاربران فعال', notif_new_configs: 'کانفیگ جدید پیدا شد!' },
+            en: { tagline: 'V2Ray Config Finder', btn_help: 'Help', btn_import: 'Import Config', btn_join_group: 'Join Rubika Group', btn_donate: 'Support Us', label_country: 'Clean IP Country:', label_protocol: 'Protocol:', opt_all_protocols: 'All Protocols', btn_apply_cleanip: 'Apply Clean IP', btn_test_all_ping: 'Test All Ping', opt_autoscan: 'Auto-Scan (every 10 min)', opt_usecache: 'Use Cache', btn_clear_cache: 'Clear Cache', btn_get_configs: 'Get Configs', btn_download_txt: 'Download TXT', btn_favorites: 'Favorites', btn_clear: 'Clear', chip_all: 'All', search_placeholder: '🔍 Search (name, host, country flag...)', btn_copy_all: 'Copy All', btn_sort_speed: 'Sort by Speed', about_title: 'About GameIzeh', opt_all_countries: 'All Countries', opt_all_countries_mixed: 'All Countries (Mixed)', stats_title: '📊 Live Stats', stats_total_visits: 'Total Site Visits', stats_tested_session: 'Tested This Session', stats_fastest_session: 'Fastest (This Session)', stats_online_now: 'Online Users', stats_active_users: 'Active Users', notif_new_configs: 'New configs found!' },
+            ar: { tagline: 'V2Ray Config Finder', btn_help: 'مساعدة', btn_import: 'استيراد إعداد', btn_join_group: 'انضم لمجموعة روبيكا', btn_donate: 'ادعمنا', label_country: 'بلد الـ IP النظيف:', label_protocol: 'البروتوكول:', opt_all_protocols: 'كل البروتوكولات', btn_apply_cleanip: 'تطبيق IP نظيف', btn_test_all_ping: 'اختبار الكل', opt_autoscan: 'مسح تلقائي (كل ١٠ دقائق)', opt_usecache: 'استخدام التخزين المؤقت', btn_clear_cache: 'مسح التخزين المؤقت', btn_get_configs: 'جلب الإعدادات', btn_download_txt: 'تحميل TXT', btn_favorites: 'المفضلة', btn_clear: 'مسح', chip_all: 'الكل', search_placeholder: '🔍 بحث (الاسم، المضيف، العلم...)', btn_copy_all: 'نسخ الكل', btn_sort_speed: 'ترتيب حسب السرعة', about_title: 'عن GameIzeh', opt_all_countries: 'كل الدول', opt_all_countries_mixed: 'كل الدول (مختلط)', stats_title: '📊 إحصائيات مباشرة', stats_total_visits: 'إجمالي الزيارات', stats_tested_session: 'تم اختباره (هذه الجلسة)', stats_fastest_session: 'الأسرع (هذه الجلسة)', stats_online_now: 'مستخدمون متصلون', stats_active_users: 'مستخدمون نشطون', notif_new_configs: 'تم العثور على إعدادات جديدة!' },
+            tr: { tagline: 'V2Ray Config Finder', btn_help: 'Yardım', btn_import: 'Config İçe Aktar', btn_join_group: 'Rubika Grubuna Katıl', btn_donate: 'Destek Ol', label_country: 'Temiz IP Ülkesi:', label_protocol: 'Protokol:', opt_all_protocols: 'Tüm Protokoller', btn_apply_cleanip: 'Temiz IP Uygula', btn_test_all_ping: 'Tümünü Test Et', opt_autoscan: 'Otomatik Tarama (her 10 dk)', opt_usecache: 'Önbellek Kullan', btn_clear_cache: 'Önbelleği Temizle', btn_get_configs: 'Configleri Al', btn_download_txt: 'TXT İndir', btn_favorites: 'Favoriler', btn_clear: 'Temizle', chip_all: 'Tümü', search_placeholder: '🔍 Ara (ad, host, ülke bayrağı...)', btn_copy_all: 'Tümünü Kopyala', btn_sort_speed: 'Hıza Göre Sırala', about_title: 'GameIzeh Hakkında', opt_all_countries: 'Tüm Ülkeler', opt_all_countries_mixed: 'Tüm Ülkeler (Karışık)', stats_title: '📊 Canlı İstatistikler', stats_total_visits: 'Toplam Ziyaret', stats_tested_session: 'Test Edildi (Bu Oturum)', stats_fastest_session: 'En Hızlı (Bu Oturum)', stats_online_now: 'Çevrimiçi Kullanıcılar', stats_active_users: 'Aktif Kullanıcılar', notif_new_configs: 'Yeni configler bulundu!' },
+            ru: { tagline: 'V2Ray Config Finder', btn_help: 'Помощь', btn_import: 'Импорт конфига', btn_join_group: 'Вступить в группу Rubika', btn_donate: 'Поддержать', label_country: 'Страна чистого IP:', label_protocol: 'Протокол:', opt_all_protocols: 'Все протоколы', btn_apply_cleanip: 'Применить чистый IP', btn_test_all_ping: 'Проверить все', opt_autoscan: 'Автоскан (каждые 10 мин)', opt_usecache: 'Использовать кэш', btn_clear_cache: 'Очистить кэш', btn_get_configs: 'Получить конфиги', btn_download_txt: 'Скачать TXT', btn_favorites: 'Избранное', btn_clear: 'Очистить', chip_all: 'Все', search_placeholder: '🔍 Поиск (имя, хост, флаг страны...)', btn_copy_all: 'Копировать всё', btn_sort_speed: 'Сортировать по скорости', about_title: 'О GameIzeh', opt_all_countries: 'Все страны', opt_all_countries_mixed: 'Все страны (смешанно)', stats_title: '📊 Статистика вживую', stats_total_visits: 'Всего посещений', stats_tested_session: 'Проверено (эта сессия)', stats_fastest_session: 'Самый быстрый (эта сессия)', stats_online_now: 'Пользователей онлайн', stats_active_users: 'Активных пользователей', notif_new_configs: 'Найдены новые конфиги!' },
+            fr: { tagline: 'V2Ray Config Finder', btn_help: 'Aide', btn_import: 'Importer une config', btn_join_group: 'Rejoindre le groupe Rubika', btn_donate: 'Nous soutenir', label_country: 'Pays IP propre :', label_protocol: 'Protocole :', opt_all_protocols: 'Tous les protocoles', btn_apply_cleanip: 'Appliquer IP propre', btn_test_all_ping: 'Tester tout', opt_autoscan: 'Scan auto (toutes les 10 min)', opt_usecache: 'Utiliser le cache', btn_clear_cache: 'Vider le cache', btn_get_configs: 'Obtenir les configs', btn_download_txt: 'Télécharger TXT', btn_favorites: 'Favoris', btn_clear: 'Effacer', chip_all: 'Tous', search_placeholder: '🔍 Rechercher (nom, hôte, drapeau...)', btn_copy_all: 'Tout copier', btn_sort_speed: 'Trier par vitesse', about_title: 'À propos de GameIzeh', opt_all_countries: 'Tous les pays', opt_all_countries_mixed: 'Tous les pays (mixte)', stats_title: '📊 Statistiques en direct', stats_total_visits: 'Visites totales', stats_tested_session: 'Testé (cette session)', stats_fastest_session: 'Le plus rapide (cette session)', stats_online_now: 'Utilisateurs en ligne', stats_active_users: 'Utilisateurs actifs', notif_new_configs: 'Nouvelles configs trouvées !' },
+            de: { tagline: 'V2Ray Config Finder', btn_help: 'Hilfe', btn_import: 'Config importieren', btn_join_group: 'Rubika-Gruppe beitreten', btn_donate: 'Unterstützen', label_country: 'Clean-IP-Land:', label_protocol: 'Protokoll:', opt_all_protocols: 'Alle Protokolle', btn_apply_cleanip: 'Clean IP anwenden', btn_test_all_ping: 'Alle testen', opt_autoscan: 'Auto-Scan (alle 10 Min.)', opt_usecache: 'Cache verwenden', btn_clear_cache: 'Cache leeren', btn_get_configs: 'Configs abrufen', btn_download_txt: 'TXT herunterladen', btn_favorites: 'Favoriten', btn_clear: 'Leeren', chip_all: 'Alle', search_placeholder: '🔍 Suche (Name, Host, Länderflagge...)', btn_copy_all: 'Alle kopieren', btn_sort_speed: 'Nach Geschwindigkeit sortieren', about_title: 'Über GameIzeh', opt_all_countries: 'Alle Länder', opt_all_countries_mixed: 'Alle Länder (gemischt)', stats_title: '📊 Live-Statistik', stats_total_visits: 'Gesamtbesuche', stats_tested_session: 'Getestet (diese Sitzung)', stats_fastest_session: 'Am schnellsten (diese Sitzung)', stats_online_now: 'Nutzer online', stats_active_users: 'Aktive Nutzer', notif_new_configs: 'Neue Configs gefunden!' },
+            es: { tagline: 'V2Ray Config Finder', btn_help: 'Ayuda', btn_import: 'Importar config', btn_join_group: 'Unirse al grupo de Rubika', btn_donate: 'Apóyanos', label_country: 'País de IP limpia:', label_protocol: 'Protocolo:', opt_all_protocols: 'Todos los protocolos', btn_apply_cleanip: 'Aplicar IP limpia', btn_test_all_ping: 'Probar todo', opt_autoscan: 'Escaneo automático (cada 10 min)', opt_usecache: 'Usar caché', btn_clear_cache: 'Borrar caché', btn_get_configs: 'Obtener configs', btn_download_txt: 'Descargar TXT', btn_favorites: 'Favoritos', btn_clear: 'Borrar', chip_all: 'Todos', search_placeholder: '🔍 Buscar (nombre, host, bandera...)', btn_copy_all: 'Copiar todo', btn_sort_speed: 'Ordenar por velocidad', about_title: 'Acerca de GameIzeh', opt_all_countries: 'Todos los países', opt_all_countries_mixed: 'Todos los países (mixto)', stats_title: '📊 Estadísticas en vivo', stats_total_visits: 'Visitas totales', stats_tested_session: 'Probado (esta sesión)', stats_fastest_session: 'Más rápido (esta sesión)', stats_online_now: 'Usuarios en línea', stats_active_users: 'Usuarios activos', notif_new_configs: '¡Nuevas configs encontradas!' },
+            zh: { tagline: 'V2Ray Config Finder', btn_help: '帮助', btn_import: '导入配置', btn_join_group: '加入 Rubika 群组', btn_donate: '支持我们', label_country: '干净IP国家:', label_protocol: '协议:', opt_all_protocols: '所有协议', btn_apply_cleanip: '应用干净IP', btn_test_all_ping: '测试全部', opt_autoscan: '自动扫描（每10分钟）', opt_usecache: '使用缓存', btn_clear_cache: '清除缓存', btn_get_configs: '获取配置', btn_download_txt: '下载TXT', btn_favorites: '收藏', btn_clear: '清除', chip_all: '全部', search_placeholder: '🔍 搜索（名称、主机、国旗...）', btn_copy_all: '全部复制', btn_sort_speed: '按速度排序', about_title: '关于 GameIzeh', opt_all_countries: '所有国家', opt_all_countries_mixed: '所有国家（混合）', stats_title: '📊 实时统计', stats_total_visits: '总访问量', stats_tested_session: '本次已测试', stats_fastest_session: '本次最快', stats_online_now: '在线用户', stats_active_users: '活跃用户', notif_new_configs: '发现新配置！' },
+            hi: { tagline: 'V2Ray Config Finder', btn_help: 'सहायता', btn_import: 'कॉन्फ़िग आयात करें', btn_join_group: 'Rubika ग्रुप में शामिल हों', btn_donate: 'सहयोग करें', label_country: 'क्लीन आईपी देश:', label_protocol: 'प्रोटोकॉल:', opt_all_protocols: 'सभी प्रोटोकॉल', btn_apply_cleanip: 'क्लीन आईपी लागू करें', btn_test_all_ping: 'सभी टेस्ट करें', opt_autoscan: 'ऑटो-स्कैन (हर 10 मिनट)', opt_usecache: 'कैश इस्तेमाल करें', btn_clear_cache: 'कैश साफ़ करें', btn_get_configs: 'कॉन्फ़िग प्राप्त करें', btn_download_txt: 'TXT डाउनलोड करें', btn_favorites: 'पसंदीदा', btn_clear: 'साफ़ करें', chip_all: 'सभी', search_placeholder: '🔍 खोजें (नाम, होस्ट, झंडा...)', btn_copy_all: 'सभी कॉपी करें', btn_sort_speed: 'गति के अनुसार क्रमबद्ध करें', about_title: 'GameIzeh के बारे में', opt_all_countries: 'सभी देश', opt_all_countries_mixed: 'सभी देश (मिश्रित)', stats_title: '📊 लाइव आँकड़े', stats_total_visits: 'कुल विज़िट', stats_tested_session: 'टेस्ट किए गए (यह सत्र)', stats_fastest_session: 'सबसे तेज़ (यह सत्र)', stats_online_now: 'ऑनलाइन उपयोगकर्ता', stats_active_users: 'सक्रिय उपयोगकर्ता', notif_new_configs: 'नए कॉन्फ़िग मिले!' },
+            ur: { tagline: 'V2Ray Config Finder', btn_help: 'مدد', btn_import: 'کنفگ درآمد کریں', btn_join_group: 'روبیکا گروپ میں شامل ہوں', btn_donate: 'ہماری مدد کریں', label_country: 'کلین آئی پی ملک:', label_protocol: 'پروٹوکول:', opt_all_protocols: 'تمام پروٹوکولز', btn_apply_cleanip: 'کلین آئی پی لگائیں', btn_test_all_ping: 'سب ٹیسٹ کریں', opt_autoscan: 'خودکار اسکین (ہر 10 منٹ)', opt_usecache: 'کیش استعمال کریں', btn_clear_cache: 'کیش صاف کریں', btn_get_configs: 'کنفگز حاصل کریں', btn_download_txt: 'TXT ڈاؤن لوڈ کریں', btn_favorites: 'پسندیدہ', btn_clear: 'صاف کریں', chip_all: 'تمام', search_placeholder: '🔍 تلاش کریں (نام، ہوسٹ، جھنڈا...)', btn_copy_all: 'سب کاپی کریں', btn_sort_speed: 'رفتار کے حساب سے ترتیب دیں', about_title: 'GameIzeh کے بارے میں', opt_all_countries: 'تمام ممالک', opt_all_countries_mixed: 'تمام ممالک (ملا ہوا)', stats_title: '📊 لائیو اعداد و شمار', stats_total_visits: 'کل وزٹس', stats_tested_session: 'ٹیسٹ شدہ (اس سیشن)', stats_fastest_session: 'تیز ترین (اس سیشن)', stats_online_now: 'آن لائن صارفین', stats_active_users: 'فعال صارفین', notif_new_configs: 'نئے کنفگز ملے!' },
+            az: { tagline: 'V2Ray Config Finder', btn_help: 'Kömək', btn_import: 'Konfiqi idxal et', btn_join_group: 'Rubika qrupuna qoşul', btn_donate: 'Dəstək ol', label_country: 'Təmiz IP ölkəsi:', label_protocol: 'Protokol:', opt_all_protocols: 'Bütün protokollar', btn_apply_cleanip: 'Təmiz IP tətbiq et', btn_test_all_ping: 'Hamısını test et', opt_autoscan: 'Avtomatik skan (hər 10 dəq)', opt_usecache: 'Keşdən istifadə et', btn_clear_cache: 'Keşi təmizlə', btn_get_configs: 'Konfiqləri al', btn_download_txt: 'TXT yüklə', btn_favorites: 'Sevimlilər', btn_clear: 'Təmizlə', chip_all: 'Hamısı', search_placeholder: '🔍 Axtar (ad, host, bayraq...)', btn_copy_all: 'Hamısını kopyala', btn_sort_speed: 'Sürətə görə sırala', about_title: 'GameIzeh haqqında', opt_all_countries: 'Bütün ölkələr', opt_all_countries_mixed: 'Bütün ölkələr (qarışıq)', stats_title: '📊 Canlı statistika', stats_total_visits: 'Ümumi baxış', stats_tested_session: 'Test edildi (bu sessiya)', stats_fastest_session: 'Ən sürətli (bu sessiya)', stats_online_now: 'Onlayn istifadəçilər', stats_active_users: 'Aktiv istifadəçilər', notif_new_configs: 'Yeni konfiqlər tapıldı!' },
+            ku: { tagline: 'V2Ray Config Finder', btn_help: 'یارمەتی', btn_import: 'هاوردەکردنی کۆنفیگ', btn_join_group: 'بەشداری گرووپی ڕوبیکا بکە', btn_donate: 'پشتیوانیمان بکە', label_country: 'وڵاتی IP پاک:', label_protocol: 'پڕۆتۆکۆل:', opt_all_protocols: 'هەموو پڕۆتۆکۆڵەکان', btn_apply_cleanip: 'جێبەجێکردنی IP پاک', btn_test_all_ping: 'تاقیکردنەوەی هەموو', opt_autoscan: 'سکانی خۆکار (هەر ١٠ خولەک)', opt_usecache: 'بەکارهێنانی کاش', btn_clear_cache: 'سڕینەوەی کاش', btn_get_configs: 'وەرگرتنی کۆنفیگەکان', btn_download_txt: 'داگرتنی TXT', btn_favorites: 'دڵخوازەکان', btn_clear: 'سڕینەوە', chip_all: 'هەموو', search_placeholder: '🔍 گەڕان (ناو، هۆست، ئاڵا...)', btn_copy_all: 'کۆپیکردنی هەموو', btn_sort_speed: 'ڕیزکردن بەپێی خێرایی', about_title: 'دەربارەی GameIzeh', opt_all_countries: 'هەموو وڵاتان', opt_all_countries_mixed: 'هەموو وڵاتان (تێکەڵ)', stats_title: '📊 ئامارە زیندووەکان', stats_total_visits: 'کۆی سەردانەکان', stats_tested_session: 'تاقیکراوە (ئەم دانیشتنە)', stats_fastest_session: 'خێراترین (ئەم دانیشتنە)', stats_online_now: 'بەکارهێنەرانی ئۆنلاین', stats_active_users: 'بەکارهێنەرانی چالاک', notif_new_configs: 'کۆنفیگی نوێ دۆزرایەوە!' },
+            it: { tagline: 'V2Ray Config Finder', btn_help: 'Aiuto', btn_import: 'Importa config', btn_join_group: 'Unisciti al gruppo Rubika', btn_donate: 'Sostienici', label_country: 'Paese IP pulito:', label_protocol: 'Protocollo:', opt_all_protocols: 'Tutti i protocolli', btn_apply_cleanip: 'Applica IP pulito', btn_test_all_ping: 'Testa tutto', opt_autoscan: 'Scansione automatica (ogni 10 min)', opt_usecache: 'Usa cache', btn_clear_cache: 'Svuota cache', btn_get_configs: 'Ottieni config', btn_download_txt: 'Scarica TXT', btn_favorites: 'Preferiti', btn_clear: 'Cancella', chip_all: 'Tutti', search_placeholder: '🔍 Cerca (nome, host, bandiera...)', btn_copy_all: 'Copia tutto', btn_sort_speed: 'Ordina per velocità', about_title: 'Informazioni su GameIzeh', opt_all_countries: 'Tutti i paesi', opt_all_countries_mixed: 'Tutti i paesi (misto)', stats_title: '📊 Statistiche in tempo reale', stats_total_visits: 'Visite totali', stats_tested_session: 'Testati (questa sessione)', stats_fastest_session: 'Più veloce (questa sessione)', stats_online_now: 'Utenti online', stats_active_users: 'Utenti attivi', notif_new_configs: 'Nuove config trovate!' },
+            pt: { tagline: 'V2Ray Config Finder', btn_help: 'Ajuda', btn_import: 'Importar config', btn_join_group: 'Entrar no grupo Rubika', btn_donate: 'Apoie-nos', label_country: 'País de IP limpo:', label_protocol: 'Protocolo:', opt_all_protocols: 'Todos os protocolos', btn_apply_cleanip: 'Aplicar IP limpo', btn_test_all_ping: 'Testar tudo', opt_autoscan: 'Escaneamento automático (a cada 10 min)', opt_usecache: 'Usar cache', btn_clear_cache: 'Limpar cache', btn_get_configs: 'Obter configs', btn_download_txt: 'Baixar TXT', btn_favorites: 'Favoritos', btn_clear: 'Limpar', chip_all: 'Todos', search_placeholder: '🔍 Pesquisar (nome, host, bandeira...)', btn_copy_all: 'Copiar tudo', btn_sort_speed: 'Ordenar por velocidade', about_title: 'Sobre o GameIzeh', opt_all_countries: 'Todos os países', opt_all_countries_mixed: 'Todos os países (misto)', stats_title: '📊 Estatísticas ao vivo', stats_total_visits: 'Total de visitas', stats_tested_session: 'Testado (esta sessão)', stats_fastest_session: 'Mais rápido (esta sessão)', stats_online_now: 'Usuários online', stats_active_users: 'Usuários ativos', notif_new_configs: 'Novas configs encontradas!' },
+            ja: { tagline: 'V2Ray Config Finder', btn_help: 'ヘルプ', btn_import: 'コンフィグをインポート', btn_join_group: 'Rubikaグループに参加', btn_donate: '支援する', label_country: 'クリーンIPの国:', label_protocol: 'プロトコル:', opt_all_protocols: 'すべてのプロトコル', btn_apply_cleanip: 'クリーンIPを適用', btn_test_all_ping: 'すべてテスト', opt_autoscan: '自動スキャン（10分ごと）', opt_usecache: 'キャッシュを使用', btn_clear_cache: 'キャッシュを削除', btn_get_configs: 'コンフィグを取得', btn_download_txt: 'TXTをダウンロード', btn_favorites: 'お気に入り', btn_clear: 'クリア', chip_all: 'すべて', search_placeholder: '🔍 検索（名前、ホスト、国旗...）', btn_copy_all: 'すべてコピー', btn_sort_speed: '速度で並べ替え', about_title: 'GameIzehについて', opt_all_countries: 'すべての国', opt_all_countries_mixed: 'すべての国（混合）', stats_title: '📊 ライブ統計', stats_total_visits: '総訪問数', stats_tested_session: 'テスト済み（このセッション）', stats_fastest_session: '最速（このセッション）', stats_online_now: 'オンラインユーザー', stats_active_users: 'アクティブユーザー', notif_new_configs: '新しいコンフィグが見つかりました！' },
+            ko: { tagline: 'V2Ray Config Finder', btn_help: '도움말', btn_import: '설정 가져오기', btn_join_group: 'Rubika 그룹 참여', btn_donate: '후원하기', label_country: '클린 IP 국가:', label_protocol: '프로토콜:', opt_all_protocols: '모든 프로토콜', btn_apply_cleanip: '클린 IP 적용', btn_test_all_ping: '전체 테스트', opt_autoscan: '자동 스캔 (10분마다)', opt_usecache: '캐시 사용', btn_clear_cache: '캐시 지우기', btn_get_configs: '설정 가져오기', btn_download_txt: 'TXT 다운로드', btn_favorites: '즐겨찾기', btn_clear: '지우기', chip_all: '전체', search_placeholder: '🔍 검색 (이름, 호스트, 국기...)', btn_copy_all: '전체 복사', btn_sort_speed: '속도순 정렬', about_title: 'GameIzeh 소개', opt_all_countries: '모든 국가', opt_all_countries_mixed: '모든 국가 (혼합)', stats_title: '📊 실시간 통계', stats_total_visits: '총 방문 수', stats_tested_session: '테스트됨 (이번 세션)', stats_fastest_session: '가장 빠름 (이번 세션)', stats_online_now: '온라인 사용자', stats_active_users: '활성 사용자', notif_new_configs: '새 설정을 찾았습니다!' },
+            id: { tagline: 'V2Ray Config Finder', btn_help: 'Bantuan', btn_import: 'Impor Config', btn_join_group: 'Gabung Grup Rubika', btn_donate: 'Dukung Kami', label_country: 'Negara IP Bersih:', label_protocol: 'Protokol:', opt_all_protocols: 'Semua Protokol', btn_apply_cleanip: 'Terapkan IP Bersih', btn_test_all_ping: 'Tes Semua', opt_autoscan: 'Pindai Otomatis (setiap 10 menit)', opt_usecache: 'Gunakan Cache', btn_clear_cache: 'Hapus Cache', btn_get_configs: 'Ambil Config', btn_download_txt: 'Unduh TXT', btn_favorites: 'Favorit', btn_clear: 'Hapus', chip_all: 'Semua', search_placeholder: '🔍 Cari (nama, host, bendera...)', btn_copy_all: 'Salin Semua', btn_sort_speed: 'Urutkan Berdasarkan Kecepatan', about_title: 'Tentang GameIzeh', opt_all_countries: 'Semua Negara', opt_all_countries_mixed: 'Semua Negara (Campuran)', stats_title: '📊 Statistik Langsung', stats_total_visits: 'Total Kunjungan', stats_tested_session: 'Diuji (Sesi Ini)', stats_fastest_session: 'Tercepat (Sesi Ini)', stats_online_now: 'Pengguna Online', stats_active_users: 'Pengguna Aktif', notif_new_configs: 'Config baru ditemukan!' },
+            bn: { tagline: 'V2Ray Config Finder', btn_help: 'সাহায্য', btn_import: 'কনফিগ আমদানি করুন', btn_join_group: 'Rubika গ্রুপে যোগ দিন', btn_donate: 'আমাদের সমর্থন করুন', label_country: 'ক্লিন আইপি দেশ:', label_protocol: 'প্রোটোকল:', opt_all_protocols: 'সব প্রোটোকল', btn_apply_cleanip: 'ক্লিন আইপি প্রয়োগ করুন', btn_test_all_ping: 'সব পরীক্ষা করুন', opt_autoscan: 'অটো-স্ক্যান (প্রতি ১০ মিনিটে)', opt_usecache: 'ক্যাশে ব্যবহার করুন', btn_clear_cache: 'ক্যাশে মুছুন', btn_get_configs: 'কনফিগ নিন', btn_download_txt: 'TXT ডাউনলোড করুন', btn_favorites: 'প্রিয়', btn_clear: 'মুছুন', chip_all: 'সব', search_placeholder: '🔍 অনুসন্ধান (নাম, হোস্ট, পতাকা...)', btn_copy_all: 'সব কপি করুন', btn_sort_speed: 'গতি অনুসারে সাজান', about_title: 'GameIzeh সম্পর্কে', opt_all_countries: 'সব দেশ', opt_all_countries_mixed: 'সব দেশ (মিশ্র)', stats_title: '📊 লাইভ পরিসংখ্যান', stats_total_visits: 'মোট ভিজিট', stats_tested_session: 'পরীক্ষিত (এই সেশন)', stats_fastest_session: 'দ্রুততম (এই সেশন)', stats_online_now: 'অনলাইন ব্যবহারকারী', stats_active_users: 'সক্রিয় ব্যবহারকারী', notif_new_configs: 'নতুন কনফিগ পাওয়া গেছে!' },
+            vi: { tagline: 'V2Ray Config Finder', btn_help: 'Trợ giúp', btn_import: 'Nhập config', btn_join_group: 'Tham gia nhóm Rubika', btn_donate: 'Ủng hộ chúng tôi', label_country: 'Quốc gia IP sạch:', label_protocol: 'Giao thức:', opt_all_protocols: 'Tất cả giao thức', btn_apply_cleanip: 'Áp dụng IP sạch', btn_test_all_ping: 'Kiểm tra tất cả', opt_autoscan: 'Tự động quét (mỗi 10 phút)', opt_usecache: 'Dùng bộ nhớ đệm', btn_clear_cache: 'Xóa bộ nhớ đệm', btn_get_configs: 'Lấy config', btn_download_txt: 'Tải TXT', btn_favorites: 'Yêu thích', btn_clear: 'Xóa', chip_all: 'Tất cả', search_placeholder: '🔍 Tìm kiếm (tên, host, cờ...)', btn_copy_all: 'Sao chép tất cả', btn_sort_speed: 'Sắp xếp theo tốc độ', about_title: 'Về GameIzeh', opt_all_countries: 'Tất cả quốc gia', opt_all_countries_mixed: 'Tất cả quốc gia (trộn)', stats_title: '📊 Thống kê trực tiếp', stats_total_visits: 'Tổng lượt truy cập', stats_tested_session: 'Đã kiểm tra (phiên này)', stats_fastest_session: 'Nhanh nhất (phiên này)', stats_online_now: 'Người dùng trực tuyến', stats_active_users: 'Người dùng hoạt động', notif_new_configs: 'Đã tìm thấy config mới!' },
+            th: { tagline: 'V2Ray Config Finder', btn_help: 'ช่วยเหลือ', btn_import: 'นำเข้าคอนฟิก', btn_join_group: 'เข้าร่วมกลุ่ม Rubika', btn_donate: 'สนับสนุนเรา', label_country: 'ประเทศ IP สะอาด:', label_protocol: 'โปรโตคอล:', opt_all_protocols: 'ทุกโปรโตคอล', btn_apply_cleanip: 'ใช้ IP สะอาด', btn_test_all_ping: 'ทดสอบทั้งหมด', opt_autoscan: 'สแกนอัตโนมัติ (ทุก 10 นาที)', opt_usecache: 'ใช้แคช', btn_clear_cache: 'ล้างแคช', btn_get_configs: 'รับคอนฟิก', btn_download_txt: 'ดาวน์โหลด TXT', btn_favorites: 'รายการโปรด', btn_clear: 'ล้าง', chip_all: 'ทั้งหมด', search_placeholder: '🔍 ค้นหา (ชื่อ, โฮสต์, ธง...)', btn_copy_all: 'คัดลอกทั้งหมด', btn_sort_speed: 'เรียงตามความเร็ว', about_title: 'เกี่ยวกับ GameIzeh', opt_all_countries: 'ทุกประเทศ', opt_all_countries_mixed: 'ทุกประเทศ (ผสม)', stats_title: '📊 สถิติสด', stats_total_visits: 'ยอดเข้าชมทั้งหมด', stats_tested_session: 'ทดสอบแล้ว (เซสชันนี้)', stats_fastest_session: 'เร็วที่สุด (เซสชันนี้)', stats_online_now: 'ผู้ใช้ออนไลน์', stats_active_users: 'ผู้ใช้ที่ใช้งานอยู่', notif_new_configs: 'พบคอนฟิกใหม่!' },
+            he: { tagline: 'V2Ray Config Finder', btn_help: 'עזרה', btn_import: 'ייבוא קונפיג', btn_join_group: 'הצטרפו לקבוצת רוביקה', btn_donate: 'תמכו בנו', label_country: 'מדינת IP נקי:', label_protocol: 'פרוטוקול:', opt_all_protocols: 'כל הפרוטוקולים', btn_apply_cleanip: 'החל IP נקי', btn_test_all_ping: 'בדוק הכל', opt_autoscan: "סריקה אוטומטית (כל 10 דק')", opt_usecache: 'השתמש במטמון', btn_clear_cache: 'נקה מטמון', btn_get_configs: 'קבל קונפיגים', btn_download_txt: 'הורד TXT', btn_favorites: 'מועדפים', btn_clear: 'נקה', chip_all: 'הכל', search_placeholder: '🔍 חיפוש (שם, מארח, דגל...)', btn_copy_all: 'העתק הכל', btn_sort_speed: 'מיין לפי מהירות', about_title: 'אודות GameIzeh', opt_all_countries: 'כל המדינות', opt_all_countries_mixed: 'כל המדינות (מעורב)', stats_title: '📊 סטטיסטיקה חיה', stats_total_visits: 'סה"כ ביקורים', stats_tested_session: 'נבדק (הפעלה זו)', stats_fastest_session: 'המהיר ביותר (הפעלה זו)', stats_online_now: 'משתמשים מחוברים', stats_active_users: 'משתמשים פעילים', notif_new_configs: 'נמצאו קונפיגים חדשים!' },
+            pl: { tagline: 'V2Ray Config Finder', btn_help: 'Pomoc', btn_import: 'Importuj konfigurację', btn_join_group: 'Dołącz do grupy Rubika', btn_donate: 'Wesprzyj nas', label_country: 'Kraj czystego IP:', label_protocol: 'Protokół:', opt_all_protocols: 'Wszystkie protokoły', btn_apply_cleanip: 'Zastosuj czyste IP', btn_test_all_ping: 'Testuj wszystko', opt_autoscan: 'Autoskan (co 10 min)', opt_usecache: 'Użyj pamięci podręcznej', btn_clear_cache: 'Wyczyść pamięć podręczną', btn_get_configs: 'Pobierz konfiguracje', btn_download_txt: 'Pobierz TXT', btn_favorites: 'Ulubione', btn_clear: 'Wyczyść', chip_all: 'Wszystkie', search_placeholder: '🔍 Szukaj (nazwa, host, flaga...)', btn_copy_all: 'Kopiuj wszystko', btn_sort_speed: 'Sortuj według szybkości', about_title: 'O GameIzeh', opt_all_countries: 'Wszystkie kraje', opt_all_countries_mixed: 'Wszystkie kraje (mieszane)', stats_title: '📊 Statystyki na żywo', stats_total_visits: 'Łączna liczba odwiedzin', stats_tested_session: 'Przetestowano (ta sesja)', stats_fastest_session: 'Najszybszy (ta sesja)', stats_online_now: 'Użytkownicy online', stats_active_users: 'Aktywni użytkownicy', notif_new_configs: 'Znaleziono nowe konfiguracje!' },
+            nl: { tagline: 'V2Ray Config Finder', btn_help: 'Help', btn_import: 'Config importeren', btn_join_group: 'Word lid van Rubika-groep', btn_donate: 'Steun ons', label_country: 'Land schone IP:', label_protocol: 'Protocol:', opt_all_protocols: 'Alle protocollen', btn_apply_cleanip: 'Schone IP toepassen', btn_test_all_ping: 'Alles testen', opt_autoscan: 'Automatisch scannen (elke 10 min)', opt_usecache: 'Cache gebruiken', btn_clear_cache: 'Cache wissen', btn_get_configs: 'Configs ophalen', btn_download_txt: 'TXT downloaden', btn_favorites: 'Favorieten', btn_clear: 'Wissen', chip_all: 'Alle', search_placeholder: '🔍 Zoeken (naam, host, vlag...)', btn_copy_all: 'Alles kopiëren', btn_sort_speed: 'Sorteren op snelheid', about_title: 'Over GameIzeh', opt_all_countries: 'Alle landen', opt_all_countries_mixed: 'Alle landen (gemengd)', stats_title: '📊 Live statistieken', stats_total_visits: 'Totaal aantal bezoeken', stats_tested_session: 'Getest (deze sessie)', stats_fastest_session: 'Snelste (deze sessie)', stats_online_now: 'Gebruikers online', stats_active_users: 'Actieve gebruikers', notif_new_configs: 'Nieuwe configs gevonden!' }
+        };
+
+        let currentLang = 'fa';
+
+        function t(key) {
+            const lang = TRANSLATIONS[currentLang] || TRANSLATIONS.fa;
+            return lang[key] || (TRANSLATIONS.en[key]) || (TRANSLATIONS.fa[key]) || key;
+        }
+
+        function applyLanguage() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                el.textContent = t(el.getAttribute('data-i18n'));
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
+            });
+            const html = document.documentElement;
+            html.setAttribute('lang', currentLang);
+            html.setAttribute('dir', RTL_LANGS.includes(currentLang) ? 'rtl' : 'ltr');
+        }
+
+        function setLanguage(lang) {
+            if (!TRANSLATIONS[lang]) return;
+            currentLang = lang;
+            try { localStorage.setItem('gameizeh_lang', lang); } catch (e) {}
+            applyLanguage();
+            const sel = document.getElementById('langSelect');
+            if (sel && sel.value !== lang) sel.value = lang;
+        }
+
+        function populateLangSelect() {
+            const sel = document.getElementById('langSelect');
+            if (!sel) return;
+            let html = '';
+            Object.keys(LANG_NAMES).forEach(code => {
+                html += `<option value="${code}">${LANG_NAMES[code]}</option>`;
+            });
+            sel.innerHTML = html;
+        }
+
+        function initLanguage() {
+            populateLangSelect();
+            let saved = 'fa';
+            try { saved = localStorage.getItem('gameizeh_lang') || 'fa'; } catch (e) {}
+            currentLang = TRANSLATIONS[saved] ? saved : 'fa';
+            document.getElementById('langSelect').value = currentLang;
+            applyLanguage();
+        }
+        initLanguage();
+
+
         // ===== ساخت ستاره‌ها =====
         function createStars() {
             const container = document.getElementById('stars');
@@ -4219,6 +4570,7 @@ var qrcode = function() {
         let currentFilteredConfigs = [];
         let currentProtocolFilter = 'all';
         let pingResults = {};
+        let previousConfigSignatures = new Set();
         let totalSources = 0;
 
         function log(msg) {
@@ -4249,6 +4601,7 @@ var qrcode = function() {
             if (searchEl) searchEl.value = '';
             const countryFilterEl = document.getElementById('countryFilterSelect');
             if (countryFilterEl) { countryFilterEl.innerHTML = ''; countryFilterEl.style.display = 'none'; }
+            updateStatsPanel();
             updateProgress(0);
         }
 
@@ -4336,52 +4689,21 @@ var qrcode = function() {
             }
         }
 
-        // اگه لینک از raw.githubusercontent.com یا github.com/.../raw/... باشه، یه
-        // آینه‌ی jsDelivr هم می‌سازیم. jsDelivr یه CDN با CORS بازه و معمولاً به‌مراتب
-        // سریع‌تر و پایدارتر از پروکسی‌های عمومی (allorigins/corsproxy/codetabs) عمل
-        // می‌کنه، پس اون رو به‌عنوان اولین و سریع‌ترین جایگزین امتحان می‌کنیم.
-        function jsdelivrMirror(url) {
-            try {
-                let m = url.match(/^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/([^/]+)\/(.+)$/);
-                if (m) {
-                    const [, user, repo, branch, path] = m;
-                    return 'https://cdn.jsdelivr.net/gh/' + user + '/' + repo + '@' + branch + '/' + path;
-                }
-                m = url.match(/^https:\/\/github\.com\/([^/]+)\/([^/]+)\/raw\/([^/]+)\/(.+)$/);
-                if (m) {
-                    const [, user, repo, branch, path] = m;
-                    return 'https://cdn.jsdelivr.net/gh/' + user + '/' + repo + '@' + branch + '/' + path;
-                }
-            } catch (e) {}
-            return null;
-        }
-
-        // دریافت مستقیم؛ اگه به هر دلیلی (CORS/فیلترینگ/شبکه) شکست خورد از آینه‌ی
-        // jsDelivr و چند پروکسی عمومی به‌صورت هم‌زمان استفاده می‌کنیم و هرکدوم
-        // زودتر جواب داد برنده‌ست (سرعت دریافت کانفیگ رو تا حد زیادی بهتر می‌کنه)
+        // دریافت مستقیم؛ اگه به هر دلیلی (CORS/فیلترینگ/شبکه) شکست خورد از چند
+        // پروکسی عمومی به‌صورت هم‌زمان استفاده می‌کنیم و هرکدوم زودتر جواب داد برنده‌ست
         async function fetchSourceText(url) {
             const cached = getCached(url);
             if (cached) return { text: cached, fromCache: true };
 
             const attempts = [
-                fetchOne(url, FETCH_TIMEOUT_MS).catch(e => { throw { reason: 'مستقیم: ' + e.message }; })
-            ];
-
-            const mirror = jsdelivrMirror(url);
-            if (mirror) {
-                attempts.push(
-                    fetchOne(mirror, FETCH_TIMEOUT_MS).catch(e => { throw { reason: 'jsdelivr: ' + e.message }; })
-                );
-            }
-
-            attempts.push(
+                fetchOne(url, FETCH_TIMEOUT_MS).catch(e => { throw { reason: 'مستقیم: ' + e.message }; }),
                 fetchOne('https://api.allorigins.win/raw?url=' + encodeURIComponent(url), FETCH_TIMEOUT_MS + 2000)
                     .catch(e => { throw { reason: 'allorigins: ' + e.message }; }),
                 fetchOne('https://corsproxy.io/?url=' + encodeURIComponent(url), FETCH_TIMEOUT_MS + 2000)
                     .catch(e => { throw { reason: 'corsproxy: ' + e.message }; }),
                 fetchOne('https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url), FETCH_TIMEOUT_MS + 2000)
                     .catch(e => { throw { reason: 'codetabs: ' + e.message }; })
-            );
+            ];
 
             try {
                 const text = await Promise.any(attempts);
@@ -4635,10 +4957,22 @@ var qrcode = function() {
                 }
             }
 
+            // تشخیص کانفیگ‌های تازه نسبت به دریافت قبلی (برای اعلان)
+            const newSignatures = new Set(unique.map(c => c.config));
+            let newCount = 0;
+            if (previousConfigSignatures.size > 0) {
+                newSignatures.forEach(sig => {
+                    if (!previousConfigSignatures.has(sig)) newCount++;
+                });
+            }
+            const isFirstFetch = previousConfigSignatures.size === 0;
+            previousConfigSignatures = newSignatures;
+
             allConfigs = unique;
             allConfigs.forEach((cfg, idx) => { cfg._id = idx; });
             configById = new Map(allConfigs.map(cfg => [cfg._id, cfg]));
             pingResults = {};
+            updateStatsPanel();
             updateProgress(100);
 
             clearInterval(timerInterval);
@@ -4646,6 +4980,10 @@ var qrcode = function() {
             timerEl.classList.add('done');
             timerEl.textContent = '✅ کانفیگ‌ها در ' + totalSecs + ' ثانیه تحویل داده شد  (' + okCount + ' منبع موفق، ' + failCount + ' ناموفق)';
             log('⏱ زمان کل دریافت: ' + totalSecs + ' ثانیه  |  ✅ ' + okCount + ' منبع موفق  |  ❌ ' + failCount + ' منبع ناموفق');
+
+            if (!isFirstFetch && newCount > 0) {
+                showToast('🔔 ' + newCount + ' ' + t('notif_new_configs'));
+            }
 
             if (unique.length === 0) {
                 document.getElementById('result').innerHTML =
@@ -4665,7 +5003,7 @@ var qrcode = function() {
             }
 
             btn.disabled = false;
-            btn.textContent = '🚀 دریافت کانفیگ‌ها';
+            btn.textContent = '🚀 ' + t('btn_get_configs');
         }
 
         let currentSearchText = '';
@@ -4729,7 +5067,7 @@ var qrcode = function() {
                 }
             });
             const flags = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
-            let html = '<option value="">🌐 همه کشورها</option>';
+            let html = '<option value="">🌐 ' + t('opt_all_countries') + '</option>';
             flags.forEach(flag => {
                 html += `<option value="${flag}">${flag} ${flagToCountryName(flag)} (${counts[flag]})</option>`;
             });
@@ -4783,6 +5121,7 @@ var qrcode = function() {
               <span class="tag ping" id="ping-${id}">پینگ نامشخص</span>
             </div>
             <div class="cfg-text">${cfg.config}</div>
+            <button class="quick-add-btn" onclick="quickAddConfig(${id})">${quickAddLabel()}</button>
             <button class="copy-btn" onclick="copyText('${cfg.config.replace(/'/g, "\\'")}')">✦ کپی ✦</button>
             <button class="ping-mini" onclick="testPing(${id})">🏓 تست این کانفیگ</button>
             <button class="qr-btn" onclick="showQr(${id})">📱 QR کد</button>
@@ -4864,22 +5203,73 @@ var qrcode = function() {
             });
         }
 
+        // =====================================================
+        // ===== تشخیص دستگاه + افزودن مستقیم به اپلیکیشن (بدون دانلود/کپی) =====
+        // =====================================================
+        function detectPlatform() {
+            const ua = navigator.userAgent || '';
+            if (/android/i.test(ua)) return 'android';
+            if (/iphone|ipad|ipod/i.test(ua)) return 'ios';
+            return 'desktop';
+        }
+        const CURRENT_PLATFORM = detectPlatform();
+
+        function quickAddLabel() {
+            if (CURRENT_PLATFORM === 'android') return '📲 افزودن مستقیم به v2rayNG';
+            if (CURRENT_PLATFORM === 'ios') return '📲 افزودن مستقیم به Shadowrocket';
+            return '📋 کپی برای v2rayN / Clash';
+        }
+
+        // این دکمه یه لینک با پروتکل مخصوص اپ (deep link) می‌سازه که خود اپلیکیشن
+        // (اگه از قبل نصب باشه) بازش می‌کنه و کانفیگ رو مستقیم داخلش وارد می‌کنه —
+        // بدون نیاز به دانلود فایل یا اسکن QR. اگه اپ نصب نباشه، مرورگر کاری نمی‌کنه
+        // و کاربر همچنان می‌تونه از دکمه‌ی کپی/QR استفاده کنه.
+        function quickAddConfig(id) {
+            const cfg = configById.get(id);
+            if (!cfg) return;
+            quickAddConfigStr(cfg.config);
+        }
+
+        function quickAddConfigStr(configStr) {
+            if (CURRENT_PLATFORM === 'android') {
+                const link = 'v2rayng://install-config?url=' + encodeURIComponent(configStr);
+                log('📲 در حال باز کردن v2rayNG...');
+                window.location.href = link;
+                setTimeout(() => {
+                    log('ℹ️ اگه v2rayNG باز نشد، یعنی نصب نیست — از دکمه‌ی کپی یا QR استفاده کن');
+                }, 1500);
+            } else if (CURRENT_PLATFORM === 'ios') {
+                const link = 'shadowrocket://add/' + encodeURIComponent(configStr);
+                log('📲 در حال باز کردن Shadowrocket...');
+                window.location.href = link;
+                setTimeout(() => {
+                    log('ℹ️ اگه Shadowrocket باز نشد، یعنی نصب نیست — از دکمه‌ی کپی یا QR استفاده کن');
+                }, 1500);
+            } else {
+                // دسکتاپ: بیشتر کلاینت‌ها (v2rayN، Clash Verge و...) کلیپ‌بورد رو
+                // خودشون مانیتور می‌کنن، پس ساده‌ترین و سریع‌ترین راه همون کپیه
+                copyText(configStr);
+                log('📋 کپی شد — v2rayN/Clash رو باز کن، خیلی‌ها خودشون از کلیپ‌بورد می‌گیرن');
+            }
+        }
+
         // ===== موزیک پلیر (پلی‌لیست) =====
         const PLAYLIST = [
-            { title: 'Roman Olur Yazsam Seni', artist: 'Velet (Sevil Music)', file: '1.mp3', url: 'https://uploadkon.ir/uploads/d40509_261.mp3' },
-            { title: 'AL NACER!', artist: 'Sayfalse, Nulteex', file: '2.mp3', url: 'https://uploadkon.ir/uploads/59f009_262.mp3' },
-            { title: 'Away from Home', artist: 'Atilla Khan, Bacca Chew', file: '3.mp3', url: 'https://uploadkon.ir/uploads/062209_263.mp3' },
-            { title: 'Bitch Better Have My Money', artist: 'Biometrix', file: '4.mp3', url: 'https://uploadkon.ir/uploads/695409_264.mp3' },
-            { title: 'Che Danestam (Seventh Soul Remix)', artist: 'Homayoun Shajarian', file: '5.mp3', url: 'https://uploadkon.ir/uploads/d36d09_265.mp3' },
-            { title: "I'm Good (Blue)", artist: 'David Guetta, Bebe Rexha', file: '6.mp3', url: 'https://uploadkon.ir/uploads/e5d309_266.mp3' },
-            { title: 'Moonlight Shadow', artist: 'stayus, WhiteCapMusic, Niklas Dee', file: '7.mp3', url: 'https://uploadkon.ir/uploads/ce7d09_267.mp3' },
-            { title: 'Lullaby', artist: 'Rauf And Faik', file: '8.mp3', url: 'https://uploadkon.ir/uploads/291609_268.mp3' },
-            { title: 'The Business', artist: 'Tiësto', file: '9.mp3', url: 'https://uploadkon.ir/uploads/854409_269.mp3' },
-            { title: 'Bam Bam', artist: 'VOLB3X', file: '10.mp3', url: 'https://uploadkon.ir/uploads/777709_2610.mp3' }
+            { title: 'Roman Olur Yazsam Seni', artist: 'Velet (Sevil Music)', file: '1.mp3' },
+            { title: 'AL NACER!', artist: 'Sayfalse, Nulteex', file: '2.mp3' },
+            { title: 'Away from Home', artist: 'Atilla Khan, Bacca Chew', file: '3.mp3' },
+            { title: 'Bitch Better Have My Money', artist: 'Biometrix', file: '4.mp3' },
+            { title: 'Che Danestam (Seventh Soul Remix)', artist: 'Homayoun Shajarian', file: '5.mp3' },
+            { title: "I'm Good (Blue)", artist: 'David Guetta, Bebe Rexha', file: '6.mp3' },
+            { title: 'Moonlight Shadow', artist: 'stayus, WhiteCapMusic, Niklas Dee', file: '7.mp3' },
+            { title: 'Lullaby', artist: 'Rauf And Faik', file: '8.mp3' },
+            { title: 'The Business', artist: 'Tiësto', file: '9.mp3' },
+            { title: 'Bam Bam', artist: 'VOLB3X', file: '10.mp3' }
         ];
-        // هر آهنگ الان یه لینک مستقیم (url) داره، پس دیگه لازم نیست پوشه‌ی Music/
-        // کنار index.html باشه. اگه بعداً خواستی از فایل‌های لوکال خودت پخش بشه،
-        // کافیه url رو از رکورد موردنظر حذف کنی تا دوباره بره سراغ Music/<file>.
+        // اگه ترتیب آهنگ‌های شماره‌گذاری‌شده‌ی خودت با این فرق داره، فقط ترتیب
+        // فایل‌های بالا (title/artist) رو جابه‌جا کن تا با شماره‌ی درست جفت بشه.
+
+
 
         let audioElement = null;
         let isPlaying = false;
@@ -4887,7 +5277,6 @@ var qrcode = function() {
         let currentTrackIndex = 0;
 
         function trackUrl(track) {
-            if (track.url) return track.url;
             return 'Music/' + encodeURIComponent(track.file);
         }
 
@@ -5079,7 +5468,7 @@ var qrcode = function() {
         };
         function populateCountrySelect() {
             const sel = document.getElementById('countrySelect');
-            let html = '<option value="ALL">🌐 همه کشورها (ترکیبی)</option>';
+            let html = '<option value="ALL">🌐 ' + t('opt_all_countries_mixed') + '</option>';
             for (const [code, name] of Object.entries(CLEAN_IP_COUNTRIES)) {
                 html += `<option value="${code}">${name} (${code})</option>`;
             }
@@ -5094,43 +5483,14 @@ var qrcode = function() {
         populateCountrySelect();
 
         async function loadCleanIpPool(country) {
-            let res = await fetch('proxy/' + country + '.txt');
-            if (!res.ok) {
-                // اگه فایل اختصاصیِ این کشور موجود نبود، به‌جای خطا دادن از
-                // proxy/ALL.txt (استخر کلی IP/پروکسی تمیز) به‌عنوان جایگزین استفاده می‌کنیم.
-                res = await fetch('proxy/ALL.txt');
-                if (!res.ok) throw new Error('عدم دسترسی به لیست ' + country + ' و لیست عمومی ALL.txt');
-            }
+            const res = await fetch('proxy/' + country + '.txt');
+            if (!res.ok) throw new Error('عدم دسترسی به لیست ' + country);
             const text = await res.text();
             const ipRegex = /\b(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b/g;
             const found = text.match(ipRegex) || [];
             const unique = [...new Set(found)];
             if (unique.length === 0) throw new Error('لیست IP خالی برای ' + country);
             return unique;
-        }
-
-        // دانلود مستقیم کل استخر IP/پروکسی تمیز (proxy/ALL.txt) — مناسب کسانی که
-        // می‌خوان خودشون این IPها رو داخل کانفیگ V2Ray/شخصی خودشون دستی جایگزین کنن.
-        async function downloadCleanIpPool() {
-            try {
-                log('📥 در حال دریافت proxy/ALL.txt ...');
-                const res = await fetch('proxy/ALL.txt');
-                if (!res.ok) throw new Error('فایل proxy/ALL.txt پیدا نشد');
-                const text = await res.text();
-                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'gameizeh_clean_ip_ALL_' + new Date().toISOString().slice(0, 10) + '.txt';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                log('✅ لیست IP تمیز دانلود شد');
-            } catch (e) {
-                log('❌ خطا در دانلود لیست IP تمیز: ' + e.message);
-                alert('✦ خطا در دانلود لیست IP تمیز ✦');
-            }
         }
 
         function replaceHostInConfig(cfg, newIp) {
@@ -5184,7 +5544,7 @@ var qrcode = function() {
                 alert('✦ خطا در دریافت IP تمیز: ' + e.message + ' ✦');
             }
             btn.disabled = false;
-            btn.textContent = '⚡ اعمال IP تمیز';
+            btn.textContent = '⚡ ' + t('btn_apply_cleanip');
         }
 
         // =====================================================
@@ -5222,6 +5582,7 @@ var qrcode = function() {
                 tagEl.textContent = '🔴 قطع/بدون پاسخ';
             } finally {
                 clearTimeout(timeout);
+                updateStatsPanel();
             }
         }
 
@@ -5243,7 +5604,7 @@ var qrcode = function() {
             }
             log('✅ تست پینگ تمام شد');
             btn.disabled = false;
-            btn.textContent = '🏓 تست پینگ همه';
+            btn.textContent = '🏓 ' + t('btn_test_all_ping');
         }
 
         // =====================================================
@@ -5348,6 +5709,7 @@ var qrcode = function() {
             </div>
             <div class="fav-item-text">${f.config}</div>
             <div class="fav-item-actions">
+              <button onclick="quickAddConfigStr('${f.config.replace(/'/g, "\\'")}')">${quickAddLabel()}</button>
               <button onclick="copyText('${f.config.replace(/'/g, "\\'")}')">✦ کپی</button>
               <button onclick="showQrForConfig('${f.config.replace(/'/g, "\\'")}')">📱 QR</button>
               <button class="fav-remove" onclick="removeFavoriteAt(${idx})">🗑️ حذف</button>
@@ -5470,35 +5832,218 @@ var qrcode = function() {
                 log('⏹️ اسکن خودکار غیرفعال شد');
             }
         }
-    </script>
-    <script>
-        // ===== سیستم انتخاب تم (۶ تم) =====
-        function setTheme(name) {
-            if (name === 'default') {
-                document.documentElement.removeAttribute('data-theme');
-            } else {
-                document.documentElement.setAttribute('data-theme', name);
+
+        // =====================================================
+        // ===== سیستم تم (قابل تغییر کامل توسط کاربر) =====
+        // =====================================================
+        const THEME_PRESETS = [
+            { id: 'galaxy', name: '🌌 کهکشانی بنفش', c1: '#7c3aed', c2: '#a78bfa', c3: '#60a5fa', c4: '#6366f1', bg: '#0a0a1a' },
+            { id: 'ocean', name: '🌊 اقیانوسی آبی', c1: '#0ea5e9', c2: '#38bdf8', c3: '#22d3ee', c4: '#0284c7', bg: '#06131c' },
+            { id: 'fire', name: '🔥 آتشین نارنجی', c1: '#f97316', c2: '#fb923c', c3: '#ef4444', c4: '#ea580c', bg: '#1a0e05' },
+            { id: 'emerald', name: '💚 زمردی سبز', c1: '#059669', c2: '#34d399', c3: '#10b981', c4: '#047857', bg: '#04140f' }
+        ];
+        const THEME_STORAGE_KEY = 'gameizeh_theme';
+
+        function hexToRgbStr(hex) {
+            const h = hex.replace('#', '');
+            const bigint = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16);
+            return ((bigint >> 16) & 255) + ', ' + ((bigint >> 8) & 255) + ', ' + (bigint & 255);
+        }
+
+        function applyThemeVars(vars) {
+            const root = document.documentElement;
+            root.style.setProperty('--accent-1', vars.c1);
+            root.style.setProperty('--accent-1-rgb', hexToRgbStr(vars.c1));
+            root.style.setProperty('--accent-2', vars.c2);
+            root.style.setProperty('--accent-2-rgb', hexToRgbStr(vars.c2));
+            root.style.setProperty('--accent-3', vars.c3);
+            root.style.setProperty('--accent-3-rgb', hexToRgbStr(vars.c3));
+            root.style.setProperty('--accent-4', vars.c4);
+            if (vars.bg) root.style.setProperty('--bg-base', vars.bg);
+        }
+
+        function applyPresetTheme(id) {
+            const preset = THEME_PRESETS.find(p => p.id === id);
+            if (!preset) return;
+            applyThemeVars(preset);
+            try {
+                localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify({ type: 'preset', id }));
+            } catch (e) {}
+            renderThemePresetGrid();
+        }
+
+        function applyCustomTheme() {
+            const c1 = document.getElementById('customColor1').value;
+            const c2 = document.getElementById('customColor2').value;
+            applyThemeVars({ c1, c2, c3: c2, c4: c1 });
+            try {
+                localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify({ type: 'custom', c1, c2 }));
+            } catch (e) {}
+            renderThemePresetGrid();
+        }
+
+        function resetTheme() {
+            try { localStorage.removeItem(THEME_STORAGE_KEY); } catch (e) {}
+            applyPresetTheme('galaxy');
+            document.getElementById('customColor1').value = '#7c3aed';
+            document.getElementById('customColor2').value = '#a78bfa';
+        }
+
+        function loadSavedTheme() {
+            let saved = null;
+            try { saved = JSON.parse(localStorage.getItem(THEME_STORAGE_KEY) || 'null'); } catch (e) {}
+            if (!saved) return;
+            if (saved.type === 'preset') {
+                applyPresetTheme(saved.id);
+            } else if (saved.type === 'custom') {
+                document.getElementById('customColor1').value = saved.c1;
+                document.getElementById('customColor2').value = saved.c2;
+                applyThemeVars({ c1: saved.c1, c2: saved.c2, c3: saved.c2, c4: saved.c1 });
             }
-            document.querySelectorAll('.theme-swatch').forEach(function (el) {
-                el.classList.toggle('active', el.getAttribute('data-t') === name);
+        }
+
+        function renderThemePresetGrid() {
+            const wrap = document.getElementById('themePresetGrid');
+            if (!wrap) return;
+            let saved = null;
+            try { saved = JSON.parse(localStorage.getItem(THEME_STORAGE_KEY) || 'null'); } catch (e) {}
+            const activeId = (saved && saved.type === 'preset') ? saved.id : 'galaxy';
+            let html = '';
+            THEME_PRESETS.forEach(p => {
+                html += `
+          <div class="theme-preset-card${p.id === activeId ? ' active' : ''}" onclick="applyPresetTheme('${p.id}')">
+            <span class="theme-preset-swatch" style="background:linear-gradient(135deg, ${p.c1}, ${p.c3});"></span>
+            ${p.name}
+          </div>
+        `;
             });
-            try { localStorage.setItem('gz_theme', name); } catch (e) {}
+            wrap.innerHTML = html;
         }
-        function toggleThemePanel() {
-            document.getElementById('themePanel').classList.toggle('open');
+
+        function openThemeModal() {
+            renderThemePresetGrid();
+            document.getElementById('themeModalOverlay').classList.add('open');
         }
-        document.addEventListener('click', function (e) {
-            const panel = document.getElementById('themePanel');
-            const fab = document.getElementById('themeFab');
-            if (panel.classList.contains('open') && !panel.contains(e.target) && e.target !== fab) {
-                panel.classList.remove('open');
+        function closeThemeModal() {
+            document.getElementById('themeModalOverlay').classList.remove('open');
+        }
+
+        loadSavedTheme();
+
+        // =====================================================
+        // ===== توست اعلان =====
+        // =====================================================
+        let toastTimeout = null;
+        function showToast(message) {
+            const el = document.getElementById('toast');
+            if (!el) return;
+            el.textContent = message;
+            el.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => el.classList.remove('show'), 4000);
+        }
+
+        // =====================================================
+        // ===== آمار زنده (بخش صادقانه: فقط اعداد واقعی) =====
+        // =====================================================
+
+        // بازدید کل سایت — از یک شمارنده‌ی رایگان، بدون نیاز به کلید/ثبت‌نام
+        // (CountAPI) که واقعاً بین همه‌ی بازدیدکننده‌ها مشترکه. اگه خودش در
+        // دسترس نبود، به‌جای عدد ساختگی همون «—» نشون داده می‌شه.
+        async function loadTotalVisits() {
+            const el = document.getElementById('statTotalVisits');
+            try {
+                const res = await fetch('https://api.countapi.xyz/hit/gameizeh-ir/total-visits');
+                const data = await res.json();
+                el.textContent = (data.value || 0).toLocaleString();
+            } catch (e) {
+                el.textContent = '—';
             }
-        });
-        (function initTheme() {
-            let saved = 'default';
-            try { saved = localStorage.getItem('gz_theme') || 'default'; } catch (e) {}
-            setTheme(saved);
-        })();
+        }
+
+        // آمار این جلسه (تعداد تست‌شده + سریع‌ترین) — کاملاً واقعی و محلیه،
+        // چون فقط چیزی که همین کاربر توی همین بازدید تست کرده رو می‌شماره
+        function updateStatsPanel() {
+            const testedCount = Object.keys(pingResults).length;
+            document.getElementById('statTestedSession').textContent = testedCount;
+
+            let bestId = null;
+            let bestMs = Infinity;
+            for (const [id, ms] of Object.entries(pingResults)) {
+                if (ms < bestMs) { bestMs = ms; bestId = id; }
+            }
+            const fastestEl = document.getElementById('statFastestSession');
+            if (bestId !== null && isFinite(bestMs)) {
+                const cfg = configById.get(Number(bestId));
+                const label = cfg ? (cfg.remark || cfg.host) : '';
+                fastestEl.textContent = bestMs + ' ms' + (label ? ' · ' + label.slice(0, 14) : '');
+            } else {
+                fastestEl.textContent = '—';
+            }
+        }
+
+        // کاربران آنلاین — این عدد فقط وقتی واقعیه که یک بک‌اند realtime
+        // (مثل Firebase) وصل باشه. بدون اون، به‌جای عدد ساختگی صادقانه
+        // می‌گیم که غیرفعاله (نقطه‌ی قرمز) به‌جای نمایش یه رقم دروغین.
+        const FIREBASE_CONFIG = {
+            apiKey: '',
+            databaseURL: '',
+            projectId: ''
+        };
+
+        function loadExternalScript(src) {
+            return new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = src;
+                s.onload = resolve;
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+        }
+
+        async function initPresence() {
+            const dot = document.getElementById('onlineDot');
+            const val = document.getElementById('statOnlineNow');
+            const note = document.getElementById('statsNote');
+
+            if (!FIREBASE_CONFIG.apiKey || !FIREBASE_CONFIG.databaseURL) {
+                dot.className = 'status-dot offline';
+                val.textContent = '—';
+                note.textContent = '⚠️ برای نمایش واقعی «کاربران آنلاین» نیاز به یک بک‌اند رایگان (Firebase) داری — راهنمای فعال‌سازی رو از دستیارت بخواه.';
+                return;
+            }
+
+            try {
+                await loadExternalScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js');
+                await loadExternalScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js');
+                firebase.initializeApp(FIREBASE_CONFIG);
+                const db = firebase.database();
+                const myRef = db.ref('presence/' + Date.now() + '-' + Math.random().toString(36).slice(2));
+
+                db.ref('.info/connected').on('value', (snap) => {
+                    if (snap.val() === true) {
+                        myRef.onDisconnect().remove();
+                        myRef.set(true);
+                        dot.className = 'status-dot online';
+                        note.textContent = '';
+                    } else {
+                        dot.className = 'status-dot offline';
+                    }
+                });
+
+                db.ref('presence').on('value', (snap) => {
+                    val.textContent = snap.numChildren();
+                });
+            } catch (e) {
+                dot.className = 'status-dot offline';
+                val.textContent = '—';
+                note.textContent = '⚠️ اتصال به سرویس آمار آنلاین برقرار نشد.';
+            }
+        }
+
+        loadTotalVisits();
+        updateStatsPanel();
+        initPresence();
     </script>
 </body>
 </html>
