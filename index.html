@@ -5255,21 +5255,10 @@ var qrcode = function() {
 
         // ===== موزیک پلیر (پلی‌لیست) =====
         const PLAYLIST = [
-            { title: 'Roman Olur Yazsam Seni', artist: 'Velet (Sevil Music)', file: '1.mp3' },
-            { title: 'AL NACER!', artist: 'Sayfalse, Nulteex', file: '2.mp3' },
-            { title: 'Away from Home', artist: 'Atilla Khan, Bacca Chew', file: '3.mp3' },
-            { title: 'Bitch Better Have My Money', artist: 'Biometrix', file: '4.mp3' },
-            { title: 'Che Danestam (Seventh Soul Remix)', artist: 'Homayoun Shajarian', file: '5.mp3' },
-            { title: "I'm Good (Blue)", artist: 'David Guetta, Bebe Rexha', file: '6.mp3' },
-            { title: 'Moonlight Shadow', artist: 'stayus, WhiteCapMusic, Niklas Dee', file: '7.mp3' },
-            { title: 'Lullaby', artist: 'Rauf And Faik', file: '8.mp3' },
-            { title: 'The Business', artist: 'Tiësto', file: '9.mp3' },
-            { title: 'Bam Bam', artist: 'VOLB3X', file: '10.mp3' }
+            { title: 'Roman Olur Yazsam Seni', artist: 'Velet (Sevil Music)', url: 'https://uploadkon.ir/uploads/c23130_26Velet-Roman-Olur-Yazsam-Seni-[SevilMusic].mp3' }
+            // بقیه‌ی آهنگ‌ها رو با لینک مستقیمشون اینجا اضافه کن، مثلاً:
+            // { title: 'اسم آهنگ', artist: 'خواننده', url: 'https://.../song.mp3' },
         ];
-        // اگه ترتیب آهنگ‌های شماره‌گذاری‌شده‌ی خودت با این فرق داره، فقط ترتیب
-        // فایل‌های بالا (title/artist) رو جابه‌جا کن تا با شماره‌ی درست جفت بشه.
-
-
 
         let audioElement = null;
         let isPlaying = false;
@@ -5277,7 +5266,7 @@ var qrcode = function() {
         let currentTrackIndex = 0;
 
         function trackUrl(track) {
-            return 'Music/' + encodeURIComponent(track.file);
+            return track.url;
         }
 
         function updateTrackUI() {
