@@ -1080,6 +1080,14 @@
             white-space: nowrap;
             border-left: 1px solid rgba(255, 255, 255, 0.1);
             direction: rtl;
+            text-decoration: none;
+            cursor: default;
+        }
+        a.ticker-item {
+            cursor: pointer;
+        }
+        a.ticker-item:hover {
+            text-decoration: underline;
         }
         .ticker-item.green {
             color: #34d399;
@@ -1894,7 +1902,8 @@
             <!-- ===== بنر گروه روبیکا ===== -->
             <div class="rubika-banner">
                 <div class="rubika-banner-glow"></div>
-                <img class="rubika-qr" src="assets/rubika-group-qr.jpg" alt="کد QR گروه روبیکای GameIzeh" loading="lazy">
+                <img class="rubika-qr" src="assets/rubika-group-qr.jpg" alt="کد QR گروه روبیکای GameIzeh" loading="lazy"
+                     onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23fff%22/><rect x=%2210%22 y=%2210%22 width=%2225%22 height=%2225%22 fill=%22%23000%22/><rect x=%2265%22 y=%2210%22 width=%2225%22 height=%2225%22 fill=%22%23000%22/><rect x=%2210%22 y=%2265%22 width=%2225%22 height=%2225%22 fill=%22%23000%22/><rect x=%2245%22 y=%2245%22 width=%2210%22 height=%2210%22 fill=%22%23f75a28%22/><text x=%2250%22 y=%2298%22 font-size=%228%22 text-anchor=%22middle%22 fill=%22%23999%22>QR</text></svg>'; this.style.padding='0';">
                 <div class="rubika-banner-text">
                     <div class="rubika-banner-title">💬 به گروه روبیکای ما بپیوند</div>
                     <div class="rubika-banner-sub">پشتیبانی، اطلاع‌رسانی کانفیگ‌های جدید و گفتگو با بقیه‌ی اعضا</div>
@@ -1917,11 +1926,11 @@
                     <div class="music-wave">
                         <span></span><span></span><span></span><span></span><span></span>
                     </div>
-                    <button class="music-btn" onclick="prevTrack()" title="آهنگ قبلی">⏮</button>
-                    <button class="music-btn" id="playBtn" onclick="toggleMusic()" title="Play/Pause">▶</button>
-                    <button class="music-btn" onclick="nextTrack()" title="آهنگ بعدی">⏭</button>
-                    <button class="music-btn" onclick="openPlaylistModal()" title="پلی‌لیست">📜</button>
-                    <button class="music-btn" onclick="restartMusic()" title="Restart">⟳</button>
+                    <button class="music-btn" onclick="prevTrack()" title="آهنگ قبلی" aria-label="آهنگ قبلی">⏮</button>
+                    <button class="music-btn" id="playBtn" onclick="toggleMusic()" title="Play/Pause" aria-label="پخش یا توقف">▶</button>
+                    <button class="music-btn" onclick="nextTrack()" title="آهنگ بعدی" aria-label="آهنگ بعدی">⏭</button>
+                    <button class="music-btn" onclick="openPlaylistModal()" title="پلی‌لیست" aria-label="باز کردن پلی‌لیست">📜</button>
+                    <button class="music-btn" onclick="restartMusic()" title="Restart" aria-label="شروع دوباره‌ی آهنگ">⟳</button>
                     <div class="music-volume">
                         <span style="color:rgba(255,255,255,0.2);font-size:12px;">🔊</span>
                         <input type="range" min="0" max="1" step="0.01" value="0.5" id="volumeSlider" oninput="setVolume(this.value)">
@@ -1930,7 +1939,7 @@
             </div>
 
             <!-- ===== مودال پلی‌لیست ===== -->
-            <div class="playlist-modal-overlay" id="playlistModalOverlay" onclick="if(event.target===this) closePlaylistModal()">
+            <div class="playlist-modal-overlay" id="playlistModalOverlay" role="dialog" aria-modal="true" onclick="if(event.target===this) closePlaylistModal()">
                 <div class="playlist-modal">
                     <div class="playlist-modal-title">📜 پلی‌لیست آهنگ‌ها</div>
                     <div class="playlist-list" id="playlistListEl"></div>
@@ -1947,12 +1956,12 @@
                 <a href="https://daramet.com/GameIzeh" target="_blank" class="donate-btn">❤️ <span data-i18n="btn_donate">حمایت می‌کنم</span></a>
             </div>
 
-            <!-- ===== بنر معرفی «افزودن مستقیم بدون دانلود» ===== -->
+            <!-- ===== بنر معرفی «افزودن مستقیم بدون دانلود» (در حال توسعه) ===== -->
             <div class="noquick-banner">
-                <div class="noquick-icon">📲</div>
+                <div class="noquick-icon">🚧</div>
                 <div class="noquick-text">
-                    <b>دیگه لازم نیست چیزی دانلود کنی!</b>
-                    کنار هر کانفیگ یه دکمه‌ی سبز هست — بزنش، کانفیگ خودش مستقیم توی اپلیکیشنت (v2rayNG / Shadowrocket) باز می‌شه. نه دانلود، نه کپی، نه اسکن — فقط یه لمس.
+                    <b>به‌زودی: افزودن مستقیم بدون دانلود</b>
+                    داریم روی قابلیتی کار می‌کنیم که با یه لمس، کانفیگ مستقیم توی v2rayNG یا Shadowrocket باز بشه — چون هنوز روی همه‌ی گوشی‌ها پایدار نبود، فعلاً غیرفعاله تا کامل تست بشه. فعلاً از دکمه‌های کپی یا QR استفاده کن.
                 </div>
             </div>
 
@@ -1976,6 +1985,7 @@
                 <label class="opt-check"><input type="checkbox" id="autoScanCheck" onchange="toggleAutoScan(this.checked)"> 🔄 <span data-i18n="opt_autoscan">اسکن خودکار (هر ۱۰ دقیقه)</span></label>
                 <label class="opt-check"><input type="checkbox" id="useCacheCheck" checked onchange="useCache = this.checked"> 📦 <span data-i18n="opt_usecache">استفاده از کش</span></label>
                 <button class="tb-btn" onclick="clearAllCache()">🧹 <span data-i18n="btn_clear_cache">پاک‌کردن کش</span></button>
+                <button class="tb-btn" onclick="clearAllSiteData()" style="color:#fca5a5;">🗑️ پاک‌کردن کل داده‌ها</button>
             </div>
 
             <div class="btn-group">
@@ -2010,7 +2020,7 @@
             <div id="result"></div>
 
             <!-- ===== مودال QR کد ===== -->
-            <div class="qr-modal-overlay" id="qrModalOverlay" onclick="if(event.target===this) closeQrModal()">
+            <div class="qr-modal-overlay" id="qrModalOverlay" role="dialog" aria-modal="true" onclick="if(event.target===this) closeQrModal()">
                 <div class="qr-modal">
                     <div class="qr-modal-title">📱 اسکن کن و مستقیم وارد اپلیکیشن کن</div>
                     <div class="qr-canvas-wrap" id="qrCanvasWrap"></div>
@@ -2020,7 +2030,7 @@
             </div>
 
             <!-- ===== مودال علاقه‌مندی‌ها ===== -->
-            <div class="qr-modal-overlay" id="favModalOverlay" onclick="if(event.target===this) closeFavoritesModal()">
+            <div class="qr-modal-overlay" id="favModalOverlay" role="dialog" aria-modal="true" onclick="if(event.target===this) closeFavoritesModal()">
                 <div class="qr-modal fav-modal">
                     <div class="qr-modal-title">⭐ کانفیگ‌های مورد علاقه</div>
                     <div class="fav-list" id="favList"></div>
@@ -2029,10 +2039,10 @@
             </div>
 
             <!-- ===== دکمه‌ی شناور تغییر تم ===== -->
-            <button class="theme-fab" onclick="openThemeModal()" title="تغییر تم">🎨</button>
+            <button class="theme-fab" onclick="openThemeModal()" title="تغییر تم" aria-label="تغییر تم سایت">🎨</button>
 
             <!-- ===== مودال تنظیم تم ===== -->
-            <div class="qr-modal-overlay" id="themeModalOverlay" onclick="if(event.target===this) closeThemeModal()">
+            <div class="qr-modal-overlay" id="themeModalOverlay" role="dialog" aria-modal="true" onclick="if(event.target===this) closeThemeModal()">
                 <div class="qr-modal theme-modal">
                     <div class="qr-modal-title">🎨 تم سایت رو خودت بساز</div>
                     <div class="help-body" style="font-size:11px;margin-bottom:12px;">
@@ -2049,7 +2059,7 @@
             </div>
 
             <!-- ===== مودال راهنما ===== -->
-            <div class="qr-modal-overlay" id="helpModalOverlay" onclick="if(event.target===this) closeHelpModal()">
+            <div class="qr-modal-overlay" id="helpModalOverlay" role="dialog" aria-modal="true" onclick="if(event.target===this) closeHelpModal()">
                 <div class="qr-modal help-modal">
                     <div class="qr-modal-title">❓ راهنمای استفاده از GameIzeh</div>
                     <div class="help-body">
@@ -2057,7 +2067,7 @@
                         <p><b>۲. فیلتر و جستجو 🔍</b><br>بعد از دریافت، می‌تونی با چیپ‌های بالای نتایج فقط یه پروتکل خاص (VLESS/VMESS/Trojan/SS) رو ببینی، توی کادر جستجو اسم/هاست/کشور رو تایپ کنی، یا از دراپ‌داون کشور برای فیلتر بر اساس پرچم کشور استفاده کنی.</p>
                         <p><b>۳. IP تمیز ⚡</b><br>یه کشور از دراپ‌داون انتخاب کن و «اعمال IP تمیز» رو بزن تا آدرس کانفیگ‌ها با یه IP تمیز از همون کشور جایگزین بشه (برای دورزدن فیلترینگ روی CDN).</p>
                         <p><b>۴. تست پینگ 🏓</b><br>هر کانفیگ دکمه‌ی تست جدا داره، یا با «تست پینگ همه» همه‌ی کانفیگ‌های نمایش داده‌شده رو یه‌جا تست کن. بعدش می‌تونی با «مرتب‌سازی بر اساس سرعت» سریع‌ترین‌ها رو بالا بیاری.</p>
-                        <p><b>۵. افزودن مستقیم (بدون کپی/دانلود) 📲</b><br>سایت خودش تشخیص می‌ده گوشیت اندرویده یا آیفون. یه دکمه‌ی سبز رنگ کنار هر کانفیگ هست که با یه لمس، کانفیگ رو مستقیم توی v2rayNG (اندروید) یا Shadowrocket (آیفون) باز می‌کنه — دیگه نیازی به دانلود فایل یا کپی‌کردن نیست. این برای گوشی‌های قدیمی که باز کردن QR/فایل کامل براشون سنگینه، سریع‌ترین راهه. (فقط اگه اپ نصب نباشه کاری نمی‌کنه؛ اونجا از کپی یا QR استفاده کن.)</p>
+                        <p><b>۵. افزودن مستقیم (به‌زودی) 🚧</b><br>داریم روی یه قابلیت کار می‌کنیم که با یه لمس، کانفیگ مستقیم توی v2rayNG یا Shadowrocket باز بشه — بدون دانلود یا کپی. چون روی همه‌ی گوشی‌ها پایدار نبود، فعلاً غیرفعاله تا کامل تکمیل بشه. فعلاً از کپی یا QR استفاده کن.</p>
                         <p><b>۶. کپی / QR / علاقه‌مندی ⭐</b><br>هر کانفیگ رو می‌تونی کپی کنی، QR کدش رو برای اسکن با اپلیکیشن موبایل باز کنی، یا با زدن ☆ به لیست علاقه‌مندی‌هات اضافه کنی (این لیست توی مرورگرت ذخیره می‌مونه).</p>
                         <p><b>۷. وارد کردن کانفیگ ➕</b><br>اگه خودت کانفیگ یا لینک ساب‌اسکریپشن داری، از دکمه‌ی «وارد کردن کانفیگ» بالای صفحه استفاده کن.</p>
                         <p><b>۸. اسکن خودکار 🔄</b><br>با فعال کردن این گزینه، هر ۱۰ دقیقه یه‌بار خودش دوباره کانفیگ‌ها رو تازه می‌کنه.</p>
@@ -2067,7 +2077,7 @@
             </div>
 
             <!-- ===== مودال وارد کردن کانفیگ ===== -->
-            <div class="qr-modal-overlay" id="importModalOverlay" onclick="if(event.target===this) closeImportModal()">
+            <div class="qr-modal-overlay" id="importModalOverlay" role="dialog" aria-modal="true" onclick="if(event.target===this) closeImportModal()">
                 <div class="qr-modal import-modal">
                     <div class="qr-modal-title">➕ وارد کردن کانفیگ دستی</div>
                     <div class="help-body" style="font-size:11px;margin-bottom:10px;">
@@ -2099,8 +2109,8 @@
                         <div class="stat-label" data-i18n="stats_fastest_session">سریع‌ترین (این جلسه)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value"><span class="status-dot" id="onlineDot"></span><span id="statOnlineNow">—</span></div>
-                        <div class="stat-label" data-i18n="stats_online_now">کاربران آنلاین</div>
+                        <div class="stat-value" id="statSuccessRate">—</div>
+                        <div class="stat-label" data-i18n="stats_online_now">درصد کانفیگ‌های سالم</div>
                     </div>
                 </div>
                 <div class="stats-note" id="statsNote"></div>
@@ -4464,8 +4474,8 @@ var qrcode = function() {
             th: 'ไทย', he: 'עברית', pl: 'Polski', nl: 'Nederlands'
         };
         const TRANSLATIONS = {
-            fa: { tagline: 'V2Ray Config Finder', btn_help: 'راهنما', btn_import: 'وارد کردن کانفیگ', btn_join_group: 'ورود به گروه روبیکا', btn_donate: 'حمایت می‌کنم', label_country: 'کشور IP تمیز:', label_protocol: 'پروتکل:', opt_all_protocols: 'همه پروتکل‌ها', btn_apply_cleanip: 'اعمال IP تمیز', btn_test_all_ping: 'تست پینگ همه', opt_autoscan: 'اسکن خودکار (هر ۱۰ دقیقه)', opt_usecache: 'استفاده از کش', btn_clear_cache: 'پاک‌کردن کش', btn_get_configs: 'دریافت کانفیگ‌ها', btn_download_txt: 'دانلود TXT', btn_favorites: 'علاقه‌مندی‌ها', btn_clear: 'پاک کردن', chip_all: 'همه', search_placeholder: '🔍 جستجو (نام، هاست، پرچم کشور...)', btn_copy_all: 'کپی همه', btn_sort_speed: 'مرتب‌سازی بر اساس سرعت', about_title: 'درباره‌ی GameIzeh', opt_all_countries: 'همه کشورها', opt_all_countries_mixed: 'همه کشورها (ترکیبی)', stats_title: '📊 آمار زنده', stats_total_visits: 'بازدید کل سایت', stats_tested_session: 'کانفیگ تست‌شده (این جلسه)', stats_fastest_session: 'سریع‌ترین (این جلسه)', stats_online_now: 'کاربران آنلاین', stats_active_users: 'کاربران فعال', notif_new_configs: 'کانفیگ جدید پیدا شد!' },
-            en: { tagline: 'V2Ray Config Finder', btn_help: 'Help', btn_import: 'Import Config', btn_join_group: 'Join Rubika Group', btn_donate: 'Support Us', label_country: 'Clean IP Country:', label_protocol: 'Protocol:', opt_all_protocols: 'All Protocols', btn_apply_cleanip: 'Apply Clean IP', btn_test_all_ping: 'Test All Ping', opt_autoscan: 'Auto-Scan (every 10 min)', opt_usecache: 'Use Cache', btn_clear_cache: 'Clear Cache', btn_get_configs: 'Get Configs', btn_download_txt: 'Download TXT', btn_favorites: 'Favorites', btn_clear: 'Clear', chip_all: 'All', search_placeholder: '🔍 Search (name, host, country flag...)', btn_copy_all: 'Copy All', btn_sort_speed: 'Sort by Speed', about_title: 'About GameIzeh', opt_all_countries: 'All Countries', opt_all_countries_mixed: 'All Countries (Mixed)', stats_title: '📊 Live Stats', stats_total_visits: 'Total Site Visits', stats_tested_session: 'Tested This Session', stats_fastest_session: 'Fastest (This Session)', stats_online_now: 'Online Users', stats_active_users: 'Active Users', notif_new_configs: 'New configs found!' },
+            fa: { tagline: 'V2Ray Config Finder', btn_help: 'راهنما', btn_import: 'وارد کردن کانفیگ', btn_join_group: 'ورود به گروه روبیکا', btn_donate: 'حمایت می‌کنم', label_country: 'کشور IP تمیز:', label_protocol: 'پروتکل:', opt_all_protocols: 'همه پروتکل‌ها', btn_apply_cleanip: 'اعمال IP تمیز', btn_test_all_ping: 'تست پینگ همه', opt_autoscan: 'اسکن خودکار (هر ۱۰ دقیقه)', opt_usecache: 'استفاده از کش', btn_clear_cache: 'پاک‌کردن کش', btn_get_configs: 'دریافت کانفیگ‌ها', btn_download_txt: 'دانلود TXT', btn_favorites: 'علاقه‌مندی‌ها', btn_clear: 'پاک کردن', chip_all: 'همه', search_placeholder: '🔍 جستجو (نام، هاست، پرچم کشور...)', btn_copy_all: 'کپی همه', btn_sort_speed: 'مرتب‌سازی بر اساس سرعت', about_title: 'درباره‌ی GameIzeh', opt_all_countries: 'همه کشورها', opt_all_countries_mixed: 'همه کشورها (ترکیبی)', stats_title: '📊 آمار زنده', stats_total_visits: 'بازدید کل سایت', stats_tested_session: 'کانفیگ تست‌شده (این جلسه)', stats_fastest_session: 'سریع‌ترین (این جلسه)', stats_online_now: 'درصد کانفیگ‌های سالم', stats_active_users: 'کاربران فعال', notif_new_configs: 'کانفیگ جدید پیدا شد!' },
+            en: { tagline: 'V2Ray Config Finder', btn_help: 'Help', btn_import: 'Import Config', btn_join_group: 'Join Rubika Group', btn_donate: 'Support Us', label_country: 'Clean IP Country:', label_protocol: 'Protocol:', opt_all_protocols: 'All Protocols', btn_apply_cleanip: 'Apply Clean IP', btn_test_all_ping: 'Test All Ping', opt_autoscan: 'Auto-Scan (every 10 min)', opt_usecache: 'Use Cache', btn_clear_cache: 'Clear Cache', btn_get_configs: 'Get Configs', btn_download_txt: 'Download TXT', btn_favorites: 'Favorites', btn_clear: 'Clear', chip_all: 'All', search_placeholder: '🔍 Search (name, host, country flag...)', btn_copy_all: 'Copy All', btn_sort_speed: 'Sort by Speed', about_title: 'About GameIzeh', opt_all_countries: 'All Countries', opt_all_countries_mixed: 'All Countries (Mixed)', stats_title: '📊 Live Stats', stats_total_visits: 'Total Site Visits', stats_tested_session: 'Tested This Session', stats_fastest_session: 'Fastest (This Session)', stats_online_now: 'Healthy Config Rate', stats_active_users: 'Active Users', notif_new_configs: 'New configs found!' },
             ar: { tagline: 'V2Ray Config Finder', btn_help: 'مساعدة', btn_import: 'استيراد إعداد', btn_join_group: 'انضم لمجموعة روبيكا', btn_donate: 'ادعمنا', label_country: 'بلد الـ IP النظيف:', label_protocol: 'البروتوكول:', opt_all_protocols: 'كل البروتوكولات', btn_apply_cleanip: 'تطبيق IP نظيف', btn_test_all_ping: 'اختبار الكل', opt_autoscan: 'مسح تلقائي (كل ١٠ دقائق)', opt_usecache: 'استخدام التخزين المؤقت', btn_clear_cache: 'مسح التخزين المؤقت', btn_get_configs: 'جلب الإعدادات', btn_download_txt: 'تحميل TXT', btn_favorites: 'المفضلة', btn_clear: 'مسح', chip_all: 'الكل', search_placeholder: '🔍 بحث (الاسم، المضيف، العلم...)', btn_copy_all: 'نسخ الكل', btn_sort_speed: 'ترتيب حسب السرعة', about_title: 'عن GameIzeh', opt_all_countries: 'كل الدول', opt_all_countries_mixed: 'كل الدول (مختلط)', stats_title: '📊 إحصائيات مباشرة', stats_total_visits: 'إجمالي الزيارات', stats_tested_session: 'تم اختباره (هذه الجلسة)', stats_fastest_session: 'الأسرع (هذه الجلسة)', stats_online_now: 'مستخدمون متصلون', stats_active_users: 'مستخدمون نشطون', notif_new_configs: 'تم العثور على إعدادات جديدة!' },
             tr: { tagline: 'V2Ray Config Finder', btn_help: 'Yardım', btn_import: 'Config İçe Aktar', btn_join_group: 'Rubika Grubuna Katıl', btn_donate: 'Destek Ol', label_country: 'Temiz IP Ülkesi:', label_protocol: 'Protokol:', opt_all_protocols: 'Tüm Protokoller', btn_apply_cleanip: 'Temiz IP Uygula', btn_test_all_ping: 'Tümünü Test Et', opt_autoscan: 'Otomatik Tarama (her 10 dk)', opt_usecache: 'Önbellek Kullan', btn_clear_cache: 'Önbelleği Temizle', btn_get_configs: 'Configleri Al', btn_download_txt: 'TXT İndir', btn_favorites: 'Favoriler', btn_clear: 'Temizle', chip_all: 'Tümü', search_placeholder: '🔍 Ara (ad, host, ülke bayrağı...)', btn_copy_all: 'Tümünü Kopyala', btn_sort_speed: 'Hıza Göre Sırala', about_title: 'GameIzeh Hakkında', opt_all_countries: 'Tüm Ülkeler', opt_all_countries_mixed: 'Tüm Ülkeler (Karışık)', stats_title: '📊 Canlı İstatistikler', stats_total_visits: 'Toplam Ziyaret', stats_tested_session: 'Test Edildi (Bu Oturum)', stats_fastest_session: 'En Hızlı (Bu Oturum)', stats_online_now: 'Çevrimiçi Kullanıcılar', stats_active_users: 'Aktif Kullanıcılar', notif_new_configs: 'Yeni configler bulundu!' },
             ru: { tagline: 'V2Ray Config Finder', btn_help: 'Помощь', btn_import: 'Импорт конфига', btn_join_group: 'Вступить в группу Rubika', btn_donate: 'Поддержать', label_country: 'Страна чистого IP:', label_protocol: 'Протокол:', opt_all_protocols: 'Все протоколы', btn_apply_cleanip: 'Применить чистый IP', btn_test_all_ping: 'Проверить все', opt_autoscan: 'Автоскан (каждые 10 мин)', opt_usecache: 'Использовать кэш', btn_clear_cache: 'Очистить кэш', btn_get_configs: 'Получить конфиги', btn_download_txt: 'Скачать TXT', btn_favorites: 'Избранное', btn_clear: 'Очистить', chip_all: 'Все', search_placeholder: '🔍 Поиск (имя, хост, флаг страны...)', btn_copy_all: 'Копировать всё', btn_sort_speed: 'Сортировать по скорости', about_title: 'О GameIzeh', opt_all_countries: 'Все страны', opt_all_countries_mixed: 'Все страны (смешанно)', stats_title: '📊 Статистика вживую', stats_total_visits: 'Всего посещений', stats_tested_session: 'Проверено (эта сессия)', stats_fastest_session: 'Самый быстрый (эта сессия)', stats_online_now: 'Пользователей онлайн', stats_active_users: 'Активных пользователей', notif_new_configs: 'Найдены новые конфиги!' },
@@ -4571,6 +4581,12 @@ var qrcode = function() {
         let currentProtocolFilter = 'all';
         let pingResults = {};
         let previousConfigSignatures = new Set();
+        let displayLimit = 30;
+
+        function loadMoreConfigs() {
+            displayLimit += 30;
+            renderConfigs(currentFilteredConfigs);
+        }
         let totalSources = 0;
 
         function log(msg) {
@@ -4592,6 +4608,7 @@ var qrcode = function() {
             currentSearchText = '';
             currentCountryFlag = '';
             pingResults = {};
+            displayLimit = 30;
             document.getElementById('result').innerHTML = '';
             document.getElementById('resultToolbar').style.display = 'none';
             document.getElementById('fetchTimer').style.display = 'none';
@@ -4673,6 +4690,22 @@ var qrcode = function() {
                 keys.forEach(k => localStorage.removeItem(k));
                 log('🧹 کش پاک شد (' + keys.length + ' منبع)');
             } catch (e) {}
+        }
+
+        // پاک‌کردن کامل: کش، تم، زبان، علاقه‌مندی‌ها، آخرین کشور/آهنگ انتخابی —
+        // همه چیزی که این سایت توی مرورگر کاربر ذخیره کرده
+        function clearAllSiteData() {
+            const sure = confirm('⚠️ همه‌ی داده‌های ذخیره‌شده (تم، زبان، علاقه‌مندی‌ها، کش) پاک می‌شه و صفحه رفرش می‌شه. مطمئنی؟');
+            if (!sure) return;
+            try {
+                const keysToKeep = []; // چیزی نیست که نگه داریم، همه چی پاک می‌شه
+                Object.keys(localStorage).forEach(k => {
+                    if (k.startsWith('gameizeh_') || k.startsWith('gz_cache_')) {
+                        localStorage.removeItem(k);
+                    }
+                });
+            } catch (e) {}
+            location.reload();
         }
 
         async function fetchOne(url, timeoutMs) {
@@ -4880,7 +4913,9 @@ var qrcode = function() {
 
             if (protocol === 'vmess') {
                 try {
-                    const vj = JSON.parse(decodeURIComponent(escape(atob(cfg.replace('vmess://', '').split('#')[0]))));
+                    const b64part = cfg.replace('vmess://', '').split('#')[0];
+                    const decoded = decodeBase64Maybe(b64part);
+                    const vj = JSON.parse(decoded);
                     host = vj.add || 'N/A';
                     port = vj.port ? String(vj.port) : 'N/A';
                     remark = vj.ps || remark;
@@ -4969,7 +5004,7 @@ var qrcode = function() {
             previousConfigSignatures = newSignatures;
 
             allConfigs = unique;
-            allConfigs.forEach((cfg, idx) => { cfg._id = idx; });
+            allConfigs.forEach((cfg) => { cfg._id = hashCode(cfg.config); });
             configById = new Map(allConfigs.map(cfg => [cfg._id, cfg]));
             pingResults = {};
             updateStatsPanel();
@@ -5010,6 +5045,7 @@ var qrcode = function() {
         let currentCountryFlag = '';
 
         function applyAllFilters() {
+            displayLimit = 30;
             currentFilteredConfigs = allConfigs.filter(cfg => {
                 if (currentProtocolFilter !== 'all' && (cfg.protocol || '').toLowerCase() !== currentProtocolFilter) return false;
                 if (currentCountryFlag && !(cfg.remark || '').includes(currentCountryFlag)) return false;
@@ -5080,9 +5116,19 @@ var qrcode = function() {
                 alert('✦ کانفیگی برای کپی وجود ندارد ✦');
                 return;
             }
-            const text = currentFilteredConfigs.map(c => c.config).join('\n');
+            const filteredCount = currentFilteredConfigs.length;
+            const totalCount = allConfigs.length;
+            let listToCopy = currentFilteredConfigs;
+            if (totalCount > filteredCount) {
+                const wantAll = confirm(
+                    'همه‌ی ' + totalCount + ' کانفیگ رو کپی کنم؟\n' +
+                    '(بزن «لغو» تا فقط همون ' + filteredCount + ' تای فیلترشده‌ی الان کپی بشه)'
+                );
+                listToCopy = wantAll ? allConfigs : currentFilteredConfigs;
+            }
+            const text = listToCopy.map(c => c.config).join('\n');
             navigator.clipboard.writeText(text).then(() => {
-                log('📋 ' + currentFilteredConfigs.length + ' کانفیگ در کلیپ‌بورد کپی شد');
+                log('📋 ' + listToCopy.length + ' کانفیگ در کلیپ‌بورد کپی شد');
             }).catch(() => {
                 alert('✦ کپی خودکار پشتیبانی نشد، از دکمه دانلود استفاده کن ✦');
             });
@@ -5090,13 +5136,18 @@ var qrcode = function() {
 
         function sortBySpeed() {
             if (!currentFilteredConfigs || currentFilteredConfigs.length === 0) return;
+            const testedCount = currentFilteredConfigs.filter(c => pingResults[c._id] !== undefined).length;
+            if (testedCount === 0) {
+                alert('✦ هنوز هیچ کانفیگی تست پینگ نشده — اول «تست پینگ همه» یا تست تک‌تک رو بزن ✦');
+                return;
+            }
             currentFilteredConfigs = currentFilteredConfigs.slice().sort((a, b) => {
                 const pa = pingResults[a._id] === undefined ? Infinity : pingResults[a._id];
                 const pb = pingResults[b._id] === undefined ? Infinity : pingResults[b._id];
                 return pa - pb;
             });
             renderConfigs(currentFilteredConfigs);
-            log('⚡ کانفیگ‌ها بر اساس سرعت مرتب شدند (اول باید تست پینگ انجام شود)');
+            log('⚡ کانفیگ‌ها بر اساس سرعت مرتب شدند');
         }
 
         function renderConfigs(configs) {
@@ -5109,20 +5160,20 @@ var qrcode = function() {
 
             let html = '<div class="count-badge">✦ <span>' + configs.length + '</span> کانفیگ در کهکشان پیدا شد ✦</div>';
 
-            configs.slice(0, 30).forEach((cfg) => {
+            configs.slice(0, displayLimit).forEach((cfg) => {
                 const id = cfg._id;
                 const fav = isFavorite(cfg.config);
                 html += `
           <div class="config-item" data-id="${id}">
             <div class="cfg-meta">
-              <span class="tag protocol">${cfg.protocol}</span>
-              <span class="tag host">${cfg.host}:${cfg.port}</span>
-              ${cfg.cleanIp ? '<span class="tag cleanip">IP تمیز: ' + cfg.cleanIp + '</span>' : ''}
+              <span class="tag protocol">${escapeHtml(cfg.protocol)}</span>
+              <span class="tag host">${escapeHtml(cfg.host)}:${escapeHtml(cfg.port)}</span>
+              ${cfg.cleanIp ? '<span class="tag cleanip">IP تمیز: ' + escapeHtml(cfg.cleanIp) + '</span>' : ''}
               <span class="tag ping" id="ping-${id}">پینگ نامشخص</span>
             </div>
-            <div class="cfg-text">${cfg.config}</div>
-            <button class="quick-add-btn" onclick="quickAddConfig(${id})">${quickAddLabel()}</button>
-            <button class="copy-btn" onclick="copyText('${cfg.config.replace(/'/g, "\\'")}')">✦ کپی ✦</button>
+            <div class="cfg-text">${escapeHtml(cfg.config)}</div>
+            <!-- دکمه‌ی افزودن مستقیم فعلاً غیرفعاله (به‌زودی برمی‌گرده) -->
+            <button class="copy-btn" onclick="copyText('${cfg.config.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}')">✦ کپی ✦</button>
             <button class="ping-mini" onclick="testPing(${id})">🏓 تست این کانفیگ</button>
             <button class="qr-btn" onclick="showQr(${id})">📱 QR کد</button>
             <button class="star-btn${fav ? ' active' : ''}" id="star-${id}" onclick="toggleFavorite(${id})">${fav ? '⭐ در علاقه‌مندی‌ها' : '☆ افزودن به علاقه‌مندی‌ها'}</button>
@@ -5130,10 +5181,10 @@ var qrcode = function() {
         `;
             });
 
-            if (configs.length > 30) {
-                html +=
-                    '<div style="text-align:center;color:rgba(255,255,255,0.2);padding:16px;font-size:12px;letter-spacing:1px;">✦ ... و ' +
-                    (configs.length - 30) + ' کانفیگ دیگر در کهکشان (برای دیدن همه، دانلود کن) ✦</div>';
+            if (configs.length > displayLimit) {
+                html += `<div style="text-align:center;padding:16px;">
+                    <button class="tb-btn" onclick="loadMoreConfigs()">⬇️ نمایش ۳۰ تای بعدی (${configs.length - displayLimit} کانفیگ دیگر)</button>
+                </div>`;
             }
 
             resultDiv.innerHTML = html;
@@ -5187,6 +5238,30 @@ var qrcode = function() {
                 log('❌ خطا در دانلود');
                 alert('✦ خطا در دانلود ✦');
             }
+        }
+
+        // امنیت: چون remark/host/config از منابع نامعتبر خارجی میان، قبل از
+        // innerHTML باید escape بشن تا جلوی XSS گرفته بشه
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        // شناسه‌ی پایدار: به‌جای اندیس آرایه (که با هر بار دریافت جدید عوض
+        // می‌شه و علاقه‌مندی‌ها/نتایج پینگ رو گم می‌کنه)، از هش خود متن
+        // کانفیگ استفاده می‌کنیم — تا وقتی متن کانفیگ عوض نشه، شناسه‌ش ثابته
+        function hashCode(str) {
+            let hash = 5381;
+            for (let i = 0; i < str.length; i++) {
+                hash = ((hash << 5) + hash) + str.charCodeAt(i);
+                hash = hash & hash; // به عدد صحیح ۳۲ بیتی تبدیلش می‌کنه
+            }
+            return Math.abs(hash);
         }
 
         function copyText(text) {
@@ -5255,10 +5330,19 @@ var qrcode = function() {
 
         // ===== موزیک پلیر (پلی‌لیست) =====
         const PLAYLIST = [
-            { title: 'Roman Olur Yazsam Seni', artist: 'Velet (Sevil Music)', url: 'https://uploadkon.ir/uploads/c23130_26Velet-Roman-Olur-Yazsam-Seni-[SevilMusic].mp3' }
-            // بقیه‌ی آهنگ‌ها رو با لینک مستقیمشون اینجا اضافه کن، مثلاً:
-            // { title: 'اسم آهنگ', artist: 'خواننده', url: 'https://.../song.mp3' },
+            { title: 'Roman Olur Yazsam Seni', artist: 'Velet (Sevil Music)', url: 'https://uploadkon.ir/uploads/d40509_261.mp3' },
+            { title: 'AL NACER!', artist: 'Sayfalse, Nulteex', url: 'https://uploadkon.ir/uploads/59f009_262.mp3' },
+            { title: 'Away from Home', artist: 'Atilla Khan, Bacca Chew', url: 'https://uploadkon.ir/uploads/062209_263.mp3' },
+            { title: 'Bitch Better Have My Money', artist: 'Biometrix', url: 'https://uploadkon.ir/uploads/695409_264.mp3' },
+            { title: 'Che Danestam (Seventh Soul Remix)', artist: 'Homayoun Shajarian', url: 'https://uploadkon.ir/uploads/d36d09_265.mp3' },
+            { title: "I'm Good (Blue)", artist: 'David Guetta, Bebe Rexha', url: 'https://uploadkon.ir/uploads/e5d309_266.mp3' },
+            { title: 'Moonlight Shadow', artist: 'stayus, WhiteCapMusic, Niklas Dee', url: 'https://uploadkon.ir/uploads/ce7d09_267.mp3' },
+            { title: 'Lullaby', artist: 'Rauf And Faik', url: 'https://uploadkon.ir/uploads/291609_268.mp3' },
+            { title: 'The Business', artist: 'Tiësto', url: 'https://uploadkon.ir/uploads/854409_269.mp3' },
+            { title: 'Bam Bam', artist: 'VOLB3X', url: 'https://uploadkon.ir/uploads/777709_2610.mp3' }
         ];
+        // ترتیب بالا دقیقاً بر اساس ترتیبی هست که خودت لینک‌ها رو فرستادی (1 تا 10).
+        // اگه اسم/خواننده‌ی یه شماره با آهنگ واقعیش جفت نیست، فقط جای title/artist دو خط رو عوض کن.
 
         let audioElement = null;
         let isPlaying = false;
@@ -5410,14 +5494,14 @@ var qrcode = function() {
             return [
                 { text: '💚 کانفیگ رایگان همیشگی برای همه کاربران', cls: 'green' },
                 { text: '📢 تیم‌اسپیک 3: 5.57.32.182:2615', cls: 'gold' },
-                { text: '💬 تلگرام: @GameIzeh', cls: 'blue' },
-                { text: '📷 اینستاگرام: @GameIzeh', cls: 'blue' },
-                { text: '🟣 روبیکا: @GameIzeh', cls: 'blue' },
+                { text: '💬 تلگرام: @GameIzeh', cls: 'blue', href: 'https://t.me/GameIzeh' },
+                { text: '📷 اینستاگرام: @GameIzeh', cls: 'blue', href: 'https://instagram.com/GameIzeh' },
+                { text: '🟣 روبیکا: @GameIzeh', cls: 'blue', href: 'https://rubika.ir/GameIzeh' },
                 { text: '✅ استفاده شخصی و آزادی اینترنت مجاز است', cls: 'green' },
                 { text: '❌ فروش، سوءاستفاده یا اسپم کانفیگ‌ها ممنوع است', cls: 'red' },
                 { text: '✅ کانفیگ‌ها رایگان و بدون نیاز به ثبت‌نام هستند', cls: 'green' },
                 { text: '❌ هیچ تضمینی برای آپ‌تایم ۱۰۰٪ سرورهای رایگان نیست', cls: 'red' },
-                { text: '❤️ با حمایت مالی از پروژه، ما را قوی‌تر کن: daramet.com/GameIzeh', cls: 'gold' }
+                { text: '❤️ با حمایت مالی از پروژه، ما را قوی‌تر کن', cls: 'gold', href: 'https://daramet.com/GameIzeh' }
             ];
         }
         let tickerAnimHandle = null;
@@ -5426,7 +5510,11 @@ var qrcode = function() {
             const items = getTickerItems();
             let html = '';
             items.forEach(it => {
-                html += `<span class="ticker-item ${it.cls}">${it.text}</span>`;
+                if (it.href) {
+                    html += `<a href="${escapeHtml(it.href)}" target="_blank" class="ticker-item ${it.cls}">${it.text}</a>`;
+                } else {
+                    html += `<span class="ticker-item ${it.cls}">${it.text}</span>`;
+                }
             });
             // حرکت با CSS خالص انجام می‌شود — سرعت کاهش یافته و جهت از راست به چپ
             track.innerHTML = html;
@@ -5491,8 +5579,8 @@ var qrcode = function() {
                     });
                 }
                 if (cfg.protocol === 'vmess') {
-                    const b64 = cfg.config.replace('vmess://', '');
-                    const json = JSON.parse(decodeURIComponent(escape(atob(b64))));
+                    const b64 = cfg.config.replace('vmess://', '').split('#')[0];
+                    const json = JSON.parse(decodeBase64Maybe(b64));
                     json.add = newIp;
                     const newB64 = btoa(unescape(encodeURIComponent(JSON.stringify(json))));
                     return 'vmess://' + newB64;
@@ -5522,8 +5610,9 @@ var qrcode = function() {
                 allConfigs = allConfigs.map((cfg, i) => {
                     const ip = pool[i % pool.length];
                     const newConfigStr = replaceHostInConfig(cfg, ip);
-                    return Object.assign({}, cfg, { config: newConfigStr, cleanIp: ip });
+                    return Object.assign({}, cfg, { config: newConfigStr, cleanIp: ip, _id: hashCode(newConfigStr) });
                 });
+                pingResults = {}; // چون آدرس کانفیگ‌ها عوض شد، نتایج پینگ قبلی دیگه معتبر نیست
                 configById = new Map(allConfigs.map(cfg => [cfg._id, cfg]));
                 applyAllFilters();
                 log('⚡ IP تمیز روی همه‌ی کانفیگ‌ها اعمال شد (' + countryLabel + ')');
@@ -5692,15 +5781,14 @@ var qrcode = function() {
                 html += `
           <div class="fav-item">
             <div class="fav-item-meta">
-              <span class="tag protocol">${f.protocol}</span>
-              <span class="tag host">${f.host}:${f.port}</span>
+              <span class="tag protocol">${escapeHtml(f.protocol)}</span>
+              <span class="tag host">${escapeHtml(f.host)}:${escapeHtml(f.port)}</span>
               <span class="tag" style="opacity:.55;">${dateStr}</span>
             </div>
-            <div class="fav-item-text">${f.config}</div>
+            <div class="fav-item-text">${escapeHtml(f.config)}</div>
             <div class="fav-item-actions">
-              <button onclick="quickAddConfigStr('${f.config.replace(/'/g, "\\'")}')">${quickAddLabel()}</button>
-              <button onclick="copyText('${f.config.replace(/'/g, "\\'")}')">✦ کپی</button>
-              <button onclick="showQrForConfig('${f.config.replace(/'/g, "\\'")}')">📱 QR</button>
+              <button onclick="copyText('${f.config.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}')">✦ کپی</button>
+              <button onclick="showQrForConfig('${f.config.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}')">📱 QR</button>
               <button class="fav-remove" onclick="removeFavoriteAt(${idx})">🗑️ حذف</button>
             </div>
           </div>
@@ -5783,7 +5871,7 @@ var qrcode = function() {
                 if (existing.has(cfgStr)) return;
                 existing.add(cfgStr);
                 const obj = configStringToObject(cfgStr);
-                obj._id = allConfigs.length;
+                obj._id = hashCode(cfgStr);
                 allConfigs.push(obj);
                 added++;
             });
@@ -5958,7 +6046,9 @@ var qrcode = function() {
 
             let bestId = null;
             let bestMs = Infinity;
+            let okCount = 0;
             for (const [id, ms] of Object.entries(pingResults)) {
+                if (isFinite(ms)) okCount++;
                 if (ms < bestMs) { bestMs = ms; bestId = id; }
             }
             const fastestEl = document.getElementById('statFastestSession');
@@ -5969,70 +6059,56 @@ var qrcode = function() {
             } else {
                 fastestEl.textContent = '—';
             }
-        }
 
-        // کاربران آنلاین — این عدد فقط وقتی واقعیه که یک بک‌اند realtime
-        // (مثل Firebase) وصل باشه. بدون اون، به‌جای عدد ساختگی صادقانه
-        // می‌گیم که غیرفعاله (نقطه‌ی قرمز) به‌جای نمایش یه رقم دروغین.
-        const FIREBASE_CONFIG = {
-            apiKey: '',
-            databaseURL: '',
-            projectId: ''
-        };
-
-        function loadExternalScript(src) {
-            return new Promise((resolve, reject) => {
-                const s = document.createElement('script');
-                s.src = src;
-                s.onload = resolve;
-                s.onerror = reject;
-                document.head.appendChild(s);
-            });
-        }
-
-        async function initPresence() {
-            const dot = document.getElementById('onlineDot');
-            const val = document.getElementById('statOnlineNow');
-            const note = document.getElementById('statsNote');
-
-            if (!FIREBASE_CONFIG.apiKey || !FIREBASE_CONFIG.databaseURL) {
-                dot.className = 'status-dot offline';
-                val.textContent = '—';
-                note.textContent = '⚠️ برای نمایش واقعی «کاربران آنلاین» نیاز به یک بک‌اند رایگان (Firebase) داری — راهنمای فعال‌سازی رو از دستیارت بخواه.';
-                return;
-            }
-
-            try {
-                await loadExternalScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js');
-                await loadExternalScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js');
-                firebase.initializeApp(FIREBASE_CONFIG);
-                const db = firebase.database();
-                const myRef = db.ref('presence/' + Date.now() + '-' + Math.random().toString(36).slice(2));
-
-                db.ref('.info/connected').on('value', (snap) => {
-                    if (snap.val() === true) {
-                        myRef.onDisconnect().remove();
-                        myRef.set(true);
-                        dot.className = 'status-dot online';
-                        note.textContent = '';
-                    } else {
-                        dot.className = 'status-dot offline';
-                    }
-                });
-
-                db.ref('presence').on('value', (snap) => {
-                    val.textContent = snap.numChildren();
-                });
-            } catch (e) {
-                dot.className = 'status-dot offline';
-                val.textContent = '—';
-                note.textContent = '⚠️ اتصال به سرویس آمار آنلاین برقرار نشد.';
+            // درصد کانفیگ‌های سالم — کاملاً واقعیه، از نسبت تست‌های موفق به کل
+            // تست‌های همین جلسه محاسبه می‌شه (نه یه عدد ساختگی)
+            const rateEl = document.getElementById('statSuccessRate');
+            if (testedCount > 0) {
+                rateEl.textContent = Math.round((okCount / testedCount) * 100) + '%';
+            } else {
+                rateEl.textContent = '—';
             }
         }
 
         loadTotalVisits();
         updateStatsPanel();
-        initPresence();
+
+        // =====================================================
+        // ===== دسترسی‌پذیری: بستن مودال‌ها با Escape + فوکوس =====
+        // =====================================================
+        const ALL_MODAL_IDS = [
+            'playlistModalOverlay', 'qrModalOverlay', 'favModalOverlay',
+            'themeModalOverlay', 'helpModalOverlay', 'importModalOverlay'
+        ];
+        const MODAL_CLOSE_FN = {
+            playlistModalOverlay: closePlaylistModal,
+            qrModalOverlay: closeQrModal,
+            favModalOverlay: closeFavoritesModal,
+            themeModalOverlay: closeThemeModal,
+            helpModalOverlay: closeHelpModal,
+            importModalOverlay: closeImportModal
+        };
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape') return;
+            for (const id of ALL_MODAL_IDS) {
+                const el = document.getElementById(id);
+                if (el && el.classList.contains('open')) {
+                    MODAL_CLOSE_FN[id]();
+                    break;
+                }
+            }
+        });
+        // وقتی یه مودال باز می‌شه، فوکوس رو می‌بریم روی خودش تا صفحه‌خوان‌ها
+        // (screen reader) بفهمن یه دیالوگ جدید باز شده
+        new MutationObserver((mutations) => {
+            mutations.forEach(m => {
+                const el = m.target;
+                if (el.classList && el.classList.contains('open') && el.getAttribute('role') === 'dialog') {
+                    const focusable = el.querySelector('button, [href], input, select, textarea');
+                    if (focusable) focusable.focus();
+                }
+            });
+        }).observe(document.body, { attributes: true, attributeFilter: ['class'], subtree: true });
     </script>
 </body>
 </html>
